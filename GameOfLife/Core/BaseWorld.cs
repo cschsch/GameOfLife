@@ -37,6 +37,19 @@ namespace GameOfLife.Core
 
         public abstract IEnumerable<IWorld> Ticks();
 
+        protected IEnumerable<IWorld> Ticks(Func<ImmutableArray<ImmutableArray<Cell>>, IWorld> worldGenerator)
+        {
+            yield return this;
+            var nextState = Cells.Select((row, outerInd) =>
+                row.Select((cell, innerInd) =>
+                    UpdateCell(cell, outerInd, innerInd)).ToImmutableArray()).ToImmutableArray();
+
+            foreach (var state in worldGenerator(nextState).Ticks())
+            {
+                yield return state;
+            }
+        }
+
         protected Cell UpdateCell(Cell cell, int outerIndex, int innerIndex)
         {
             var alive = GetNeighbours(cell, outerIndex, innerIndex).Count(n => n.IsAlive);

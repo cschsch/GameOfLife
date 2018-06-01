@@ -15,18 +15,7 @@ namespace GameOfLife.Core
         public RoundWorld(int size) : this(size, () => new Random()) { }
         public RoundWorld(int size, Func<Random> randomFactory) : base(size, randomFactory) { }
 
-        public override IEnumerable<IWorld> Ticks()
-        {
-            yield return this;
-            var nextState = Cells.Select((row, outerInd) =>
-                row.Select((cell, innerInd) =>
-                    UpdateCell(cell, outerInd, innerInd)).ToImmutableArray()).ToImmutableArray();
-
-            foreach (var state in new RoundWorld(nextState).Ticks())
-            {
-                yield return state;
-            }
-        }
+        public override IEnumerable<IWorld> Ticks() => Ticks(cells => new RoundWorld(cells));
 
         protected override IEnumerable<Cell> GetNeighbours(Cell cell, int outerIndex, int innerIndex) =>
             Cells.GetValues(Enumerable.Range(outerIndex - 1, 3).Select(ind => (ind + Size) % Size))

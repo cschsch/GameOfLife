@@ -13,18 +13,7 @@ namespace GameOfLife.Core
         public ClosedWorld(int size) : this(size, () => new Random()) { }
         public ClosedWorld(int size, Func<Random> randomFactory) : base(size, randomFactory) { }
 
-        public override IEnumerable<IWorld> Ticks()
-        {
-            yield return this;
-            var nextState = Cells.Select((row, outerInd) =>
-                row.Select((cell, innerInd) =>
-                    UpdateCell(cell, outerInd, innerInd)).ToImmutableArray()).ToImmutableArray();
-
-            foreach (var state in new ClosedWorld(nextState).Ticks())
-            {
-                yield return state;
-            }
-        }
+        public override IEnumerable<IWorld> Ticks() => Ticks(cells => new ClosedWorld(cells));
 
         protected override IEnumerable<Cell> GetNeighbours(Cell cell, int outerIndex, int innerIndex) =>
             Cells.GetValuesSafe(Enumerable.Range(outerIndex - 1, 3))
