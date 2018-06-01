@@ -33,10 +33,8 @@ namespace GameOfLife
             if (figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase)))
                 return (new RoundWorld(figures[opts.FigureName.ToUpper()]), opts.ThreadSleep);
 
-            return new Either.Choice(opts.Closed)
-                .Then(new ClosedWorld(opts.Size))
-                .Else(new RoundWorld(opts.Size))
-                .Switch<(IWorld, int)>(left => (left, opts.ThreadSleep), right => (right, opts.ThreadSleep));
+            var world = opts.Closed ? ClosedWorld.NewWorld(opts.Size) : RoundWorld.NewWorld(opts.Size);
+            return (world(), opts.Size);
         }
 
         private static void GameLoop((IWorld, int) args)
