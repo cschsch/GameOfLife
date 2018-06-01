@@ -34,7 +34,7 @@ namespace GameOfLife
                 return (new RoundWorld(figures[opts.FigureName.ToUpper()]), opts.ThreadSleep);
 
             var world = opts.Closed ? ClosedWorld.NewWorld(opts.Size) : RoundWorld.NewWorld(opts.Size);
-            return (world(), opts.Size);
+            return (world(), opts.ThreadSleep);
         }
 
         private static void GameLoop((IWorld, int) args)
