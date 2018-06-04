@@ -40,8 +40,8 @@ namespace GameOfLife.Core
         protected IEnumerable<IWorld> Ticks(Func<ImmutableArray<ImmutableArray<Cell>>, IWorld> worldGenerator)
         {
             yield return this;
-            var nextState = Cells.Select((row, outerInd) =>
-                row.Select((cell, innerInd) =>
+            var nextState = Cells.AsParallel().Select((row, outerInd) =>
+                row.AsParallel().Select((cell, innerInd) =>
                     UpdateCell(cell, outerInd, innerInd)).ToImmutableArray()).ToImmutableArray();
 
             foreach (var state in worldGenerator(nextState).Ticks())

@@ -37,14 +37,10 @@ namespace GameOfLife
             return (world(), opts.ThreadSleep);
         }
 
-        private static void GameLoop((IWorld, int) args)
+        private static void GameLoop((IWorld world, int sleep) args, int generation = 1)
         {
-            var (world, sleep) = args;
-            var generation = 1;
-            while (true)
-            {
-                (world, generation) = PrintOneHundredGenerations(world, sleep, generation);
-            }
+            var (nextWorld, nextGeneration) = PrintOneHundredGenerations(args.world, args.sleep, generation);
+            GameLoop((nextWorld, args.sleep), nextGeneration);
         }
 
         private static (IWorld, int) PrintOneHundredGenerations(IWorld lastWorld, int sleepInMs, int generation)
@@ -59,7 +55,7 @@ namespace GameOfLife
                     Char = new Kernel32.CharUnion { UnicodeChar = cell.ToString().Single() }
                 }));
                 QuickWrite.Write(buffer, (short) tick.Cells.Length);
-                //QuickWrite.Write(tick.ToString(), (short) tick.Cells.Length);
+
                 tickToReturn = tick;
 
                 generation++;
@@ -83,7 +79,7 @@ namespace GameOfLife
 
     internal class CommandOptions
     {
-        [Option('s', "size", Default = 70)]
+        [Option('s', "size", Default = 69)]
         public int Size { get; set; }
 
         [Option('f', "figure")]

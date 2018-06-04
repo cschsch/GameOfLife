@@ -23,8 +23,5 @@ namespace GameOfLife.Core
                 .Except(new[] {cell});
 
         public static Func<IWorld> NewWorld(int size) => () => new RoundWorld(size);
-
-        //protected override IEnumerable<Cell> GetNeighbours(Cell cell, int outerIndex, int innerIndex) =>
-        //    Cells.Cycle().Skip(Size - 1 + outerIndex).Take(3).SelectMany(row => row.Cycle().Skip(Size - 1 + innerIndex).Take(3)).Except(new[] {cell});
     }
 }
