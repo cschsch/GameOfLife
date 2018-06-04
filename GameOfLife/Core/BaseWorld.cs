@@ -14,9 +14,8 @@ namespace GameOfLife.Core
         protected BaseWorld(ImmutableArray<ImmutableArray<Cell>> cells) => Cells = cells;
 
         protected BaseWorld(string cellRep) =>
-            Cells = cellRep.Split(Environment.NewLine)
-                .Select(row => row.Select(c => c == ' ' ? new Cell(false, 0) : new Cell(true, 1)).ToImmutableArray())
-                .ToImmutableArray();
+            Cells = ImmutableArray.CreateRange(cellRep.Split(Environment.NewLine).Select(row =>
+                    ImmutableArray.CreateRange(row.Select(c => c == ' ' ? new Cell(false, 0) : new Cell(true, 1)))));
 
         protected BaseWorld(int size) : this(size, () => new Random()) { }
 
@@ -30,9 +29,9 @@ namespace GameOfLife.Core
         {
             var random = randomFactory();
             Cell GenerateCell() => new Cell(random.NextDouble() >= 0.5, 1);
-            
-            Cells = EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size)
-                .Select(row => row.ToImmutableArray()).ToImmutableArray();
+
+            Cells = ImmutableArray.CreateRange(EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size)
+                .Select(ImmutableArray.CreateRange));
         }
 
         public abstract IEnumerable<IWorld> Ticks();
@@ -40,9 +39,8 @@ namespace GameOfLife.Core
         protected IEnumerable<IWorld> Ticks(Func<ImmutableArray<ImmutableArray<Cell>>, IWorld> worldGenerator)
         {
             yield return this;
-            var nextState = Cells.AsParallel().Select((row, outerInd) =>
-                row.AsParallel().Select((cell, innerInd) =>
-                    UpdateCell(cell, outerInd, innerInd)).ToImmutableArray()).ToImmutableArray();
+            var nextState = ImmutableArray.CreateRange(Cells.AsParallel().Select((row, outerInd) => ImmutableArray.CreateRange(
+                row.AsParallel().Select((cell, innerInd) => UpdateCell(cell, outerInd, innerInd)))));
 
             foreach (var state in worldGenerator(nextState).Ticks())
             {

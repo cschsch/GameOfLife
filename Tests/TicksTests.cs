@@ -11,12 +11,12 @@ namespace Tests
     public class TicksTests
     {
         private IWorld RoundWorld(params Cell[] cells) =>
-            new RoundWorld(cells.Partition((int) Math.Sqrt(cells.Length)).Select(row => row.ToImmutableArray())
-                .ToImmutableArray());
+            new RoundWorld(ImmutableArray.CreateRange(cells.Partition((int) Math.Sqrt(cells.Length))
+                .Select(ImmutableArray.CreateRange)));
 
         private IWorld ClosedWorld(params Cell[] cells) =>
-            new ClosedWorld(cells.Partition((int)Math.Sqrt(cells.Length)).Select(row => row.ToImmutableArray())
-                .ToImmutableArray());
+            new ClosedWorld(ImmutableArray.CreateRange(cells.Partition((int) Math.Sqrt(cells.Length))
+                .Select(ImmutableArray.CreateRange)));
 
         private Cell C(string representation) => representation == " " ? new Cell(false, 0) : new Cell(true, 1);
 
