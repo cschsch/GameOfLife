@@ -43,11 +43,11 @@ namespace Tests
                              C(" "), C(" "), C(" "), C(" "), C("X"),
                              C(" "), C(" "), C(" "), C(" "), C(" ")),
 
-                 RoundWorld(C(" "), C(" "), C(" "), C(" "), C(" "),
-                            C(" "), C(" "), C(" "), C(" "), C(" "),
-                            C("X"), C(" "), C(" "), C("X"), C("X"),
-                            C(" "), C(" "), C(" "), C(" "), C(" "),
-                            C(" "), C(" "), C(" "), C(" "), C(" "))),
+                  RoundWorld(C(" "), C(" "), C(" "), C(" "), C(" "),
+                             C(" "), C(" "), C(" "), C(" "), C(" "),
+                             C("X"), C(" "), C(" "), C("X"), C("X"),
+                             C(" "), C(" "), C(" "), C(" "), C(" "),
+                             C(" "), C(" "), C(" "), C(" "), C(" "))),
 
                  (ClosedWorld(C(" "), C(" "), C(" "), C(" "),
                               C(" "), C(" "), C("X"), C(" "),
@@ -65,6 +65,21 @@ namespace Tests
                 var result = input.Ticks().Skip(1).First();
                 Assert.AreEqual(expected.ToString(), result.ToString());
             }
+        }
+
+        [TestMethod]
+        public void LifetimeAfterTicksIsExpected()
+        {
+            var world = ClosedWorld(
+                C(" "), C(" "), C(" "), C(" "),
+                C(" "), C("X"), C("X"), C(" "),
+                C(" "), C("X"), C("X"), C(" "),
+                C(" "), C(" "), C(" "), C(" "));
+            const int expected = 101;
+
+            var result = world.Ticks().Skip(100).First().Cells[1][1].LifeTime;
+
+            Assert.AreEqual(expected, result);
         }
     }
 }
