@@ -6,6 +6,7 @@
         public int LifeTime { get; }
 
         public static string Alive => "X";
+        public static string Dead => " ";
 
         public Cell(bool isAlive, int lifeTime)
         {
@@ -13,6 +14,6 @@
             LifeTime = lifeTime;
         }
 
-        public override string ToString() => IsAlive ? Alive : " ";
+        public override string ToString() => IsAlive ? Alive : Dead;
     }
 }

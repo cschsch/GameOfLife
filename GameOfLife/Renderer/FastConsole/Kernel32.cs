@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
-namespace GameOfLife.FastConsole
+namespace GameOfLife.Renderer.FastConsole
 {
     public static class Kernel32
     {

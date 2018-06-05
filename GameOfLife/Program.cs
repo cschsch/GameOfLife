@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
-using GameOfLife.FastConsole;
-using GameOfLife.Helpers;
 using Tp.Core;
 
 namespace GameOfLife
 {
     internal static class Program
     {
-        private static Stopwatch GenerationWatch { get; } = new Stopwatch();
-
         public static void Main(string[] args)
         {
             var worldOrError = Parser.Default.ParseArguments<CommandOptions>(args).MapResult(
@@ -22,8 +17,9 @@ namespace GameOfLife
             worldOrError.Switch(world =>
             {
                 Console.Clear();
-                GenerationWatch.Start();
-                GameLoop(world);
+                var game = new Game(world.Item1.Cells.Length);
+                game.Init();
+                game.GameLoop(world);
             }, Console.Write);
         }
 
@@ -36,45 +32,6 @@ namespace GameOfLife
             var world = opts.Closed ? ClosedWorld.NewWorld(opts.Size) : RoundWorld.NewWorld(opts.Size);
             return (world(), opts.ThreadSleep);
         }
-
-        private static void GameLoop((IWorld world, int sleep) args, int generation = 1)
-        {
-            var (nextWorld, nextGeneration) = PrintOneHundredGenerations(args.world, args.sleep, generation);
-            GameLoop((nextWorld, args.sleep), nextGeneration);
-        }
-
-        private static (IWorld, int) PrintOneHundredGenerations(IWorld lastWorld, int sleepInMs, int generation)
-        {
-            var tickToReturn = lastWorld;
-
-            foreach (var tick in lastWorld.Ticks().Take(100))
-            {
-                var buffer = tick.Cells.SelectMany(row => row.Select(cell => new Kernel32.CharInfo
-                {
-                    Attributes = (short)GetColorFromLifetime(cell),
-                    Char = new Kernel32.CharUnion { UnicodeChar = cell.ToString().Single() }
-                }));
-                QuickWrite.Write(buffer, (short) tick.Cells.Length);
-
-                tickToReturn = tick;
-
-                generation++;
-                Console.SetCursorPosition(0, tickToReturn.Cells.Length + 1);
-                Console.Write($"Generation {generation}{Environment.NewLine}Generations/sec: {generation / GenerationWatch.Elapsed.TotalSeconds}");
-
-                System.Threading.Thread.Sleep(sleepInMs);
-            }
-
-            return (tickToReturn, generation);
-        }
-
-        private static ConsoleColor GetColorFromLifetime(Cell cell) =>
-            new Match<Cell, ConsoleColor>(
-                (c => !c.IsAlive, _ => ConsoleColor.White),
-                (c => c.LifeTime == 1, _ => ConsoleColor.Red),
-                (c => c.LifeTime == 2, _ => ConsoleColor.Yellow),
-                (c => c.LifeTime == 3, _ => ConsoleColor.Green),
-                (_ => true, _ => ConsoleColor.Cyan)).MatchFirst(cell);
     }
 
     internal class CommandOptions
