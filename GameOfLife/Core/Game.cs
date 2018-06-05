@@ -6,8 +6,7 @@ namespace GameOfLife.Core
     public class Game
     {
         private IRenderer Renderer { get; }
-
-        public Game(int worldSize, (char alive, char dead) cellRep) : this(new ConsoleRenderer(worldSize, cellRep)) { }
+        
         public Game(IRenderer renderer) => Renderer = renderer;
 
         public void Init() => Renderer.GenerationWatch.Start();

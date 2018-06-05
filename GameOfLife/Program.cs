@@ -2,6 +2,7 @@
 using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
+using GameOfLife.Renderer;
 using Tp.Core;
 
 namespace GameOfLife
@@ -17,7 +18,7 @@ namespace GameOfLife
             worldOrError.Switch(left =>
             {
                 Console.Clear();
-                var game = new Game(left.world.Cells.Length, left.cellRep);
+                var game = new Game(new ConsoleRenderer(left.world.Cells.Length, left.cellRep));
                 game.Init();
                 game.GameLoop((left.world, left.sleep));
             }, Console.Write);
