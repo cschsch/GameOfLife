@@ -11,18 +11,20 @@ namespace GameOfLife.Renderer
     {
         public Stopwatch GenerationWatch { get; }
         private int WorldSize { get; }
+        private (char alive, char dead) CellRep { get; }
 
-        public ConsoleRenderer(int worldSize)
+        public ConsoleRenderer(int worldSize, (char alive, char dead) cellRep)
         {
             WorldSize = worldSize;
             GenerationWatch = new Stopwatch();
+            CellRep = cellRep;
         }
 
         public void PrintTick(IWorld tick) => QuickWrite.Write(tick.Cells.SelectMany(row => row.Select(cell =>
             new Kernel32.CharInfo
             {
                 Attributes = (short) GetColorFromLifetime(cell),
-                Char = new Kernel32.CharUnion {UnicodeChar = cell.ToString().Single()}
+                Char = new Kernel32.CharUnion {UnicodeChar = cell.IsAlive ? CellRep.alive : CellRep.dead}
             })), (short) tick.Cells.Length);
 
         private ConsoleColor GetColorFromLifetime(Cell cell) =>
