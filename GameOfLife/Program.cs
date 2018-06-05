@@ -15,13 +15,7 @@ namespace GameOfLife
                 opts => Either.CreateLeft<(IWorld world, int sleep, (char, char) cellRep), string>(MapArgs(opts)),
                 err => Either.CreateRight<(IWorld world, int sleep, (char, char) cellRep), string>(string.Join(", ", err)));
 
-            worldOrError.Switch(left =>
-            {
-                Console.Clear();
-                var game = new Game(new ConsoleRenderer(left.world.Cells.Length, left.cellRep));
-                game.Init();
-                game.GameLoop((left.world, left.sleep));
-            }, Console.Write);
+            worldOrError.Switch(StartGame, Console.Write);
         }
 
         private static (IWorld world, int, (char, char)) MapArgs(CommandOptions opts)
@@ -30,8 +24,16 @@ namespace GameOfLife
             if (figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase)))
                 return (new RoundWorld(figures[opts.FigureName.ToUpper()]), opts.ThreadSleep, (opts.Alive, opts.Dead));
 
-            var world = opts.Closed ? ClosedWorld.NewWorld(opts.Size) : RoundWorld.NewWorld(opts.Size);
-            return (world(), opts.ThreadSleep, (opts.Alive, opts.Dead));
+            var world = opts.Closed ? (IWorld) new ClosedWorld(opts.Size) : new RoundWorld(opts.Size);
+            return (world, opts.ThreadSleep, (opts.Alive, opts.Dead));
+        }
+
+        private static void StartGame((IWorld world, int sleep, (char, char) cellRep) gameVars)
+        {
+            var renderer = new ConsoleRenderer(gameVars.world.Cells.Length, gameVars.cellRep);
+            var game = new Game(renderer);
+            game.Init();
+            game.GameLoop((gameVars.world, gameVars.sleep));
         }
     }
 

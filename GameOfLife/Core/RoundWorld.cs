@@ -21,7 +21,5 @@ namespace GameOfLife.Core
             Cells.GetValues(Enumerable.Range(outerIndex - 1, 3).Select(ind => (ind + Size) % Size))
                 .SelectMany(row => row.GetValues(Enumerable.Range(innerIndex - 1, 3).Select(ind => (ind + Size) % Size)))
                 .Except(new[] {cell});
-
-        public static Func<IWorld> NewWorld(int size) => () => new RoundWorld(size);
     }
 }

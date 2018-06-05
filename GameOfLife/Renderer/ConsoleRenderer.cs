@@ -15,6 +15,7 @@ namespace GameOfLife.Renderer
 
         public ConsoleRenderer(int worldSize, (char alive, char dead) cellRep)
         {
+            Console.Clear();
             WorldSize = worldSize;
             GenerationWatch = new Stopwatch();
             CellRep = cellRep;

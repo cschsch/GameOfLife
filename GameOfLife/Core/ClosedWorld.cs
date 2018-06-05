@@ -18,7 +18,5 @@ namespace GameOfLife.Core
         protected override IEnumerable<Cell> GetNeighbours(Cell cell, int outerIndex, int innerIndex) =>
             Cells.GetValuesSafe(Enumerable.Range(outerIndex - 1, 3))
                 .SelectMany(row => row.GetValuesSafe(Enumerable.Range(innerIndex - 1, 3))).Except(new[] {cell});
-
-        public static Func<IWorld> NewWorld(int size) => () => new ClosedWorld(size);
     }
 }
