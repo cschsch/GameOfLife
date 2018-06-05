@@ -15,7 +15,7 @@ namespace Tests
                 .Partition((int) Math.Sqrt(cells.Length))
                 .Select(ImmutableArray.CreateRange)));
 
-        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbour(new Round());
+        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbour(new Open());
 
         private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbour(new Closed());
 

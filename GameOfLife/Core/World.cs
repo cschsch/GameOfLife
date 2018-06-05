@@ -20,8 +20,8 @@ namespace GameOfLife.Core
         }
 
         public World() { }
-        public World WithNeighbour(IGetNeighbours neighbours) => new World(Maybe.Return(Cells), Maybe.Just(neighbours));
-        public World WithCells(ImmutableArray<ImmutableArray<Cell>> cells) => new World(Maybe.Just(cells), Maybe.Return(Neighbours));
+        public World WithNeighbour(IGetNeighbours neighbours) => new World(Maybe.Return(Cells), Maybe.Return(neighbours));
+        public World WithCells(ImmutableArray<ImmutableArray<Cell>> cells) => new World(Maybe.Return(cells), Maybe.Return(Neighbours));
 
         public World(string cellRep) =>
             Cells = ImmutableArray.CreateRange(cellRep.Split(Environment.NewLine).Select(row =>

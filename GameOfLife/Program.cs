@@ -21,17 +21,15 @@ namespace GameOfLife
         private static GameVariables MapArgs(CommandOptions opts)
         {
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
-            var cellRepresentation = (opts.Alive, opts.Dead);
-
             var world = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
                 ? new World(figures[opts.FigureName.ToUpper()])
                 : new World(opts.Size);
 
             return new GameVariables
             {
-                World = opts.Closed ? world.WithNeighbour(new Closed()) : world.WithNeighbour(new Round()),
+                World = opts.Closed ? world.WithNeighbour(new Closed()) : world.WithNeighbour(new Open()),
                 ThreadSleep = opts.ThreadSleep,
-                CellRepresentation = cellRepresentation
+                CellRepresentation = (opts.Alive, opts.Dead)
             };
         }
 
