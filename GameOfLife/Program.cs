@@ -12,29 +12,39 @@ namespace GameOfLife
         public static void Main(string[] args)
         {
             var worldOrError = Parser.Default.ParseArguments<CommandOptions>(args).MapResult(
-                opts => Either.CreateLeft<(IWorld world, int sleep, (char, char) cellRep), string>(MapArgs(opts)),
-                err => Either.CreateRight<(IWorld world, int sleep, (char, char) cellRep), string>(string.Join(", ", err)));
+                opts => Either.CreateLeft<GameVariables, string>(MapArgs(opts)),
+                err => Either.CreateRight<GameVariables, string>(string.Join(", ", err)));
 
             worldOrError.Switch(StartGame, Console.Write);
         }
 
-        private static (IWorld world, int, (char, char)) MapArgs(CommandOptions opts)
+        private static GameVariables MapArgs(CommandOptions opts)
         {
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
-            if (figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase)))
-                return (new RoundWorld(figures[opts.FigureName.ToUpper()]), opts.ThreadSleep, (opts.Alive, opts.Dead));
+            var cellRepresentation = (opts.Alive, opts.Dead);
+            var world = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
+                ? new RoundWorld(figures[opts.FigureName.ToUpper()])
+                : opts.Closed
+                    ? (IWorld) new ClosedWorld(opts.Size)
+                    : new RoundWorld(opts.Size);
 
-            var world = opts.Closed ? (IWorld) new ClosedWorld(opts.Size) : new RoundWorld(opts.Size);
-            return (world, opts.ThreadSleep, (opts.Alive, opts.Dead));
+            return new GameVariables{World = world, ThreadSleep = opts.ThreadSleep, CellRepresentation = cellRepresentation};
         }
 
-        private static void StartGame((IWorld world, int sleep, (char, char) cellRep) gameVars)
+        private static void StartGame(GameVariables variables)
         {
-            var renderer = new ConsoleRenderer(gameVars.world.Cells.Length, gameVars.cellRep);
+            var renderer = new ConsoleRenderer(variables.World.Cells.Length, variables.CellRepresentation);
             var game = new Game(renderer);
             game.Init();
-            game.GameLoop((gameVars.world, gameVars.sleep));
+            game.GameLoop((variables.World, variables.ThreadSleep));
         }
+    }
+
+    internal struct GameVariables
+    {
+        public IWorld World { get; set; }
+        public int ThreadSleep { get; set; }
+        public (char, char) CellRepresentation { get; set; }
     }
 
     internal class CommandOptions
