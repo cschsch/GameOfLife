@@ -21,7 +21,7 @@ namespace GameOfLife.Renderer
             CellRep = cellRep;
         }
 
-        public void PrintTick(IWorld tick) => QuickWrite.Write(tick.Cells.SelectMany(row => row.Select(cell =>
+        public void PrintTick(World tick) => QuickWrite.Write(tick.Cells.SelectMany(row => row.Select(cell =>
             new Kernel32.CharInfo
             {
                 Attributes = (short) GetColorFromLifetime(cell),

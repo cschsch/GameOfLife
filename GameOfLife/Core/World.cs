@@ -4,28 +4,32 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using GameOfLife.Helpers;
+using Tp.Core;
 
 namespace GameOfLife.Core
 {
-    public abstract class BaseWorld : IWorld
+    public class World
     {
         public ImmutableArray<ImmutableArray<Cell>> Cells { get; }
+        public IGetNeighbours Neighbours { get; }
 
-        protected BaseWorld(ImmutableArray<ImmutableArray<Cell>> cells) => Cells = cells;
+        private World(Maybe<ImmutableArray<ImmutableArray<Cell>>> cells, Maybe<IGetNeighbours> neighbours)
+        {
+            Cells = cells.GetOrDefault();
+            Neighbours = neighbours.GetOrDefault();
+        }
 
-        protected BaseWorld(string cellRep) =>
+        public World() { }
+        public World WithNeighbour(IGetNeighbours neighbours) => new World(Maybe.Return(Cells), Maybe.Just(neighbours));
+        public World WithCells(ImmutableArray<ImmutableArray<Cell>> cells) => new World(Maybe.Just(cells), Maybe.Return(Neighbours));
+
+        public World(string cellRep) =>
             Cells = ImmutableArray.CreateRange(cellRep.Split(Environment.NewLine).Select(row =>
                     ImmutableArray.CreateRange(row.Select(c => c == ' ' ? new Cell(false, 0) : new Cell(true, 1)))));
 
-        protected BaseWorld(int size) : this(size, () => new Random()) { }
+        public World(int size) : this(size, () => new Random()) { }
 
-        public override string ToString() =>
-            Cells.Aggregate(new StringBuilder(),
-                    (sb, row) => row.Aggregate(sb, (cellSb, cell) =>
-                        cellSb.Append(cell)).Append(Environment.NewLine))
-                .ToString();
-
-        protected BaseWorld(int size, Func<Random> randomFactory)
+        public World(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
             Cell GenerateCell() => new Cell(random.NextDouble() >= 0.5, 1);
@@ -34,15 +38,19 @@ namespace GameOfLife.Core
                 .Select(ImmutableArray.CreateRange));
         }
 
-        public abstract IEnumerable<IWorld> Ticks();
+        public override string ToString() =>
+            Cells.Aggregate(new StringBuilder(),
+                    (sb, row) => row.Aggregate(sb, (cellSb, cell) =>
+                        cellSb.Append(cell)).Append(Environment.NewLine))
+                .ToString();
 
-        protected IEnumerable<IWorld> Ticks(Func<ImmutableArray<ImmutableArray<Cell>>, IWorld> worldGenerator)
+        public IEnumerable<World> Ticks()
         {
             yield return this;
             var nextState = ImmutableArray.CreateRange(Cells.AsParallel().Select((row, outerInd) => ImmutableArray.CreateRange(
                 row.AsParallel().Select((cell, innerInd) => UpdateCell(cell, outerInd, innerInd)))));
 
-            foreach (var state in worldGenerator(nextState).Ticks())
+            foreach (var state in WithCells(nextState).Ticks())
             {
                 yield return state;
             }
@@ -50,7 +58,7 @@ namespace GameOfLife.Core
 
         protected Cell UpdateCell(Cell cell, int outerIndex, int innerIndex)
         {
-            var alive = GetNeighbours(cell, outerIndex, innerIndex).Count(n => n.IsAlive);
+            var alive = Neighbours.GetNeighbours(Cells, cell, outerIndex, innerIndex).Count(n => n.IsAlive);
 
             return new Match<Cell, Cell>(
                     (c => !c.IsAlive && alive == 3, _ => new Cell(true, 1)),
@@ -58,7 +66,5 @@ namespace GameOfLife.Core
                     (_ => true, c => new Cell(c.IsAlive, c.LifeTime + 1)))
                 .MatchFirst(cell);
         }
-
-        protected abstract IEnumerable<Cell> GetNeighbours(Cell cell, int outerIndex, int innerIndex);
     }
 }

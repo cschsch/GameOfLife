@@ -7,7 +7,7 @@ namespace GameOfLife.Renderer
     {
         Stopwatch GenerationWatch { get; }
 
-        void PrintTick(IWorld tick);
+        void PrintTick(World tick);
         void PrintGeneration(int generation);
     }
 }

@@ -10,13 +10,14 @@ namespace Tests
     [TestClass]
     public class TicksTests
     {
-        private IWorld RoundWorld(params Cell[] cells) =>
-            new RoundWorld(ImmutableArray.CreateRange(cells.Partition((int) Math.Sqrt(cells.Length))
+        private World World(params Cell[] cells) =>
+            new World().WithCells(ImmutableArray.CreateRange(cells
+                .Partition((int) Math.Sqrt(cells.Length))
                 .Select(ImmutableArray.CreateRange)));
 
-        private IWorld ClosedWorld(params Cell[] cells) =>
-            new ClosedWorld(ImmutableArray.CreateRange(cells.Partition((int) Math.Sqrt(cells.Length))
-                .Select(ImmutableArray.CreateRange)));
+        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbour(new Round());
+
+        private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbour(new Closed());
 
         private Cell C(string representation) => representation == " " ? new Cell(false, 0) : new Cell(true, 1);
 

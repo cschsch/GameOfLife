@@ -22,13 +22,17 @@ namespace GameOfLife
         {
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
             var cellRepresentation = (opts.Alive, opts.Dead);
-            var world = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
-                ? new RoundWorld(figures[opts.FigureName.ToUpper()])
-                : opts.Closed
-                    ? (IWorld) new ClosedWorld(opts.Size)
-                    : new RoundWorld(opts.Size);
 
-            return new GameVariables{World = world, ThreadSleep = opts.ThreadSleep, CellRepresentation = cellRepresentation};
+            var world = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
+                ? new World(figures[opts.FigureName.ToUpper()])
+                : new World(opts.Size);
+
+            return new GameVariables
+            {
+                World = opts.Closed ? world.WithNeighbour(new Closed()) : world.WithNeighbour(new Round()),
+                ThreadSleep = opts.ThreadSleep,
+                CellRepresentation = cellRepresentation
+            };
         }
 
         private static void StartGame(GameVariables variables)
@@ -42,7 +46,7 @@ namespace GameOfLife
 
     internal struct GameVariables
     {
-        public IWorld World { get; set; }
+        public World World { get; set; }
         public int ThreadSleep { get; set; }
         public (char, char) CellRepresentation { get; set; }
     }
