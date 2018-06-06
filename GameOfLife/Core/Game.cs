@@ -24,8 +24,8 @@ namespace GameOfLife.Core
             foreach (var tick in lastWorld.Ticks().Take(100))
             {
                 Renderer.PrintTick(tick);
-                generation++;
                 Renderer.PrintGeneration(generation);
+                generation++;
                 tickToReturn = tick;
                 System.Threading.Thread.Sleep(sleepInMs);
             }

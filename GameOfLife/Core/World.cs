@@ -38,12 +38,6 @@ namespace GameOfLife.Core
                 .Select(ImmutableArray.CreateRange));
         }
 
-        public override string ToString() =>
-            Cells.Aggregate(new StringBuilder(),
-                    (sb, row) => row.Aggregate(sb, (cellSb, cell) =>
-                        cellSb.Append(cell)).Append(Environment.NewLine))
-                .ToString();
-
         public IEnumerable<World> Ticks()
         {
             yield return this;
