@@ -48,7 +48,7 @@ namespace GameOfLife.Core
         {
             yield return this;
             var nextState = ImmutableArray.CreateRange(Cells.AsParallel().Select((row, outerInd) => ImmutableArray.CreateRange(
-                row.AsParallel().Select((cell, innerInd) => UpdateCell(cell, outerInd, innerInd)))));
+                row.AsParallel().Select((_, innerInd) => UpdateCell(outerInd, innerInd)))));
 
             foreach (var state in WithCells(nextState).Ticks())
             {
@@ -56,15 +56,15 @@ namespace GameOfLife.Core
             }
         }
 
-        protected Cell UpdateCell(Cell cell, int outerIndex, int innerIndex)
+        protected Cell UpdateCell(int outerIndex, int innerIndex)
         {
-            var alive = Neighbours.GetNeighbours(Cells, cell, outerIndex, innerIndex).Count(n => n.IsAlive);
+            var alive = Neighbours.GetNeighbours(Cells, outerIndex, innerIndex).Count(n => n.IsAlive);
 
             return new Match<Cell, Cell>(
                     (c => !c.IsAlive && alive == 3, _ => new Cell(true, 1)),
                     (_ => alive < 2 || alive > 3, _ => new Cell(false, 0)),
                     (_ => true, c => new Cell(c.IsAlive, c.LifeTime + 1)))
-                .MatchFirst(cell);
+                .MatchFirst(Cells[outerIndex][innerIndex]);
         }
     }
 }
