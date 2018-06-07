@@ -51,7 +51,10 @@ namespace GameOfLife
 
     internal class CommandOptions
     {
-        [Option('s', "size", Default = 69)]
+        public static int DefaultSize => defaultSize;
+        private const int defaultSize = 69;
+
+        [Option('s', "size", Default = defaultSize)]
         public int Size { get; set; }
 
         [Option('f', "figure")]

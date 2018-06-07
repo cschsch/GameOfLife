@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using GameOfLife.Helpers;
 using Tp.Core;
 
@@ -15,8 +14,8 @@ namespace GameOfLife.Core
 
         private World(Maybe<ImmutableArray<ImmutableArray<Cell>>> cells, Maybe<IGetNeighbours> neighbours)
         {
-            Cells = cells.GetOrDefault();
-            Neighbours = neighbours.GetOrDefault();
+            Cells = cells.GetOrElse(() => ImmutableArray<ImmutableArray<Cell>>.Empty);
+            Neighbours = neighbours.GetOrElse(() => new Open());
         }
 
         public World() { }
@@ -29,12 +28,14 @@ namespace GameOfLife.Core
 
         public World(int size) : this(size, () => new Random()) { }
 
-        public World(int size, Func<Random> randomFactory)
+        public World(int size, Func<Random> randomFactory) => Cells = GenerateCells(size, randomFactory);
+
+        private ImmutableArray<ImmutableArray<Cell>> GenerateCells(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
             Cell GenerateCell() => new Cell(random.NextDouble() >= 0.5, 1);
 
-            Cells = ImmutableArray.CreateRange(EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size)
+            return ImmutableArray.CreateRange(EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size)
                 .Select(ImmutableArray.CreateRange));
         }
 
