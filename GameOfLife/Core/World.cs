@@ -28,15 +28,13 @@ namespace GameOfLife.Core
 
         public World(int size) : this(size, () => new Random()) { }
 
-        public World(int size, Func<Random> randomFactory) => Cells = GenerateCells(size, randomFactory);
-
-        private ImmutableArray<ImmutableArray<Cell>> GenerateCells(int size, Func<Random> randomFactory)
+        public World(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
             Cell GenerateCell() => new Cell(random.NextDouble() >= 0.5, 1);
 
-            return ImmutableArray.CreateRange(EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size)
-                .Select(ImmutableArray.CreateRange));
+            Cells = ImmutableArray.CreateRange(
+                EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(ImmutableArray.CreateRange));
         }
 
         public IEnumerable<World> Ticks()
@@ -51,7 +49,7 @@ namespace GameOfLife.Core
             }
         }
 
-        protected Cell UpdateCell(int outerIndex, int innerIndex)
+        private Cell UpdateCell(int outerIndex, int innerIndex)
         {
             var alive = Neighbours.GetNeighbours(Cells, outerIndex, innerIndex).Count(n => n.IsAlive);
 
