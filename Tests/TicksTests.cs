@@ -12,9 +12,9 @@ namespace Tests
     public class TicksTests
     {
         private World World(params Cell[] cells) =>
-            new World().WithCells(ImmutableArray.CreateRange(cells
+            new World().WithCells(cells
                 .Partition((int) Math.Sqrt(cells.Length))
-                .Select(ImmutableArray.CreateRange)));
+                .Select(row => row.ToArray()).ToArray());
 
         private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new OpenNeighbourFinder());
 

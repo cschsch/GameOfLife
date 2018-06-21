@@ -26,7 +26,7 @@ namespace GameOfLife.Renderer
             {
                 Attributes = (short) GetColorFromLifetime(cell),
                 Char = new Kernel32.CharUnion {UnicodeChar = cell.IsAlive ? CellRep.alive : CellRep.dead}
-            })), (short) tick.Cells.Length);
+            })), (short) tick.Cells.Count);
 
         private ConsoleColor GetColorFromLifetime(Cell cell) =>
             new Match<Cell, ConsoleColor>(

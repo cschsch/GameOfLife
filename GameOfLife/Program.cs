@@ -37,7 +37,7 @@ namespace GameOfLife
 
         private static void StartGame(GameVariables variables)
         {
-            var renderer = new ConsoleRenderer(variables.World.Cells.Length, variables.CellRepresentation);
+            var renderer = new ConsoleRenderer(variables.World.Cells.Count, variables.CellRepresentation);
             var game = new Game(renderer);
             game.Init();
             game.GameLoop((variables.World, variables.ThreadSleep));
