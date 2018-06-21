@@ -20,7 +20,7 @@ namespace Tests
 
         private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new ClosedNeighbourFinder());
 
-        private Cell C(string representation) => representation == " " ? new Cell(false, 0) : new Cell(true, 1);
+        private Cell C(string representation) => representation == " " ? new Cell{IsAlive = false, LifeTime = 0} : new Cell{ IsAlive = true, LifeTime = 1};
 
         [TestMethod]
         public void FrameAfterTickIsExpected()

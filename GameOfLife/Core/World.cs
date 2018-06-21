@@ -29,14 +29,14 @@ namespace GameOfLife.Core
 
         public World(string cellRep) =>
             Cells = ImmutableArray.CreateRange(cellRep.Split(Environment.NewLine).Select(row =>
-                    ImmutableArray.CreateRange(row.Select(c => c == ' ' ? new Cell(false, 0) : new Cell(true, 1)))));
+                    ImmutableArray.CreateRange(row.Select(c => c == ' ' ? new Cell{IsAlive = false, LifeTime = 0} : new Cell{IsAlive = true, LifeTime = 1}))));
 
         public World(int size) : this(size, () => new Random()) { }
 
         public World(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
-            Cell GenerateCell() => new Cell(random.NextDouble() >= 0.5, 1);
+            Cell GenerateCell() => new Cell{IsAlive = random.NextDouble() >= 0.5, LifeTime = 1};
 
             Cells = ImmutableArray.CreateRange(
                 EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(ImmutableArray.CreateRange));
