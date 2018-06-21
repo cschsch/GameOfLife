@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using GameOfLife.Core.Calculators;
+using GameOfLife.Core.Neighbours;
 using GameOfLife.Helpers;
 using Tp.Core;
 
@@ -10,17 +12,20 @@ namespace GameOfLife.Core
     public class World
     {
         public ImmutableArray<ImmutableArray<Cell>> Cells { get; }
-        public IGetNeighbours Neighbours { get; }
+        public IFindNeighbours NeighbourFinder { get; }
+        public ICalculateCell CellCalculator { get; }
 
-        private World(Maybe<ImmutableArray<ImmutableArray<Cell>>> cells, Maybe<IGetNeighbours> neighbours)
+        private World(Maybe<ImmutableArray<ImmutableArray<Cell>>> cells, Maybe<IFindNeighbours> neighbourFinder, Maybe<ICalculateCell> cellCalculator)
         {
             Cells = cells.GetOrElse(() => ImmutableArray<ImmutableArray<Cell>>.Empty);
-            Neighbours = neighbours.GetOrElse(() => new Open());
+            NeighbourFinder = neighbourFinder.GetOrElse(() => new OpenNeighbourFinder());
+            CellCalculator = cellCalculator.GetOrElse(() => new StandardCellCalculator());
         }
 
         public World() { }
-        public World WithNeighbour(IGetNeighbours neighbours) => new World(Maybe.Return(Cells), Maybe.Return(neighbours));
-        public World WithCells(ImmutableArray<ImmutableArray<Cell>> cells) => new World(Maybe.Return(cells), Maybe.Return(Neighbours));
+        public World WithNeighbourFinder(IFindNeighbours neighbourFinder) => new World(Maybe.Return(Cells), Maybe.Return(neighbourFinder), Maybe.Return(CellCalculator));
+        public World WithCells(ImmutableArray<ImmutableArray<Cell>> cells) => new World(Maybe.Return(cells), Maybe.Return(NeighbourFinder), Maybe.Return(CellCalculator));
+        public World WithCellCalculator(ICalculateCell cellCalculator) => new World(Maybe.Return(Cells), Maybe.Return(NeighbourFinder), Maybe.Return(cellCalculator));
 
         public World(string cellRep) =>
             Cells = ImmutableArray.CreateRange(cellRep.Split(Environment.NewLine).Select(row =>
@@ -40,24 +45,16 @@ namespace GameOfLife.Core
         public IEnumerable<World> Ticks()
         {
             yield return this;
+
             var nextState = ImmutableArray.CreateRange(Cells.AsParallel().Select((row, outerInd) => ImmutableArray.CreateRange(
-                row.AsParallel().Select((_, innerInd) => UpdateCell(outerInd, innerInd)))));
+                row.AsParallel().Select((_, innerInd) =>
+                    CellCalculator.CalculateCell(Cells[outerInd][innerInd],
+                        NeighbourFinder.FindNeighbours(Cells, outerInd, innerInd))))));
 
             foreach (var state in WithCells(nextState).Ticks())
             {
                 yield return state;
             }
-        }
-
-        private Cell UpdateCell(int outerIndex, int innerIndex)
-        {
-            var alive = Neighbours.GetNeighbours(Cells, outerIndex, innerIndex).Count(n => n.IsAlive);
-
-            return new Match<Cell, Cell>(
-                    (c => !c.IsAlive && alive == 3, _ => new Cell(true, 1)),
-                    (_ => alive < 2 || alive > 3, _ => new Cell(false, 0)),
-                    (_ => true, c => new Cell(c.IsAlive, c.LifeTime + 1)))
-                .MatchFirst(Cells[outerIndex][innerIndex]);
         }
     }
 }

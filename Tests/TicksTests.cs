@@ -2,6 +2,7 @@ using System;
 using System.Collections.Immutable;
 using System.Linq;
 using GameOfLife.Core;
+using GameOfLife.Core.Neighbours;
 using GameOfLife.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,9 +16,9 @@ namespace Tests
                 .Partition((int) Math.Sqrt(cells.Length))
                 .Select(ImmutableArray.CreateRange)));
 
-        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbour(new Open());
+        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new OpenNeighbourFinder());
 
-        private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbour(new Closed());
+        private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new ClosedNeighbourFinder());
 
         private Cell C(string representation) => representation == " " ? new Cell(false, 0) : new Cell(true, 1);
 

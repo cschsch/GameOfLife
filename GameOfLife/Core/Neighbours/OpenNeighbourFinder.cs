@@ -3,11 +3,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using GameOfLife.Helpers;
 
-namespace GameOfLife.Core
+namespace GameOfLife.Core.Neighbours
 {
-    public class Open : IGetNeighbours
+    public class OpenNeighbourFinder : IFindNeighbours
     {
-        public IEnumerable<Cell> GetNeighbours(ImmutableArray<ImmutableArray<Cell>> cells, int outerIndex, int innerIndex)
+        public IEnumerable<Cell> FindNeighbours(ImmutableArray<ImmutableArray<Cell>> cells, int outerIndex, int innerIndex)
         {
             var size = cells.Length;
             return cells.GetValues(Enumerable.Range(outerIndex - 1, 3).Select(ind => (ind + size) % size))

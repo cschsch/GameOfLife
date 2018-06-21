@@ -2,6 +2,8 @@
 using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
+using GameOfLife.Core.Calculators;
+using GameOfLife.Core.Neighbours;
 using GameOfLife.Renderer;
 using Tp.Core;
 
@@ -27,7 +29,7 @@ namespace GameOfLife
 
             return new GameVariables
             {
-                World = opts.Closed ? world.WithNeighbour(new Closed()) : world.WithNeighbour(new Open()),
+                World = (opts.Closed ? world.WithNeighbourFinder(new ClosedNeighbourFinder()) : world.WithNeighbourFinder(new OpenNeighbourFinder()).WithCellCalculator(new StandardCellCalculator())),
                 ThreadSleep = opts.ThreadSleep,
                 CellRepresentation = (opts.Alive, opts.Dead)
             };
