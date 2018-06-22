@@ -18,8 +18,8 @@ namespace GameOfLife.Entities
         public CellGrid(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
-            Cell GenerateCell() => new CellBuilder().
-                WithAlive(random.NextBool())
+            Cell GenerateCell() => new CellBuilder()
+                .WithAlive(random.NextBool())
                 .WithDiet(random.NextBool() ? DietaryRestrictions.Carnivore : DietaryRestrictions.Herbivore)
                 .Create();
 

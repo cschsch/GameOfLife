@@ -4,7 +4,7 @@
     {
         public int Generation { get; set; }
         public CellGrid Grid { get; set; }
-        public int Temperature { get; set; }
+        public double Temperature { get; set; }
         public double HerbivoreDensity { get; set; }
     }
 }

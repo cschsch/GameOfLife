@@ -23,7 +23,7 @@ namespace GameOfLife.Core.CalculatorStrategies
 
             var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestrictions.Carnivore, 0) - aliveByDiet.GetValueOrDefault(DietaryRestrictions.Herbivore, 0);
 
-            var transformsToCarnivorePropability = data.HerbivoreDensity * ((double) data.Temperature / (1 + data.Temperature));
+            var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature / (1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);
 
             if (cell.Diet == DietaryRestrictions.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2)

@@ -31,7 +31,7 @@ namespace GameOfLife.Entities.Builder
             return this;
         }
 
-        public WorldDataBuilder WithTemperature(int temperature)
+        public WorldDataBuilder WithTemperature(double temperature)
         {
             _value.Temperature = temperature;
             return this;
