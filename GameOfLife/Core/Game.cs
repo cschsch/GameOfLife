@@ -12,21 +12,19 @@ namespace GameOfLife.Core
 
         public void Init() => Renderer.GenerationWatch.Start();
 
-        public void GameLoop((World world, int sleep) args, int generation = 1)
+        public void GameLoop((World world, int sleep) args)
         {
-            var nextWorld = PrintOneHundredGenerations(args.world, args.sleep, generation);
-            GameLoop((nextWorld, args.sleep), generation + 100);
+            var nextWorld = PrintOneHundredGenerations(args.world, args.sleep);
+            GameLoop((nextWorld, args.sleep));
         }
 
-        private World PrintOneHundredGenerations(World lastWorld, int sleepInMs, int generation)
+        private World PrintOneHundredGenerations(World lastWorld, int sleepInMs)
         {
             var tickToReturn = lastWorld;
 
             foreach (var tick in lastWorld.Ticks().Take(100))
             {
-                Renderer.PrintGrid(tick.Data.Grid);
-                Renderer.PrintGeneration(generation);
-                generation++;
+                Renderer.PrintUi(tick.Data);
                 tickToReturn = tick;
                 System.Threading.Thread.Sleep(sleepInMs);
             }

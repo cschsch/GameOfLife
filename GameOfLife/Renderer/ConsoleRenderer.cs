@@ -21,6 +21,12 @@ namespace GameOfLife.Renderer
             CellRep = cellRep;
         }
 
+        public void PrintUi(WorldData data)
+        {
+            PrintGrid(data.Grid);
+            PrintGeneration(data.Generation);
+        }
+
         public void PrintGrid(CellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
         {
             var representation = cell.Diet == DietaryRestrictions.Carnivore ? CellRep.carnivore : CellRep.herbivore;

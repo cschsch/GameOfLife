@@ -23,6 +23,7 @@ namespace GameOfLife.Core.GeneratorStrategies
                 / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count);
 
             var data = new WorldDataBuilder(world.Data)
+                .WithGeneration(world.Data.Generation + 1)
                 .WithGrid(new CellGrid(nextGrid))
                 .WithHerbivoreDensity(herbivoreDensity)
                 .WithTemperature(world.Data.Temperature)

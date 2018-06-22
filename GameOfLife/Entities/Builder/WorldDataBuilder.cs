@@ -13,11 +13,20 @@ namespace GameOfLife.Entities.Builder
             _value = new WorldData();
             _defaultValues = new Dictionary<string, dynamic>
             {
-                {nameof(_value.Grid), new CellGrid(0)}
+                {nameof(_value.Generation), 0 },
+                {nameof(_value.Grid), new CellGrid(0)},
+                {nameof(_value.HerbivoreDensity), 0 },
+                {nameof(_value.Temperature), 0 }
             };
         }
 
         public WorldDataBuilder(WorldData initial) : this() => _value = initial;
+
+        public WorldDataBuilder WithGeneration(int generation)
+        {
+            _value.Generation = generation;
+            return this;
+        }
 
         public WorldDataBuilder WithGrid(CellGrid grid)
         {

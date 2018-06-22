@@ -7,7 +7,6 @@ namespace GameOfLife.Renderer
     {
         Stopwatch GenerationWatch { get; }
 
-        void PrintGrid(CellGrid grid);
-        void PrintGeneration(int generation);
+        void PrintUi(WorldData data);
     }
 }
