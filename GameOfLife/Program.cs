@@ -58,7 +58,7 @@ namespace GameOfLife
             var renderer = new ConsoleRenderer(variables.World.Data.Grid.Cells.Count, variables.CellRepresentation);
             var game = new Game(renderer);
             game.Init();
-            game.GameLoop((variables.World, variables.ThreadSleep));
+            game.GameLoop(variables.World, variables.ThreadSleep);
         }
     }
 

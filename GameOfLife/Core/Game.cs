@@ -12,10 +12,10 @@ namespace GameOfLife.Core
 
         public void Init() => Renderer.GenerationWatch.Start();
 
-        public void GameLoop((World world, int sleep) args)
+        public void GameLoop(World world, int sleep)
         {
-            var nextWorld = PrintOneHundredGenerations(args.world, args.sleep);
-            GameLoop((nextWorld, args.sleep));
+            var nextWorld = PrintOneHundredGenerations(world, sleep);
+            GameLoop(nextWorld, sleep);
         }
 
         private World PrintOneHundredGenerations(World lastWorld, int sleepInMs)
