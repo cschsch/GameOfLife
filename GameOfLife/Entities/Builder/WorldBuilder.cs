@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Core.CalculatorStrategies;
 using GameOfLife.Core.GeneratorStrategies;
@@ -18,7 +19,7 @@ namespace GameOfLife.Entities.Builder
             {
                 {nameof(_value.Data), new WorldData()},
                 {nameof(_value.NeighbourFinder), new OpenNeighbourFinder()},
-                {nameof(_value.CellCalculator), new BasicCellCalculator()},
+                {nameof(_value.CellCalculator), new EnvironmentalCellCalculator(new Random())},
                 {nameof(_value.Generator), new StandardWorldGenerator()}
             };
         }

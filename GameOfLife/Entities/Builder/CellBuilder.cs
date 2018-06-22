@@ -11,23 +11,13 @@ namespace GameOfLife.Entities.Builder
         public CellBuilder()
         {
             _value = new Cell();
-            _defaultValues = new Dictionary<string, dynamic>
-            {
-                {nameof(_value.IsAlive), false },
-                {nameof(_value.LifeTime), 0 },
-                {nameof(_value.Diet), DietaryRestrictions.Carnivore }
-            };
+            _defaultValues = new Dictionary<string, dynamic>();
         }
 
         public CellBuilder(Cell initial)
         {
             _value = new Cell(initial);
-            _defaultValues = new Dictionary<string, dynamic>
-            {
-                {nameof(_value.IsAlive), false },
-                {nameof(_value.LifeTime), 0 },
-                {nameof(_value.Diet), DietaryRestrictions.Carnivore }
-            };
+            _defaultValues = new Dictionary<string, dynamic>();
         }
 
         public CellBuilder WithAlive(bool isAlive)
