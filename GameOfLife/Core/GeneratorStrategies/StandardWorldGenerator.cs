@@ -5,7 +5,7 @@ using GameOfLife.Entities.Builder;
 
 namespace GameOfLife.Core.GeneratorStrategies
 {
-    public class StandardGenerator : IGenerateWorld
+    public class StandardWorldGenerator : IGenerateWorld
     {
         public IEnumerable<World> Ticks(World world)
         {
@@ -26,7 +26,6 @@ namespace GameOfLife.Core.GeneratorStrategies
                 .WithGeneration(world.Data.Generation + 1)
                 .WithGrid(new CellGrid(nextGrid))
                 .WithHerbivoreDensity(herbivoreDensity)
-                .WithTemperature(world.Data.Temperature)
                 .Create();
 
             var nextWorld = new WorldBuilder(world).WithData(data).Create();

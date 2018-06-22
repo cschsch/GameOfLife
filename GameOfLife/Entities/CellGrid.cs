@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Entities.Builder;
 using GameOfLife.Helpers;
 
 namespace GameOfLife.Entities
@@ -12,12 +13,15 @@ namespace GameOfLife.Entities
         public CellGrid(IReadOnlyList<IReadOnlyList<Cell>> cells) => Cells = cells;
 
         public CellGrid(string cellRep) => Cells = cellRep.Split(Environment.NewLine).Select(row =>
-            row.Select(c => c == ' ' ? new Cell { IsAlive = false, LifeTime = 0 } : new Cell { IsAlive = true, LifeTime = 1 }).ToArray()).ToArray();
+            row.Select(c => c == ' ' ? new CellBuilder().WithAlive(false).Create() : new CellBuilder().WithAlive(true).Create()).ToArray()).ToArray();
 
         public CellGrid(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
-            Cell GenerateCell() => new Cell { IsAlive = random.NextDouble() >= 0.5, LifeTime = 1, Diet = random.NextDouble() >= 0.5 ? DietaryRestrictions.Carnivore : DietaryRestrictions.Herbivore};
+            Cell GenerateCell() => new CellBuilder().
+                WithAlive(random.NextBool())
+                .WithDiet(random.NextBool() ? DietaryRestrictions.Carnivore : DietaryRestrictions.Herbivore)
+                .Create();
 
             Cells = EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(row => row.ToArray()).ToArray();
         }

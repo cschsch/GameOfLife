@@ -20,8 +20,8 @@ namespace Tests
                 .Select(row => row.ToArray()).ToArray());
             var data = new WorldDataBuilder().WithGrid(grid).Create();
             var neighbourFinder = new OpenNeighbourFinder();
-            var cellCalculator = new StandardCellCalculator();
-            var enumerator = new StandardGenerator();
+            var cellCalculator = new BasicCellCalculator();
+            var enumerator = new StandardWorldGenerator();
             return new WorldBuilder()
                 .WithData(data)
                 .WithNeighbourFinder(neighbourFinder)

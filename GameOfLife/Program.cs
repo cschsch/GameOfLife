@@ -37,7 +37,7 @@ namespace GameOfLife
 
             var neighbourFinder = opts.Closed ? new ClosedNeighbourFinder() : (IFindNeighbours) new OpenNeighbourFinder();
             var cellCalculator = new EnvironmentalCellCalculator(new Random());
-            var generator = new StandardGenerator();
+            var generator = new StandardWorldGenerator();
             var world = new WorldBuilder()
                 .WithData(data)
                 .WithNeighbourFinder(neighbourFinder)

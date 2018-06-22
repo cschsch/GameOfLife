@@ -18,8 +18,8 @@ namespace GameOfLife.Entities.Builder
             {
                 {nameof(_value.Data), new WorldData()},
                 {nameof(_value.NeighbourFinder), new OpenNeighbourFinder()},
-                {nameof(_value.CellCalculator), new StandardCellCalculator()},
-                {nameof(_value.Generator), new StandardGenerator()}
+                {nameof(_value.CellCalculator), new BasicCellCalculator()},
+                {nameof(_value.Generator), new StandardWorldGenerator()}
             };
         }
 
