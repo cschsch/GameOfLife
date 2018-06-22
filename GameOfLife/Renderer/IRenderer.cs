@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using GameOfLife.Core;
+using GameOfLife.Core.Worlds;
 
 namespace GameOfLife.Renderer
 {
@@ -7,7 +8,7 @@ namespace GameOfLife.Renderer
     {
         Stopwatch GenerationWatch { get; }
 
-        void PrintTick(World tick);
+        void PrintGrid(CellGrid grid);
         void PrintGeneration(int generation);
     }
 }

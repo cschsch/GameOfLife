@@ -2,7 +2,10 @@ using System;
 using System.Collections.Immutable;
 using System.Linq;
 using GameOfLife.Core;
+using GameOfLife.Core.Calculators;
+using GameOfLife.Core.Enumerators;
 using GameOfLife.Core.Neighbours;
+using GameOfLife.Core.Worlds;
 using GameOfLife.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,16 +14,28 @@ namespace Tests
     [TestClass]
     public class TicksTests
     {
-        private World World(params Cell[] cells) =>
-            new World().WithCells(cells
-                .Partition((int) Math.Sqrt(cells.Length))
+        private World World(params Cell[] cells)
+        {
+            var grid = new CellGrid(cells
+                .Partition((int)Math.Sqrt(cells.Length))
                 .Select(row => row.ToArray()).ToArray());
+            var data = new WorldDataBuilder().WithGrid(grid).Create();
+            var neighbourFinder = new OpenNeighbourFinder();
+            var cellCalculator = new StandardCellCalculator();
+            var enumerator = new StandardEnumerator();
+            return new WorldBuilder()
+                .WithData(data)
+                .WithNeighbourFinder(neighbourFinder)
+                .WithCellCalculator(cellCalculator)
+                .WithEnumerator(enumerator)
+                .Create();
+        }
 
-        private World RoundWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new OpenNeighbourFinder());
+        private World RoundWorld(params Cell[] cells) => new WorldBuilder(World(cells)).WithNeighbourFinder(new OpenNeighbourFinder()).Create();
 
-        private World ClosedWorld(params Cell[] cells) => World(cells).WithNeighbourFinder(new ClosedNeighbourFinder());
+        private World ClosedWorld(params Cell[] cells) => new WorldBuilder(World(cells)).WithNeighbourFinder(new ClosedNeighbourFinder()).Create();
 
-        private Cell C(string representation) => representation == " " ? new Cell{IsAlive = false, LifeTime = 0} : new Cell{ IsAlive = true, LifeTime = 1};
+        private Cell C(string representation) => representation == " " ? new Cell { IsAlive = false, LifeTime = 0 } : new Cell { IsAlive = true, LifeTime = 1 };
 
         [TestMethod]
         public void FrameAfterTickIsExpected()
@@ -55,7 +70,7 @@ namespace Tests
                               C(" "), C(" "), C("X"), C(" "),
                               C(" "), C("X"), C("X"), C(" "),
                               C(" "), C(" "), C(" "), C(" ")),
-                  
+
                   ClosedWorld(C(" "), C(" "), C(" "), C(" "),
                               C(" "), C("X"), C("X"), C(" "),
                               C(" "), C("X"), C("X"), C(" "),
@@ -79,7 +94,7 @@ namespace Tests
                 C(" "), C(" "), C(" "), C(" "));
             const int expected = 101;
 
-            var result = world.Ticks().Skip(100).First().Cells[1][1].LifeTime;
+            var result = world.Ticks().Skip(100).First().Data.Grid.Cells[1][1].LifeTime;
 
             Assert.AreEqual(expected, result);
         }

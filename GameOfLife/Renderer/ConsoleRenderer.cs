@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using GameOfLife.Core;
+using GameOfLife.Core.Worlds;
 using GameOfLife.Renderer.FastConsole;
 using GameOfLife.Helpers;
 
@@ -21,12 +22,12 @@ namespace GameOfLife.Renderer
             CellRep = cellRep;
         }
 
-        public void PrintTick(World tick) => QuickWrite.Write(tick.Cells.SelectMany(row => row.Select(cell =>
+        public void PrintGrid(CellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
             new Kernel32.CharInfo
             {
                 Attributes = (short) GetColorFromLifetime(cell),
                 Char = new Kernel32.CharUnion {UnicodeChar = cell.IsAlive ? CellRep.alive : CellRep.dead}
-            })), (short) tick.Cells.Count);
+            })), (short) grid.Cells.Count);
 
         private ConsoleColor GetColorFromLifetime(Cell cell) =>
             new Match<Cell, ConsoleColor>(

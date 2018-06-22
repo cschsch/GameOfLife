@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Core.Worlds;
 using GameOfLife.Helpers;
 
 namespace GameOfLife.Core.Calculators
 {
     public class StandardCellCalculator : ICalculateCell
     {
-        public Cell CalculateCell(Cell cell, IEnumerable<Cell> neighbours)
+        public Cell CalculateCell(Cell cell, IEnumerable<Cell> neighbours, WorldData data)
         {
             var alive = neighbours.Count(n => n.IsAlive);
 

@@ -3,7 +3,9 @@ using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
 using GameOfLife.Core.Calculators;
+using GameOfLife.Core.Enumerators;
 using GameOfLife.Core.Neighbours;
+using GameOfLife.Core.Worlds;
 using GameOfLife.Renderer;
 using Tp.Core;
 
@@ -23,13 +25,24 @@ namespace GameOfLife
         private static GameVariables MapArgs(CommandOptions opts)
         {
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
-            var world = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
-                ? new World(figures[opts.FigureName.ToUpper()])
-                : new World(opts.Size);
+            var grid = figures.Any(f => string.Equals(f.Key, opts.FigureName, StringComparison.InvariantCultureIgnoreCase))
+                ? new CellGrid(figures[opts.FigureName.ToUpper()])
+                : new CellGrid(opts.Size);
+
+            var data = new WorldDataBuilder().WithGrid(grid).Create();
+            var neighbourFinder = opts.Closed ? new ClosedNeighbourFinder() : (IFindNeighbours) new OpenNeighbourFinder();
+            var cellCalculator = new StandardCellCalculator();
+            var enumerator = new StandardEnumerator();
+            var world = new WorldBuilder()
+                .WithData(data)
+                .WithNeighbourFinder(neighbourFinder)
+                .WithCellCalculator(cellCalculator)
+                .WithEnumerator(enumerator)
+                .Create();
 
             return new GameVariables
             {
-                World = (opts.Closed ? world.WithNeighbourFinder(new ClosedNeighbourFinder()) : world.WithNeighbourFinder(new OpenNeighbourFinder()).WithCellCalculator(new StandardCellCalculator())),
+                World = world,
                 ThreadSleep = opts.ThreadSleep,
                 CellRepresentation = (opts.Alive, opts.Dead)
             };
@@ -37,7 +50,7 @@ namespace GameOfLife
 
         private static void StartGame(GameVariables variables)
         {
-            var renderer = new ConsoleRenderer(variables.World.Cells.Count, variables.CellRepresentation);
+            var renderer = new ConsoleRenderer(variables.World.Data.Grid.Cells.Count, variables.CellRepresentation);
             var game = new Game(renderer);
             game.Init();
             game.GameLoop((variables.World, variables.ThreadSleep));

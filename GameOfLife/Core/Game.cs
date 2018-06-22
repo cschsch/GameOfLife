@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using GameOfLife.Core.Worlds;
 using GameOfLife.Renderer;
 
 namespace GameOfLife.Core
@@ -23,7 +24,7 @@ namespace GameOfLife.Core
 
             foreach (var tick in lastWorld.Ticks().Take(100))
             {
-                Renderer.PrintTick(tick);
+                Renderer.PrintGrid(tick.Data.Grid);
                 Renderer.PrintGeneration(generation);
                 generation++;
                 tickToReturn = tick;
