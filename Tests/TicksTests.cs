@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using GameOfLife.Core;
 using GameOfLife.Core.Calculators;
-using GameOfLife.Core.Enumerators;
+using GameOfLife.Core.GeneratorStrategies;
 using GameOfLife.Core.Neighbours;
 using GameOfLife.Core.Worlds;
 using GameOfLife.Helpers;
@@ -22,7 +22,7 @@ namespace Tests
             var data = new WorldDataBuilder().WithGrid(grid).Create();
             var neighbourFinder = new OpenNeighbourFinder();
             var cellCalculator = new StandardCellCalculator();
-            var enumerator = new StandardEnumerator();
+            var enumerator = new StandardGenerator();
             return new WorldBuilder()
                 .WithData(data)
                 .WithNeighbourFinder(neighbourFinder)

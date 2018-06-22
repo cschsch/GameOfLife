@@ -3,7 +3,7 @@ using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
 using GameOfLife.Core.Calculators;
-using GameOfLife.Core.Enumerators;
+using GameOfLife.Core.GeneratorStrategies;
 using GameOfLife.Core.Neighbours;
 using GameOfLife.Core.Worlds;
 using GameOfLife.Renderer;
@@ -32,7 +32,7 @@ namespace GameOfLife
             var data = new WorldDataBuilder().WithGrid(grid).Create();
             var neighbourFinder = opts.Closed ? new ClosedNeighbourFinder() : (IFindNeighbours) new OpenNeighbourFinder();
             var cellCalculator = new StandardCellCalculator();
-            var enumerator = new StandardEnumerator();
+            var enumerator = new StandardGenerator();
             var world = new WorldBuilder()
                 .WithData(data)
                 .WithNeighbourFinder(neighbourFinder)

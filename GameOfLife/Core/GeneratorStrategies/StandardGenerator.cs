@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
+using GameOfLife.Entities.Builder;
 
-namespace GameOfLife.Core.Enumerators
+namespace GameOfLife.Core.GeneratorStrategies
 {
-    public class StandardEnumerator : IEnumerateWorld
+    public class StandardGenerator : IGenerateWorld
     {
         public IEnumerable<World> Ticks(World world)
         {

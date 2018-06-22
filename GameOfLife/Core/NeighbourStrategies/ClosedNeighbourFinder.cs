@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Entities;
 using GameOfLife.Helpers;
 
-namespace GameOfLife.Core.Neighbours
+namespace GameOfLife.Core.NeighbourStrategies
 {
     public class ClosedNeighbourFinder : IFindNeighbours
     {

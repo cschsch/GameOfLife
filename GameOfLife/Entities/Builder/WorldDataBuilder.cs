@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace GameOfLife.Core.Worlds
+namespace GameOfLife.Entities.Builder
 {
     public class WorldDataBuilder
     {

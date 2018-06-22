@@ -1,6 +1,4 @@
-﻿using Tp.Core;
-
-namespace GameOfLife.Core.Worlds
+﻿namespace GameOfLife.Entities
 {
     public class WorldData
     {

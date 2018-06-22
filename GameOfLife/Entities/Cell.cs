@@ -1,4 +1,4 @@
-﻿namespace GameOfLife.Core
+﻿namespace GameOfLife.Entities
 {
     public class Cell
     {

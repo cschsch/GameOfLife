@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameOfLife.Core.Calculators;
-using GameOfLife.Core.Enumerators;
-using GameOfLife.Core.Neighbours;
+using GameOfLife.Core.CalculatorStrategies;
+using GameOfLife.Core.GeneratorStrategies;
+using GameOfLife.Core.NeighbourStrategies;
 
-namespace GameOfLife.Core.Worlds
+namespace GameOfLife.Entities.Builder
 {
     public class WorldBuilder
     {
@@ -19,7 +19,7 @@ namespace GameOfLife.Core.Worlds
                 {nameof(_value.Data), new WorldData()},
                 {nameof(_value.NeighbourFinder), new OpenNeighbourFinder()},
                 {nameof(_value.CellCalculator), new StandardCellCalculator()},
-                {nameof(_value.Enumerator), new StandardEnumerator()}
+                {nameof(_value.Enumerator), new StandardGenerator()}
             };
         }
 
@@ -43,7 +43,7 @@ namespace GameOfLife.Core.Worlds
             return this;
         }
 
-        public WorldBuilder WithEnumerator(IEnumerateWorld enumerator)
+        public WorldBuilder WithEnumerator(IGenerateWorld enumerator)
         {
             _value.Enumerator = enumerator;
             return this;

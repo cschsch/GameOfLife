@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
 using GameOfLife.Renderer;
 
 namespace GameOfLife.Core

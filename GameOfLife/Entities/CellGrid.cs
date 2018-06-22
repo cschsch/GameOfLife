@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Helpers;
 
-namespace GameOfLife.Core.Worlds
+namespace GameOfLife.Entities
 {
     public class CellGrid
     {

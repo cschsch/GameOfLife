@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
 using GameOfLife.Helpers;
 
-namespace GameOfLife.Core.Calculators
+namespace GameOfLife.Core.CalculatorStrategies
 {
     public class StandardCellCalculator : ICalculateCell
     {

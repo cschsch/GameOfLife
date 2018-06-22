@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using GameOfLife.Entities;
 
-namespace GameOfLife.Core.Neighbours
+namespace GameOfLife.Core.NeighbourStrategies
 {
     public interface IFindNeighbours
     {

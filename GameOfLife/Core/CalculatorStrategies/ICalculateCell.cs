@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
 
-namespace GameOfLife.Core.Calculators
+namespace GameOfLife.Core.CalculatorStrategies
 {
     public interface ICalculateCell
     {
