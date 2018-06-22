@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using GameOfLife.Core;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
 using GameOfLife.Renderer.FastConsole;
 using GameOfLife.Helpers;
 

@@ -2,10 +2,11 @@
 using System.Linq;
 using CommandLine;
 using GameOfLife.Core;
-using GameOfLife.Core.Calculators;
+using GameOfLife.Core.CalculatorStrategies;
 using GameOfLife.Core.GeneratorStrategies;
-using GameOfLife.Core.Neighbours;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Core.NeighbourStrategies;
+using GameOfLife.Entities;
+using GameOfLife.Entities.Builder;
 using GameOfLife.Renderer;
 using Tp.Core;
 

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
-using GameOfLife.Core;
-using GameOfLife.Core.Worlds;
+using GameOfLife.Entities;
 
 namespace GameOfLife.Renderer
 {
