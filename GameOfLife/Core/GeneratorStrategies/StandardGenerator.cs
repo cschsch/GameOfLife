@@ -18,9 +18,19 @@ namespace GameOfLife.Core.GeneratorStrategies
                         world.NeighbourFinder.FindNeighbours(world.Data.Grid.Cells, outerInd, innerInd),
                         world.Data)).ToArray()).ToArray();
 
-            var nextWorld = new WorldBuilder(world).WithData(new WorldData {Grid = new CellGrid(nextGrid)}).Create();
+            var herbivoreDensity =
+                (double) world.Data.Grid.Cells.SelectMany(row => row).Count(c => c.Diet == DietaryRestrictions.Herbivore)
+                / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count);
 
-            foreach (var tick in world.Enumerator.Ticks(nextWorld))
+            var data = new WorldDataBuilder(world.Data)
+                .WithGrid(new CellGrid(nextGrid))
+                .WithHerbivoreDensity(herbivoreDensity)
+                .WithTemperature(world.Data.Temperature)
+                .Create();
+
+            var nextWorld = new WorldBuilder(world).WithData(data).Create();
+
+            foreach (var tick in world.Generator.Ticks(nextWorld))
             {
                 yield return tick;
             }

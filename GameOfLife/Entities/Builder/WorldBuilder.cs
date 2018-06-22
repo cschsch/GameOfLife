@@ -19,7 +19,7 @@ namespace GameOfLife.Entities.Builder
                 {nameof(_value.Data), new WorldData()},
                 {nameof(_value.NeighbourFinder), new OpenNeighbourFinder()},
                 {nameof(_value.CellCalculator), new StandardCellCalculator()},
-                {nameof(_value.Enumerator), new StandardGenerator()}
+                {nameof(_value.Generator), new StandardGenerator()}
             };
         }
 
@@ -43,9 +43,9 @@ namespace GameOfLife.Entities.Builder
             return this;
         }
 
-        public WorldBuilder WithEnumerator(IGenerateWorld enumerator)
+        public WorldBuilder WithGenerator(IGenerateWorld generator)
         {
-            _value.Enumerator = enumerator;
+            _value.Generator = generator;
             return this;
         }
 

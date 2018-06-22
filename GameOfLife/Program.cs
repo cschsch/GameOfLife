@@ -30,22 +30,26 @@ namespace GameOfLife
                 ? new CellGrid(figures[opts.FigureName.ToUpper()])
                 : new CellGrid(opts.Size);
 
-            var data = new WorldDataBuilder().WithGrid(grid).Create();
+            var data = new WorldDataBuilder()
+                .WithGrid(grid)
+                .WithTemperature(opts.Temperature)
+                .Create();
+
             var neighbourFinder = opts.Closed ? new ClosedNeighbourFinder() : (IFindNeighbours) new OpenNeighbourFinder();
-            var cellCalculator = new StandardCellCalculator();
-            var enumerator = new StandardGenerator();
+            var cellCalculator = new EnvironmentalCellCalculator(new Random());
+            var generator = new StandardGenerator();
             var world = new WorldBuilder()
                 .WithData(data)
                 .WithNeighbourFinder(neighbourFinder)
                 .WithCellCalculator(cellCalculator)
-                .WithEnumerator(enumerator)
+                .WithGenerator(generator)
                 .Create();
 
             return new GameVariables
             {
                 World = world,
                 ThreadSleep = opts.ThreadSleep,
-                CellRepresentation = (opts.Alive, opts.Dead)
+                CellRepresentation = (opts.Carnivore, opts.Herbivore)
             };
         }
 
@@ -79,10 +83,13 @@ namespace GameOfLife
         [Option('c', "closed")]
         public bool Closed { get; set; }
 
-        [Option('a', "alive", Default = 'X')]
-        public char Alive { get; set; }
+        [Option("carnivore", Default = 'X')]
+        public char Carnivore { get; set; }
 
-        [Option('d', "dead", Default = ' ')]
-        public char Dead { get; set; }
+        [Option("herbivore", Default = 'O')]
+        public char Herbivore { get; set; }
+
+        [Option("temperature")]
+        public int Temperature { get; set; }
     }
 }

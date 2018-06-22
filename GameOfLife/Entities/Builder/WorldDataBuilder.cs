@@ -25,6 +25,18 @@ namespace GameOfLife.Entities.Builder
             return this;
         }
 
+        public WorldDataBuilder WithTemperature(int temperature)
+        {
+            _value.Temperature = temperature;
+            return this;
+        }
+
+        public WorldDataBuilder WithHerbivoreDensity(double herbivoreDensity)
+        {
+            _value.HerbivoreDensity = herbivoreDensity;
+            return this;
+        }
+
         public WorldData Create()
         {
             foreach (var property in typeof(WorldData).GetProperties().Where(prop => prop.GetValue(_value) is null))

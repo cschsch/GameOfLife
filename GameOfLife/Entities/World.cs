@@ -10,8 +10,8 @@ namespace GameOfLife.Entities
         public WorldData Data { get; set; }
         public IFindNeighbours NeighbourFinder { get; set; }
         public ICalculateCell CellCalculator { get; set; }
-        public IGenerateWorld Enumerator { get; set; }
+        public IGenerateWorld Generator { get; set; }
 
-        public IEnumerable<World> Ticks() => Enumerator.Ticks(this);
+        public IEnumerable<World> Ticks() => Generator.Ticks(this);
     }
 }

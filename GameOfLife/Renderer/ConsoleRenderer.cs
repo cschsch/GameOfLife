@@ -11,9 +11,9 @@ namespace GameOfLife.Renderer
     {
         public Stopwatch GenerationWatch { get; }
         private int WorldSize { get; }
-        private (char alive, char dead) CellRep { get; }
+        private (char carnivore, char herbivore) CellRep { get; }
 
-        public ConsoleRenderer(int worldSize, (char alive, char dead) cellRep)
+        public ConsoleRenderer(int worldSize, (char carnivore, char herbivore) cellRep)
         {
             Console.Clear();
             WorldSize = worldSize;
@@ -22,11 +22,16 @@ namespace GameOfLife.Renderer
         }
 
         public void PrintGrid(CellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
-            new Kernel32.CharInfo
+        {
+            var representation = cell.Diet == DietaryRestrictions.Carnivore ? CellRep.carnivore : CellRep.herbivore;
+            representation = cell.IsAlive ? representation : ' ';
+
+            return new Kernel32.CharInfo
             {
                 Attributes = (short) GetColorFromLifetime(cell),
-                Char = new Kernel32.CharUnion {UnicodeChar = cell.IsAlive ? CellRep.alive : CellRep.dead}
-            })), (short) grid.Cells.Count);
+                Char = new Kernel32.CharUnion {UnicodeChar = representation}
+            };
+        })), (short) grid.Cells.Count);
 
         private ConsoleColor GetColorFromLifetime(Cell cell) =>
             new Match<Cell, ConsoleColor>(

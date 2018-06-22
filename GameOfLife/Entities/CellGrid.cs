@@ -17,7 +17,7 @@ namespace GameOfLife.Entities
         public CellGrid(int size, Func<Random> randomFactory)
         {
             var random = randomFactory();
-            Cell GenerateCell() => new Cell { IsAlive = random.NextDouble() >= 0.5, LifeTime = 1 };
+            Cell GenerateCell() => new Cell { IsAlive = random.NextDouble() >= 0.5, LifeTime = 1, Diet = random.NextDouble() >= 0.5 ? DietaryRestrictions.Carnivore : DietaryRestrictions.Herbivore};
 
             Cells = EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(row => row.ToArray()).ToArray();
         }
