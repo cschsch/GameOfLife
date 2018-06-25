@@ -1,7 +1,7 @@
 ﻿using GameOfLife.Entities;
 using GameOfLife.Entities.Builder;
 
-namespace GameOfLife.Helpers
+namespace GameOfLife.Helpers.Functions
 {
     public static class CellExtensions
     {

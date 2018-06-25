@@ -5,7 +5,7 @@ using GameOfLife.Core.GeneratorStrategies;
 using GameOfLife.Core.NeighbourStrategies;
 using GameOfLife.Entities;
 using GameOfLife.Entities.Builder;
-using GameOfLife.Helpers;
+using GameOfLife.Helpers.Functions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests

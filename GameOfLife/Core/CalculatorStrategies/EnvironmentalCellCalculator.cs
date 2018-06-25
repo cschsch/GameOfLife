@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Entities;
 using GameOfLife.Helpers;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Core.CalculatorStrategies
 {
@@ -21,7 +22,7 @@ namespace GameOfLife.Core.CalculatorStrategies
                 .ToDictionary(g => g.Key, g => g.Count());
             var aliveInTotal = aliveByDiet.Sum(kv => kv.Value);
 
-            var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestrictions.Carnivore, 0) - aliveByDiet.GetValueOrDefault(DietaryRestrictions.Herbivore, 0);
+            var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestrictions.Carnivore) - aliveByDiet.GetValueOrDefault(DietaryRestrictions.Herbivore);
 
             var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature / (1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);

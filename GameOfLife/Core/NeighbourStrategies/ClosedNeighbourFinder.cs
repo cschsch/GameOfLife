@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Entities;
-using GameOfLife.Helpers;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Core.NeighbourStrategies
 {

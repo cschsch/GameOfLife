@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Entities.Builder;
-using GameOfLife.Helpers;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Entities
 {

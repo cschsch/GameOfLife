@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace GameOfLife.Helpers
+namespace GameOfLife.Helpers.Functions
 {
     public static class EnumerableExtensions
     {

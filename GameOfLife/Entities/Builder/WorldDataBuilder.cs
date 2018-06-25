@@ -47,7 +47,7 @@ namespace GameOfLife.Entities.Builder
         {
             foreach (var property in typeof(WorldData).GetProperties().Where(prop => prop.GetValue(_value) is null))
             {
-                typeof(World).GetProperty(property.Name).SetValue(_value, _defaultValues[property.Name]);
+                typeof(WorldData).GetProperty(property.Name).SetValue(_value, _defaultValues[property.Name]);
             }
 
             return _value;
