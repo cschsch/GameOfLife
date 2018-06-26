@@ -1,4 +1,5 @@
-﻿using GameOfLife.Entities;
+﻿using System.Threading.Tasks;
+using GameOfLife.Entities;
 
 namespace GameOfLife.Core
 {
@@ -8,5 +9,6 @@ namespace GameOfLife.Core
 
         void CollectData(WorldData data);
         void PrintResults();
+        Task PrintResultsAsync();
     }
 }

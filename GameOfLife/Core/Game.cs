@@ -20,7 +20,7 @@ namespace GameOfLife.Core
         public void GameLoop(World world, int sleep)
         {
             var nextWorld = PrintGenerations(world, sleep);
-            ResultAnalyzer.PrintResults();
+            ResultAnalyzer.PrintResultsAsync();
             GameLoop(nextWorld, sleep);
         }
 
