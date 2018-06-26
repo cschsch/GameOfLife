@@ -7,24 +7,31 @@ namespace GameOfLife.Core
     public class Game
     {
         private IRenderer Renderer { get; }
+        private IAnalyzeResults ResultAnalyzer { get; }
 
-        public Game(IRenderer renderer) => Renderer = renderer;
+        public Game(IRenderer renderer, IAnalyzeResults resultAnalyzer)
+        {
+            Renderer = renderer;
+            ResultAnalyzer = resultAnalyzer;
+        }
 
         public void Init() => Renderer.GenerationWatch.Start();
 
         public void GameLoop(World world, int sleep)
         {
-            var nextWorld = PrintOneHundredGenerations(world, sleep);
+            var nextWorld = PrintGenerations(world, sleep);
+            ResultAnalyzer.PrintResults();
             GameLoop(nextWorld, sleep);
         }
 
-        private World PrintOneHundredGenerations(World lastWorld, int sleepInMs)
+        private World PrintGenerations(World lastWorld, int sleepInMs)
         {
             var tickToReturn = lastWorld;
 
-            foreach (var tick in lastWorld.Ticks().Take(100))
+            foreach (var tick in lastWorld.Ticks().Take(ResultAnalyzer.PrintInterval))
             {
                 Renderer.PrintUi(tick.Data);
+                ResultAnalyzer.CollectData(tick.Data);
                 tickToReturn = tick;
                 System.Threading.Thread.Sleep(sleepInMs);
             }

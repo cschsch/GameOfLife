@@ -52,13 +52,16 @@ namespace GameOfLife
             {
                 World = world,
                 ThreadSleep = opts.ThreadSleep,
+                PrintInterval = opts.PrintInterval,
+                PrintFile = opts.PrintFile
             };
         }
 
         private static void StartGame(GameVariables variables)
         {
             var renderer = new ConsoleRenderer(variables.World.Data.Grid.Cells.Count);
-            var game = new Game(renderer);
+            var resultAnalyzer = new ResultAnalyzer(variables.PrintInterval, variables.PrintFile);
+            var game = new Game(renderer, resultAnalyzer);
             game.Init();
             game.GameLoop(variables.World, variables.ThreadSleep);
         }
@@ -68,6 +71,8 @@ namespace GameOfLife
     {
         public World World { get; set; }
         public int ThreadSleep { get; set; }
+        public int PrintInterval { get; set; }
+        public string PrintFile { get; set; }
     }
 
     internal class CommandOptions
@@ -89,5 +94,11 @@ namespace GameOfLife
 
         [Option("temperature")]
         public int Temperature { get; set; }
+
+        [Option('i', "print_interval", Default = 100)]
+        public int PrintInterval { get; set; }
+
+        [Option('p', "print_file", Default = @"analyzation\01.txt")]
+        public string PrintFile { get; set; }
     }
 }

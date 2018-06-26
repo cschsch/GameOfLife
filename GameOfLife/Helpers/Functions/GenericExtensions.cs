@@ -7,9 +7,11 @@ namespace GameOfLife.Helpers.Functions
     {
         public static void SetProperties<T>(this T objectToSet, T objectToGet)
         {
-            foreach (var property in typeof(T).GetProperties().Where(prop => prop.CanWrite))
+            var typeOfObjects = typeof(T);
+
+            foreach (var property in typeOfObjects.GetProperties().Where(prop => prop.CanWrite))
             {
-                var valueOfObjectToGet = objectToGet.GetType().GetProperty(property.Name).GetValue(objectToGet);
+                var valueOfObjectToGet = typeOfObjects.GetProperty(property.Name).GetValue(objectToGet);
                 property.SetValue(objectToSet, valueOfObjectToGet);
             }
         }
