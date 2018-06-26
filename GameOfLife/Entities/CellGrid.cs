@@ -12,8 +12,19 @@ namespace GameOfLife.Entities
 
         public CellGrid(IReadOnlyList<IReadOnlyList<Cell>> cells) => Cells = cells;
 
-        public CellGrid(string cellRep) => Cells = cellRep.Split(Environment.NewLine).Select(row =>
-            row.Select(c => c == ' ' ? new CellBuilder().WithAlive(false).Create() : new CellBuilder().WithAlive(true).Create()).ToArray()).ToArray();
+        public CellGrid(string cellRep)
+        {
+            var cellRepToBuilder = new Dictionary<char, Func<CellBuilder, CellBuilder>>
+            {
+                {Cell.DeadIn, builder => builder.WithAlive(false)},
+                {Cell.Carnivore, builder => builder.WithDiet(DietaryRestrictions.Carnivore)},
+                {Cell.Herbivore, cell => cell.WithDiet(DietaryRestrictions.Herbivore)}
+            };
+
+            Cells = cellRep.Split(Environment.NewLine).Select(row => row.Select(c =>
+                    cellRepToBuilder[c](new CellBuilder().WithAlive(true)).Create())
+                .ToArray()).ToArray();
+        }
 
         public CellGrid(int size, Func<Random> randomFactory)
         {

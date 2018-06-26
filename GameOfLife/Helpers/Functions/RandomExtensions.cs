@@ -6,7 +6,7 @@ namespace GameOfLife.Helpers.Functions
     {
         public static bool NextBool(this Random random, double propability)
         {
-            if(propability < 0 || propability > 1) throw new InvalidOperationException($"{nameof(propability)} must be between 0 and 1");
+            if(propability < 0) throw new InvalidOperationException($"{nameof(propability)} must be larger than 0");
             return random.NextDouble() <= propability;
         }
 

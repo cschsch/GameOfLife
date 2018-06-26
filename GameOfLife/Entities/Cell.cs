@@ -14,6 +14,11 @@
             LifeTime = other.LifeTime;
             Diet = other.Diet;
         }
+
+        public static char DeadOut = ' ';
+        public static char DeadIn => '-';
+        public static char Carnivore => 'X';
+        public static char Herbivore => 'O';
     }
 
     public enum DietaryRestrictions

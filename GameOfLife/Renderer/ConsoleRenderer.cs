@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using GameOfLife.Entities;
@@ -11,14 +12,19 @@ namespace GameOfLife.Renderer
     {
         public Stopwatch GenerationWatch { get; }
         private int WorldSize { get; }
-        private (char carnivore, char herbivore) CellRep { get; }
+        private Dictionary<Func<Cell, bool>, char> CellRepresentation { get; }
 
-        public ConsoleRenderer(int worldSize, (char carnivore, char herbivore) cellRep)
+        public ConsoleRenderer(int worldSize)
         {
             Console.Clear();
             WorldSize = worldSize;
             GenerationWatch = new Stopwatch();
-            CellRep = cellRep;
+            CellRepresentation = new Dictionary<Func<Cell, bool>, char>
+            {
+                {cell => !cell.IsAlive, Cell.DeadOut},
+                {cell => cell.Diet == DietaryRestrictions.Carnivore, Cell.Carnivore},
+                {cell => cell.Diet == DietaryRestrictions.Herbivore, Cell.Herbivore}
+            };
         }
 
         public void PrintUi(WorldData data)
@@ -29,8 +35,7 @@ namespace GameOfLife.Renderer
 
         public void PrintGrid(CellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
         {
-            var representation = cell.Diet == DietaryRestrictions.Carnivore ? CellRep.carnivore : CellRep.herbivore;
-            representation = cell.IsAlive ? representation : ' ';
+            var representation = CellRepresentation.First(kv => kv.Key(cell)).Value;
 
             return new Kernel32.CharInfo
             {
