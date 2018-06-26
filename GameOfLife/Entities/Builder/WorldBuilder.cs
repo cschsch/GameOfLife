@@ -4,6 +4,7 @@ using System.Linq;
 using GameOfLife.Core.CalculatorStrategies;
 using GameOfLife.Core.GeneratorStrategies;
 using GameOfLife.Core.NeighbourStrategies;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Entities.Builder
 {
@@ -24,7 +25,7 @@ namespace GameOfLife.Entities.Builder
             };
         }
 
-        public WorldBuilder(World initial) : this() => _value = initial;
+        public WorldBuilder(World initial) : this() => _value.SetProperties(initial);
 
         public WorldBuilder WithData(WorldData data)
         {

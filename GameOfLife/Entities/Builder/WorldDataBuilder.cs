@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Entities.Builder
 {
@@ -17,7 +18,7 @@ namespace GameOfLife.Entities.Builder
             };
         }
 
-        public WorldDataBuilder(WorldData initial) : this() => _value = initial;
+        public WorldDataBuilder(WorldData initial) : this() => _value.SetProperties(initial);
 
         public WorldDataBuilder WithGeneration(int generation)
         {

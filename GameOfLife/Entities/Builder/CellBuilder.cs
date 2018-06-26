@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Entities.Builder
 {
@@ -14,11 +15,7 @@ namespace GameOfLife.Entities.Builder
             _defaultValues = new Dictionary<string, dynamic>();
         }
 
-        public CellBuilder(Cell initial)
-        {
-            _value = new Cell(initial);
-            _defaultValues = new Dictionary<string, dynamic>();
-        }
+        public CellBuilder(Cell initial) : this() => _value.SetProperties(initial);
 
         public CellBuilder WithAlive(bool isAlive)
         {
