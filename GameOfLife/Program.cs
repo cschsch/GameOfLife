@@ -2,14 +2,13 @@
 using System.IO;
 using System.Linq;
 using CommandLine;
-using GameOfLife.Core;
-using GameOfLife.Core.CalculatorStrategies;
-using GameOfLife.Core.GeneratorStrategies;
-using GameOfLife.Core.NeighbourStrategies;
-using GameOfLife.Entities.Environmental;
-using GameOfLife.Entities.Environmental.Builder;
-using GameOfLife.Helpers;
-using GameOfLife.Renderer;
+using Engine.Core.CalculatorStrategies;
+using Engine.Core.GeneratorStrategies;
+using Engine.Core.NeighbourStrategies;
+using Engine.Entities.Environmental;
+using Engine.Entities.Environmental.Builder;
+using Engine.Helpers;
+using Graphics.Renderer;
 using Tp.Core;
 
 namespace GameOfLife

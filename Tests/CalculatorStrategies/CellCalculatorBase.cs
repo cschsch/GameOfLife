@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameOfLife.Core.CalculatorStrategies;
-using GameOfLife.Entities;
+using Engine.Core.CalculatorStrategies;
+using Engine.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.CalculatorStrategies

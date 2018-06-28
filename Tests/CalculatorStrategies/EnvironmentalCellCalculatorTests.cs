@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GameOfLife.Core.CalculatorStrategies;
-using GameOfLife.Entities.Environmental;
-using GameOfLife.Entities.Environmental.Builder;
-using GameOfLife.Helpers;
+using Engine.Core.CalculatorStrategies;
+using Engine.Entities.Environmental;
+using Engine.Entities.Environmental.Builder;
+using Engine.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static Tests.Sut.Environmental;

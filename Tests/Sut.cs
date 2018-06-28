@@ -1,9 +1,9 @@
-using GameOfLife.Entities;
-using GameOfLife.Entities.Environmental;
-using GameOfLife.Entities.Environmental.Builder;
-using GameOfLife.Entities.Standard;
-using GameOfLife.Entities.Standard.Builder;
-using GameOfLife.Helpers;
+using Engine.Entities;
+using Engine.Entities.Environmental;
+using Engine.Entities.Environmental.Builder;
+using Engine.Entities.Standard;
+using Engine.Entities.Standard.Builder;
+using Engine.Helpers;
 
 namespace Tests
 {

@@ -1,6 +1,6 @@
 using System.Linq;
+using Engine.Helpers.Functions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GameOfLife.Helpers.Functions;
 
 namespace Tests.Helpers
 {

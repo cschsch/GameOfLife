@@ -1,6 +1,6 @@
 using System.Linq;
-using GameOfLife.Core.NeighbourStrategies;
-using GameOfLife.Entities.Standard;
+using Engine.Core.NeighbourStrategies;
+using Engine.Entities.Standard;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.NeighbourStrategies

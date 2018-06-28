@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife", "GameOfLife\GameOfLife.csproj", "{F08ECCFD-2F6E-4DFC-AA22-C89647B5C46A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3A46D867-A9BE-4DAD-AC3E-247A1DD694B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{3A46D867-A9BE-4DAD-AC3E-247A1DD694B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{B48C9805-183B-4F19-9AE9-B6B78EC911C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DA22FEF7-B3D1-4573-94B5-6CE4C8D0901C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{3A46D867-A9BE-4DAD-AC3E-247A1DD694B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A46D867-A9BE-4DAD-AC3E-247A1DD694B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A46D867-A9BE-4DAD-AC3E-247A1DD694B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48C9805-183B-4F19-9AE9-B6B78EC911C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48C9805-183B-4F19-9AE9-B6B78EC911C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48C9805-183B-4F19-9AE9-B6B78EC911C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48C9805-183B-4F19-9AE9-B6B78EC911C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA22FEF7-B3D1-4573-94B5-6CE4C8D0901C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA22FEF7-B3D1-4573-94B5-6CE4C8D0901C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA22FEF7-B3D1-4573-94B5-6CE4C8D0901C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA22FEF7-B3D1-4573-94B5-6CE4C8D0901C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

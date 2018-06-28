@@ -1,6 +1,6 @@
-using GameOfLife.Entities.Environmental;
-using GameOfLife.Entities.Environmental.Builder;
-using GameOfLife.Helpers.Functions;
+using Engine.Entities.Environmental;
+using Engine.Entities.Environmental.Builder;
+using Engine.Helpers.Functions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Helpers
