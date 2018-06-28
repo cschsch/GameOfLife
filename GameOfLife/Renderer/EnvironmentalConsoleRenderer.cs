@@ -3,37 +3,38 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using GameOfLife.Entities;
+using GameOfLife.Entities.Environmental;
 using GameOfLife.Renderer.FastConsole;
 using GameOfLife.Helpers;
 
 namespace GameOfLife.Renderer
 {
-    public class ConsoleRenderer : IRenderer
+    public class EnvironmentalConsoleRenderer : IRenderer<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {
         public Stopwatch GenerationWatch { get; }
         private int WorldSize { get; }
-        private Dictionary<Func<Cell, bool>, char> CellRepresentation { get; }
+        private Dictionary<Func<EnvironmentalCell, bool>, char> CellRepresentation { get; }
 
-        public ConsoleRenderer(int worldSize)
+        public EnvironmentalConsoleRenderer(int worldSize)
         {
             Console.Clear();
             WorldSize = worldSize;
             GenerationWatch = new Stopwatch();
-            CellRepresentation = new Dictionary<Func<Cell, bool>, char>
+            CellRepresentation = new Dictionary<Func<EnvironmentalCell, bool>, char>
             {
-                {cell => !cell.IsAlive, Cell.DeadOut},
-                {cell => cell.Diet == DietaryRestrictions.Carnivore, Cell.Carnivore},
-                {cell => cell.Diet == DietaryRestrictions.Herbivore, Cell.Herbivore}
+                {cell => !cell.IsAlive, BaseCell.DeadOut},
+                {cell => cell.Diet == DietaryRestrictions.Carnivore, EnvironmentalCell.Carnivore},
+                {cell => cell.Diet == DietaryRestrictions.Herbivore, EnvironmentalCell.Herbivore}
             };
         }
 
-        public void PrintUi(WorldData data)
+        public void PrintUi(EnvironmentalWorldData data)
         {
             PrintGrid(data.Grid);
             PrintGeneration(data.Generation);
         }
 
-        public void PrintGrid(CellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
+        public void PrintGrid(EnvironmentalCellGrid grid) => QuickWrite.Write(grid.Cells.SelectMany(row => row.Select(cell =>
         {
             var representation = CellRepresentation.First(kv => kv.Key(cell)).Value;
 
@@ -44,8 +45,8 @@ namespace GameOfLife.Renderer
             };
         })), (short) grid.Cells.Count);
 
-        private ConsoleColor GetColorFromLifetime(Cell cell) =>
-            new Match<Cell, ConsoleColor>(
+        private ConsoleColor GetColorFromLifetime(EnvironmentalCell cell) =>
+            new Match<EnvironmentalCell, ConsoleColor>(
                 (c => !c.IsAlive, _ => ConsoleColor.White),
                 (c => c.LifeTime == 1, _ => ConsoleColor.Red),
                 (c => c.LifeTime <= 3, _ => ConsoleColor.Yellow),

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameOfLife.Entities;
-using GameOfLife.Entities.Builder;
+using GameOfLife.Entities.Standard;
+using GameOfLife.Entities.Standard.Builder;
 
 namespace GameOfLife.Core.GeneratorStrategies
 {
-    public class StandardWorldGenerator : IGenerateWorld
+    public class StandardWorldGenerator : IGenerateWorld<StandardCell, StandardCellGrid, StandardWorldData, StandardWorld>
     {
-        public IEnumerable<World> Ticks(World world)
+        public IEnumerable<StandardWorld> Ticks(StandardWorld world)
         {
             yield return world;
 
@@ -18,19 +18,14 @@ namespace GameOfLife.Core.GeneratorStrategies
                         world.NeighbourFinder.FindNeighbours(world.Data.Grid.Cells, outerInd, innerInd),
                         world.Data)).ToArray()).ToArray();
 
-            var herbivoreDensity =
-                (double) world.Data.Grid.Cells.SelectMany(row => row).Where(c => c.IsAlive).Count(c => c.Diet == DietaryRestrictions.Herbivore)
-                / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count);
-
-            var data = new WorldDataBuilder(world.Data)
-                .WithGeneration(world.Data.Generation + 1)
-                .WithGrid(new CellGrid(nextGrid))
-                .WithHerbivoreDensity(herbivoreDensity)
+            var data = new StandardWorldDataBuilder(world.Data)
+                .With(wd => wd.Generation, world.Data.Generation + 1)
+                .With(wd => wd.Grid, new StandardCellGrid(nextGrid))
                 .Create();
 
-            var nextWorld = new WorldBuilder(world).WithData(data).Create();
+            var nextWorld = new StandardWorldBuilder(world).With(w => w.Data, data).Create();
 
-            foreach (var tick in world.Generator.Ticks(nextWorld))
+            foreach (var tick in Ticks(nextWorld))
             {
                 yield return tick;
             }

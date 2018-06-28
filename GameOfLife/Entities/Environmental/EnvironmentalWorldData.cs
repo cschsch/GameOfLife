@@ -1,11 +1,9 @@
 ﻿using GameOfLife.Helpers;
 
-namespace GameOfLife.Entities
+namespace GameOfLife.Entities.Environmental
 {
-    public class WorldData
+    public class EnvironmentalWorldData : BaseWorldData<EnvironmentalCell, EnvironmentalCellGrid>
     {
-        public int Generation { get; set; }
-        public CellGrid Grid { get; set; }
         public double Temperature { get; set; }
         public Density HerbivoreDensity { get; set; }
     }

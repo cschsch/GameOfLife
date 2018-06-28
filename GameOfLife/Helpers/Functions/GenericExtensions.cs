@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace GameOfLife.Helpers.Functions
 {
@@ -14,6 +15,12 @@ namespace GameOfLife.Helpers.Functions
                 var valueOfObjectToGet = typeOfObjects.GetProperty(property.Name).GetValue(objectToGet);
                 property.SetValue(objectToSet, valueOfObjectToGet);
             }
+        }
+
+        public static string GetPropertyName<T, TProperty>(this Expression<Func<T, TProperty>> property)
+        {
+            var body = (MemberExpression) property.Body;
+            return body.Member.Name;
         }
     }
 }

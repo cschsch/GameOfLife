@@ -1,5 +1,5 @@
-using GameOfLife.Entities;
-using GameOfLife.Entities.Builder;
+using GameOfLife.Entities.Environmental;
+using GameOfLife.Entities.Environmental.Builder;
 using GameOfLife.Helpers.Functions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,15 +12,15 @@ namespace Tests.Helpers
         public void SetProperties_SameValues_StaysSame()
         {
             // arrange
-            var cell = new CellBuilder()
-                .WithAlive(true)
-                .WithDiet(DietaryRestrictions.Herbivore)
-                .WithLifetime(5)
+            var cell = new EnvironmentalCellBuilder()
+                .With(c => c.IsAlive, true)
+                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.LifeTime, 5)
                 .Create();
-            var cellToCopy = new CellBuilder()
-                .WithAlive(true)
-                .WithDiet(DietaryRestrictions.Herbivore)
-                .WithLifetime(5)
+            var cellToCopy = new EnvironmentalCellBuilder()
+                .With(c => c.IsAlive, true)
+                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.LifeTime, 5)
                 .Create();
 
             // act
@@ -36,15 +36,15 @@ namespace Tests.Helpers
         public void SetProperties_DifferentValues_IsDifferent()
         {
             // arrange
-            var cell = new CellBuilder()
-                .WithAlive(true)
-                .WithDiet(DietaryRestrictions.Herbivore)
-                .WithLifetime(5)
+            var cell = new EnvironmentalCellBuilder()
+                .With(c => c.IsAlive, true)
+                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.LifeTime, 5)
                 .Create();
-            var cellToCopy = new CellBuilder()
-                .WithAlive(false)
-                .WithDiet(DietaryRestrictions.Carnivore)
-                .WithLifetime(0)
+            var cellToCopy = new EnvironmentalCellBuilder()
+                .With(c => c.IsAlive, false)
+                .With(c => c.Diet, DietaryRestrictions.Carnivore)
+                .With(c => c.LifeTime, 0)
                 .Create();
 
             // act

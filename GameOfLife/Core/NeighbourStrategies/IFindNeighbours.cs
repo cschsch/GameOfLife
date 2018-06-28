@@ -3,8 +3,9 @@ using GameOfLife.Entities;
 
 namespace GameOfLife.Core.NeighbourStrategies
 {
-    public interface IFindNeighbours
+    public interface IFindNeighbours<TCell>
+        where TCell : BaseCell
     {
-        IEnumerable<Cell> FindNeighbours(IReadOnlyList<IReadOnlyList<Cell>> cells, int outerIndex, int innerIndex);
+        IEnumerable<TCell> FindNeighbours(IReadOnlyList<IReadOnlyList<TCell>> cells, int outerIndex, int innerIndex);
     }
 }

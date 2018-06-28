@@ -1,13 +1,9 @@
-﻿namespace GameOfLife.Entities
+﻿namespace GameOfLife.Entities.Environmental
 {
-    public class Cell
+    public class EnvironmentalCell : BaseCell
     {
-        public bool IsAlive { get; set; }
-        public int LifeTime { get; set; }
         public DietaryRestrictions Diet { get; set; }
 
-        public static char DeadOut = ' ';
-        public static char DeadIn => '-';
         public static char Carnivore => 'X';
         public static char Herbivore => 'O';
     }

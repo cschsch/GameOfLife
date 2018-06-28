@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using GameOfLife.Entities;
+using GameOfLife.Entities.Environmental;
 using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Core
 {
-    public class ResultAnalyzer : IAnalyzeResults
+    public class EnvironmentalResultAnalyzer : IAnalyzeResults<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {
         public int PrintInterval { get; }
         private string FilePath { get; }
-        private List<WorldData> Data { get; }
+        private List<EnvironmentalWorldData> Data { get; }
 
-        public ResultAnalyzer(int printInterval, string filePath)
+        public EnvironmentalResultAnalyzer(int printInterval, string filePath)
         {
             PrintInterval = printInterval;
             FilePath = filePath;
-            Data = new List<WorldData>();
+            Data = new List<EnvironmentalWorldData>();
         }
 
-        public void CollectData(WorldData data)
+        public void CollectData(EnvironmentalWorldData data)
         {
             Data.Add(data);
         }

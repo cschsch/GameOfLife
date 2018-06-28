@@ -4,12 +4,16 @@ using GameOfLife.Renderer;
 
 namespace GameOfLife.Core
 {
-    public class Game
+    public abstract class BaseGame<TCell, TCellGrid, TWorldData, TWorld>
+        where TCell : BaseCell
+        where TCellGrid : BaseCellGrid<TCell>
+        where TWorldData : BaseWorldData<TCell, TCellGrid>
+        where TWorld : BaseWorld<TCell, TCellGrid, TWorldData, TWorld>
     {
-        private IRenderer Renderer { get; }
-        private IAnalyzeResults ResultAnalyzer { get; }
+        private IRenderer<TCell, TCellGrid, TWorldData> Renderer { get; }
+        private IAnalyzeResults<TCell, TCellGrid, TWorldData> ResultAnalyzer { get; }
 
-        public Game(IRenderer renderer, IAnalyzeResults resultAnalyzer)
+        protected BaseGame(IRenderer<TCell, TCellGrid, TWorldData> renderer, IAnalyzeResults<TCell, TCellGrid, TWorldData> resultAnalyzer)
         {
             Renderer = renderer;
             ResultAnalyzer = resultAnalyzer;
@@ -17,14 +21,14 @@ namespace GameOfLife.Core
 
         public void Init() => Renderer.GenerationWatch.Start();
 
-        public void GameLoop(World world, int sleep)
+        public void GameLoop(TWorld world, int sleep)
         {
             var nextWorld = PrintGenerations(world, sleep);
             ResultAnalyzer.PrintResultsAsync();
             GameLoop(nextWorld, sleep);
         }
 
-        private World PrintGenerations(World lastWorld, int sleepInMs)
+        private TWorld PrintGenerations(TWorld lastWorld, int sleepInMs)
         {
             var tickToReturn = lastWorld;
 

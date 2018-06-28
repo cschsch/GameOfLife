@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Core.NeighbourStrategies;
-using GameOfLife.Entities;
+using GameOfLife.Entities.Standard;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using static Tests.Sut;
+using static Tests.Sut.Standard;
 
 namespace Tests.NeighbourStrategies
 {
     public static class NeighbourFinderBase
     {
-        public static void FindNeighbours_NoBorders_NoneAlive(IFindNeighbours neighbourFinder)
+        public static void FindNeighbours_NoBorders_NoneAlive(IFindNeighbours<StandardCell> neighbourFinder)
         {
             // arrange
-            var cells = new[]
+            var cells = new []
             {
                 new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
                 new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
@@ -31,7 +31,7 @@ namespace Tests.NeighbourStrategies
             Assert.IsFalse(result.Any(c => c.IsAlive));
         }
 
-        public static void FindNeighbours_NoBorders_TwoAlive(IFindNeighbours neighbourFinder)
+        public static void FindNeighbours_NoBorders_TwoAlive(IFindNeighbours<StandardCell> neighbourFinder)
         {
             // arrange
             var cells = new[]
@@ -51,7 +51,7 @@ namespace Tests.NeighbourStrategies
             Assert.IsTrue(result.Count(c => c.IsAlive) == 2);
         }
 
-        public static void FindNeighbours_OnBorder(IFindNeighbours neighbourFinder, Func<IEnumerable<Cell>, bool> assertion)
+        public static void FindNeighbours_OnBorder(IFindNeighbours<StandardCell> neighbourFinder, Func<IEnumerable<StandardCell>, bool> assertion)
         {
             // arrange
             var cells = new[]

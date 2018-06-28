@@ -5,9 +5,9 @@ using GameOfLife.Helpers.Functions;
 
 namespace GameOfLife.Core.NeighbourStrategies
 {
-    public class OpenNeighbourFinder : IFindNeighbours
+    public class OpenNeighbourFinder<TCell> : IFindNeighbours<TCell> where TCell : BaseCell
     {
-        public IEnumerable<Cell> FindNeighbours(IReadOnlyList<IReadOnlyList<Cell>> cells, int outerIndex, int innerIndex)
+        public IEnumerable<TCell> FindNeighbours(IReadOnlyList<IReadOnlyList<TCell>> cells, int outerIndex, int innerIndex)
         {
             var size = cells.Count;
             return cells.GetValues(Enumerable.Range(outerIndex - 1, 3).Select(ind => (ind + size) % size))

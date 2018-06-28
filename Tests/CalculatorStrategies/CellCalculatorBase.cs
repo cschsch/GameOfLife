@@ -8,7 +8,12 @@ namespace Tests.CalculatorStrategies
 {
     public static class CellCalculatorBase
     {
-        public static void CalculateCell(ICalculateCell cellCalculator, Cell cell, IEnumerable<Cell> neighbours, WorldData data, params Func<Cell, bool>[] assertions)
+        public static void CalculateCell<TCell, TCellGrid, TWorldData>(
+            ICalculateCell<TCell, TCellGrid, TWorldData> cellCalculator, TCell cell, IEnumerable<TCell> neighbours,
+            TWorldData data, params Func<TCell, bool>[] assertions)
+            where TCell : BaseCell
+            where TCellGrid : BaseCellGrid<TCell>
+            where TWorldData : BaseWorldData<TCell, TCellGrid>
         {
             var result = cellCalculator.CalculateCell(cell, neighbours, data);
             foreach (var assertion in assertions)
