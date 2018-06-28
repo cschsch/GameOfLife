@@ -14,7 +14,7 @@ namespace GameOfLife.Entities.Standard.Builder
             DefaultValues = new Dictionary<string, dynamic>
             {
                 {GenericExtensions.GetPropertyName<StandardWorld, StandardWorldData>(w => w.Data), new StandardWorldData() },
-                {GenericExtensions.GetPropertyName<StandardWorld, IFindNeighbours<StandardCell>>(w => w.NeighbourFinder), new OpenNeighbourFinder<StandardCell>() },
+                {GenericExtensions.GetPropertyName<StandardWorld, IFindNeighbours<StandardCell, StandardCellGrid>>(w => w.NeighbourFinder), new OpenNeighbourFinder<StandardCell, StandardCellGrid>() },
                 {GenericExtensions.GetPropertyName<StandardWorld, ICalculateCell<StandardCell, StandardCellGrid, StandardWorldData>>(w => w.CellCalculator), new StandardCellCalculator() },
                 {GenericExtensions.GetPropertyName<StandardWorld, IGenerateWorld<StandardCell, StandardCellGrid, StandardWorldData, StandardWorld>>(w => w.WorldGenerator), new StandardWorldGenerator() }
             };

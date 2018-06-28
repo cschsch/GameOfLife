@@ -16,7 +16,7 @@ namespace GameOfLife.Core.GeneratorStrategies
                 row.AsParallel().Select((_, innerInd) =>
                     world.CellCalculator.CalculateCell(
                         world.Data.Grid.Cells[outerInd][innerInd],
-                        world.NeighbourFinder.FindNeighbours(world.Data.Grid.Cells, outerInd, innerInd),
+                        world.NeighbourFinder.FindNeighbours(world.Data.Grid, outerInd, innerInd),
                         world.Data)).ToArray()).ToArray();
 
             var herbivoreDensity =

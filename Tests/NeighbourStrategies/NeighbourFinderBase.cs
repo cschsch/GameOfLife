@@ -11,7 +11,7 @@ namespace Tests.NeighbourStrategies
 {
     public static class NeighbourFinderBase
     {
-        public static void FindNeighbours_NoBorders_NoneAlive(IFindNeighbours<StandardCell> neighbourFinder)
+        public static void FindNeighbours_NoBorders_NoneAlive(IFindNeighbours<StandardCell, StandardCellGrid> neighbourFinder)
         {
             // arrange
             var cells = new []
@@ -25,13 +25,13 @@ namespace Tests.NeighbourStrategies
             var (outerIndex, innerIndex) = (2, 2);
 
             // act
-            var result = neighbourFinder.FindNeighbours(cells, outerIndex, innerIndex);
+            var result = neighbourFinder.FindNeighbours(new StandardCellGrid(cells), outerIndex, innerIndex);
 
             // assert
             Assert.IsFalse(result.Any(c => c.IsAlive));
         }
 
-        public static void FindNeighbours_NoBorders_TwoAlive(IFindNeighbours<StandardCell> neighbourFinder)
+        public static void FindNeighbours_NoBorders_TwoAlive(IFindNeighbours<StandardCell, StandardCellGrid> neighbourFinder)
         {
             // arrange
             var cells = new[]
@@ -45,13 +45,13 @@ namespace Tests.NeighbourStrategies
             var (outerIndex, innerIndex) = (2, 2);
 
             // act
-            var result = neighbourFinder.FindNeighbours(cells, outerIndex, innerIndex);
+            var result = neighbourFinder.FindNeighbours(new StandardCellGrid(cells), outerIndex, innerIndex);
 
             // assert
             Assert.IsTrue(result.Count(c => c.IsAlive) == 2);
         }
 
-        public static void FindNeighbours_OnBorder(IFindNeighbours<StandardCell> neighbourFinder, Func<IEnumerable<StandardCell>, bool> assertion)
+        public static void FindNeighbours_OnBorder(IFindNeighbours<StandardCell, StandardCellGrid> neighbourFinder, Func<IEnumerable<StandardCell>, bool> assertion)
         {
             // arrange
             var cells = new[]
@@ -65,7 +65,7 @@ namespace Tests.NeighbourStrategies
             var (outerIndex, innerIndex) = (2, 4);
 
             // act
-            var result = neighbourFinder.FindNeighbours(cells, outerIndex, innerIndex);
+            var result = neighbourFinder.FindNeighbours(new StandardCellGrid(cells), outerIndex, innerIndex);
 
             // assert
             Assert.IsTrue(assertion(result));

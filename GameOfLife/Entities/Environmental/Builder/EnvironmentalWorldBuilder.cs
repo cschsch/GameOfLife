@@ -16,7 +16,7 @@ namespace GameOfLife.Entities.Environmental.Builder
             DefaultValues = new Dictionary<string, dynamic>
             {
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, EnvironmentalWorldData>(w => w.Data), new StandardWorldData() },
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IFindNeighbours<EnvironmentalCell>>(w => w.NeighbourFinder), new OpenNeighbourFinder<EnvironmentalCell>() },
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>>(w => w.NeighbourFinder), new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>() },
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateCell<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>(w => w.CellCalculator), new EnvironmentalCellCalculator(new Random()) },
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, IGenerateWorld<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>>(w => w.WorldGenerator), new EnvironmentalWorldGenerator() }
             };

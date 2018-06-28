@@ -38,7 +38,9 @@ namespace GameOfLife
                 .With(wd => wd.Temperature, opts.Temperature)
                 .Create();
 
-            var neighbourFinder = opts.Closed ? new ClosedNeighbourFinder<EnvironmentalCell>() : (IFindNeighbours<EnvironmentalCell>) new OpenNeighbourFinder<EnvironmentalCell>();
+            var neighbourFinder = opts.Closed
+                ? new ClosedNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>()
+                : (IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>) new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>();
             var cellCalculator = new EnvironmentalCellCalculator(new Random());
             var generator = new EnvironmentalWorldGenerator();
             var world = new EnvironmentalWorldBuilder()

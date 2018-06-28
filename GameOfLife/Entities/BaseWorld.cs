@@ -12,7 +12,7 @@ namespace GameOfLife.Entities
         where TWorld : BaseWorld<TCell, TCellGrid, TWorldData, TWorld>
     {
         public TWorldData Data { get; set; }
-        public IFindNeighbours<TCell> NeighbourFinder { get; set; }
+        public IFindNeighbours<TCell, TCellGrid> NeighbourFinder { get; set; }
         public ICalculateCell<TCell, TCellGrid, TWorldData> CellCalculator { get; set; }
         public IGenerateWorld<TCell, TCellGrid, TWorldData, TWorld> WorldGenerator { get; set; }
         public abstract IEnumerable<TWorld> Ticks();
