@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameOfLife.Core.CalculatorStrategies;
 using GameOfLife.Core.GeneratorStrategies;
 using GameOfLife.Core.NeighbourStrategies;
@@ -11,12 +12,12 @@ namespace GameOfLife.Entities.Standard.Builder
     {
         public StandardWorldBuilder() : base(new StandardWorld())
         {
-            DefaultValues = new Dictionary<string, dynamic>
+            DefaultValues = new Dictionary<string, Func<dynamic>>
             {
-                {GenericExtensions.GetPropertyName<StandardWorld, StandardWorldData>(w => w.Data), new StandardWorldData() },
-                {GenericExtensions.GetPropertyName<StandardWorld, IFindNeighbours<StandardCell, StandardCellGrid>>(w => w.NeighbourFinder), new OpenNeighbourFinder<StandardCell, StandardCellGrid>() },
-                {GenericExtensions.GetPropertyName<StandardWorld, ICalculateCell<StandardCell, StandardCellGrid, StandardWorldData>>(w => w.CellCalculator), new StandardCellCalculator() },
-                {GenericExtensions.GetPropertyName<StandardWorld, IGenerateWorld<StandardCell, StandardCellGrid, StandardWorldData, StandardWorld>>(w => w.WorldGenerator), new StandardWorldGenerator() }
+                {GenericExtensions.GetPropertyName<StandardWorld, StandardWorldData>(w => w.Data), () => new StandardWorldData() },
+                {GenericExtensions.GetPropertyName<StandardWorld, IFindNeighbours<StandardCell, StandardCellGrid>>(w => w.NeighbourFinder), () => new OpenNeighbourFinder<StandardCell, StandardCellGrid>() },
+                {GenericExtensions.GetPropertyName<StandardWorld, ICalculateCell<StandardCell, StandardCellGrid, StandardWorldData>>(w => w.CellCalculator), () => new StandardCellCalculator() },
+                {GenericExtensions.GetPropertyName<StandardWorld, IGenerateWorld<StandardCell, StandardCellGrid, StandardWorldData, StandardWorld>>(w => w.WorldGenerator), () => new StandardWorldGenerator() }
             };
         }
 

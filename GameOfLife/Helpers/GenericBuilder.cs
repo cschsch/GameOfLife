@@ -9,7 +9,7 @@ namespace GameOfLife.Helpers
     public abstract class GenericBuilder<TObject>
     {
         protected readonly TObject ObjectToBuild;
-        protected IReadOnlyDictionary<string, dynamic> DefaultValues;
+        protected IReadOnlyDictionary<string, Func<dynamic>> DefaultValues;
         private readonly Dictionary<string, PropertyInfo> _properties;
 
         protected GenericBuilder(TObject objectToBuild)
@@ -35,7 +35,7 @@ namespace GameOfLife.Helpers
         {
             foreach (var property in typeof(TObject).GetProperties().Where(prop => prop.GetValue(ObjectToBuild) is null))
             {
-                _properties[property.Name].SetValue(ObjectToBuild, DefaultValues[property.Name]);
+                _properties[property.Name].SetValue(ObjectToBuild, DefaultValues[property.Name]());
             }
 
             return ObjectToBuild;

@@ -13,12 +13,12 @@ namespace GameOfLife.Entities.Environmental.Builder
     {
         public EnvironmentalWorldBuilder() : base(new EnvironmentalWorld())
         {
-            DefaultValues = new Dictionary<string, dynamic>
+            DefaultValues = new Dictionary<string, Func<dynamic>>
             {
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, EnvironmentalWorldData>(w => w.Data), new StandardWorldData() },
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>>(w => w.NeighbourFinder), new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>() },
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateCell<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>(w => w.CellCalculator), new EnvironmentalCellCalculator(new Random()) },
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IGenerateWorld<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>>(w => w.WorldGenerator), new EnvironmentalWorldGenerator() }
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, EnvironmentalWorldData>(w => w.Data), () => new StandardWorldData() },
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>>(w => w.NeighbourFinder), () => new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>() },
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateCell<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>(w => w.CellCalculator), () => new EnvironmentalCellCalculator(new Random()) },
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, IGenerateWorld<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>>(w => w.WorldGenerator), () => new EnvironmentalWorldGenerator() }
             };
         }
 

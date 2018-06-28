@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using GameOfLife.Helpers;
 using GameOfLife.Helpers.Functions;
 
@@ -8,7 +9,7 @@ namespace GameOfLife.Entities.Environmental.Builder
     {
         public EnvironmentalCellBuilder() : base(new EnvironmentalCell())
         {
-            DefaultValues = new Dictionary<string, dynamic>();
+            DefaultValues = new Dictionary<string, Func<dynamic>>();
         }
 
         public EnvironmentalCellBuilder(EnvironmentalCell initial) : this() => ObjectToBuild.SetProperties(initial);
