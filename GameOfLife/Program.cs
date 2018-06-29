@@ -8,6 +8,8 @@ using Engine.Core.NeighbourStrategies;
 using Engine.Entities.Environmental;
 using Engine.Entities.Environmental.Builder;
 using Engine.Helpers;
+using GameOfLife.Game;
+using GameOfLife.ResultAnalyzer;
 using Graphics.Renderer;
 using Tp.Core;
 

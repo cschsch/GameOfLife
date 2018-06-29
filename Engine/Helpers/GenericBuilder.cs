@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Engine.Helpers
 {
-    public abstract class GenericBuilder<TObject>
+    public abstract class GenericBuilder<TObject> : IGenericBuilder<TObject>
     {
         protected readonly TObject ObjectToBuild;
         protected IReadOnlyDictionary<string, Func<dynamic>> DefaultValues;
@@ -23,7 +23,7 @@ namespace Engine.Helpers
                 .ToDictionary(prop => prop.Name);
         }
 
-        public GenericBuilder<TObject> With<TValue>(Expression<Func<TObject, TValue>> property, TValue value)
+        public IGenericBuilder<TObject> With<TValue>(Expression<Func<TObject, TValue>> property, TValue value)
         {
             var body = (MemberExpression) property.Body;
             var propertyName = body.Member.Name;

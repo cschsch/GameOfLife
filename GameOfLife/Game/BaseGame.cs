@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Engine.Entities;
+using GameOfLife.ResultAnalyzer;
 using Graphics.Renderer;
 
-namespace GameOfLife
+namespace GameOfLife.Game
 {
     public abstract class BaseGame<TCell, TCellGrid, TWorldData, TWorld>
         where TCell : BaseCell

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Engine.Entities;
 
-namespace GameOfLife
+namespace GameOfLife.ResultAnalyzer
 {
     /// <summary>
     /// Analyzes data of each given world and prints the results

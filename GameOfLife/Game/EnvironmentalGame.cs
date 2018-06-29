@@ -1,7 +1,8 @@
 ﻿using Engine.Entities.Environmental;
 using Graphics.Renderer;
+using GameOfLife.ResultAnalyzer;
 
-namespace GameOfLife
+namespace GameOfLife.Game
 {
     public class EnvironmentalGame : BaseGame<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>
     {

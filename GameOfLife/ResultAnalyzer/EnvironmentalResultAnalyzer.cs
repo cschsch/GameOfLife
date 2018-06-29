@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Engine.Entities.Environmental;
 using Engine.Helpers.Functions;
 
-namespace GameOfLife
+namespace GameOfLife.ResultAnalyzer
 {
     public class EnvironmentalResultAnalyzer : IAnalyzeResults<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {
