@@ -10,7 +10,7 @@ namespace Engine.Helpers
     {
         protected readonly TObject ObjectToBuild;
         protected IReadOnlyDictionary<string, Func<dynamic>> DefaultValues;
-        private readonly Dictionary<string, PropertyInfo> _properties;
+        private readonly IReadOnlyDictionary<string, PropertyInfo> _properties;
 
         protected GenericBuilder(TObject objectToBuild)
         {

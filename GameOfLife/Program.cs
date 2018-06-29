@@ -1,21 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using CommandLine;
-using Engine.Core.CalculatorStrategies;
-using Engine.Core.GeneratorStrategies;
-using Engine.Core.NeighbourStrategies;
 using Engine.Entities.Environmental;
-using Engine.Entities.Environmental.Builder;
+using Engine.Entities.Standard;
 using Engine.Helpers;
-using GameOfLife.Game;
-using GameOfLife.ResultAnalyzer;
-using Graphics.Renderer;
+using GameOfLife.Entities;
+using GameOfLife.Helpers;
+using GameOfLife.Mapper;
 using Tp.Core;
 
 namespace GameOfLife
 {
-    internal static class Program
+    internal class Program
     {
         public static void Main(string[] args)
         {
@@ -26,82 +24,65 @@ namespace GameOfLife
             worldOrError.Switch(StartGame, Console.Write);
         }
 
-        private static GameVariables MapArgs(CommandOptions opts)
+        private static GameVariables MapArgs(CommandOptions options)
         {
-            var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
-            var grid = new Match<CommandOptions, EnvironmentalCellGrid>(
-                (opt => opt.FigureName.Length > 0, opt => new EnvironmentalCellGrid(figures[opt.FigureName.ToUpper()])),
-                (opt => opt.FilePath.Length > 0, opt => new EnvironmentalCellGrid(File.ReadAllText(opt.FilePath))),
-                (_ => true, opt => new EnvironmentalCellGrid(opt.Size))).MatchFirst(opts);
+            var mapper = new EngineTypeMapper();
 
-            var data = new EnvironmentalWorldDataBuilder()
-                .With(wd => wd.Grid, grid)
-                .With(wd => wd.Temperature, opts.Temperature)
+            var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
+            var constructorArg = new Match<CommandOptions, Either<string, int>>(
+                (opt => opt.FigureName.Length > 0, opt => Either.CreateLeft<string, int>(figures[opt.FigureName.ToUpper()])),
+                (opt => opt.FilePath.Length > 0, opt => Either.CreateLeft<string, int>(File.ReadAllText(opt.FilePath))),
+                (_ => true, opt => Either.CreateRight<string, int>(opt.Size))).MatchFirst(options);
+            var grid = mapper.CellGridTypeMap[options.GameType];
+
+            var worldDataBuilder = mapper.WorldDataTypeMap[options.GameType]();
+            var data = worldDataBuilder
+                .With(wd => wd.Grid, wd => wd.Grid, grid(constructorArg))
+                .With(Maybe<Expression<Func<StandardWorldData, double>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, double>>>(wd => wd.Temperature), options.Temperature)
                 .Create();
 
-            var neighbourFinder = opts.Closed
-                ? new ClosedNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>()
-                : (IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>) new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>();
-            var cellCalculator = new EnvironmentalCellCalculator(new Random());
-            var generator = new EnvironmentalWorldGenerator();
-            var world = new EnvironmentalWorldBuilder()
-                .With(w => w.Data, data)
-                .With(w => w.NeighbourFinder, neighbourFinder)
-                .With(w => w.CellCalculator, cellCalculator)
-                .With(w => w.WorldGenerator, generator)
+            var neighbourFinder = options.Closed
+                ? mapper.ClosedNeighbourFinderMap[options.GameType]
+                : mapper.OpenNeighbourFinderMap[options.GameType];
+            var cellCalculator = mapper.CellCalculatorMap[options.GameType];
+            var worldGenerator = mapper.WorldGeneratorMap[options.GameType];
+
+            var worldBuilder = mapper.WorldTypeMap[options.GameType]();
+            var world = worldBuilder
+                .With(w => w.Data, w => w.Data, data)
+                .With(w => w.NeighbourFinder, w => w.NeighbourFinder, neighbourFinder())
+                .With(w => w.CellCalculator, w => w.CellCalculator, cellCalculator())
+                .With(w => w.WorldGenerator, w => w.WorldGenerator, worldGenerator())
                 .Create();
 
             return new GameVariables
             {
                 World = world,
-                ThreadSleep = opts.ThreadSleep,
-                PrintInterval = opts.PrintInterval,
-                PrintFile = opts.PrintFile
+                GameType = options.GameType,
+                ThreadSleep = options.ThreadSleep,
+                PrintInterval = options.PrintInterval,
+                PrintFile = options.PrintFile
             };
         }
 
         private static void StartGame(GameVariables variables)
         {
-            var renderer = new EnvironmentalConsoleRenderer(variables.World.Data.Grid.Cells.Count);
-            var resultAnalyzer = new EnvironmentalResultAnalyzer(variables.PrintInterval, variables.PrintFile);
-            var game = new EnvironmentalGame(renderer, resultAnalyzer);
-            game.Init();
-            game.GameLoop(variables.World, variables.ThreadSleep);
+            var mapper = new GeneralTypeMapper();
+
+            var renderer = mapper.ConsoleRendererMap[variables.GameType];
+            var resultAnalyzer = mapper.ResultAnalyzerMap[variables.GameType];
+            var game = mapper.GameMapper[variables.GameType];
+
+            game(renderer(), resultAnalyzer(variables.PrintInterval, Maybe.Just(variables.PrintFile))).Switch(
+                left =>
+                {
+                    left.Init();
+                    left.GameLoop(variables.World.Left(), variables.ThreadSleep);
+                }, right =>
+                {
+                    right.Init();
+                    right.GameLoop(variables.World.Right(), variables.ThreadSleep);
+                });
         }
-    }
-
-    internal struct GameVariables
-    {
-        public EnvironmentalWorld World { get; set; }
-        public int ThreadSleep { get; set; }
-        public int PrintInterval { get; set; }
-        public string PrintFile { get; set; }
-    }
-
-    internal class CommandOptions
-    {
-        [Option('s', "size", Default = 69)]
-        public int Size { get; set; }
-
-        [Option('f', "figure", Default = "")]
-        public string FigureName { get; set; }
-
-        [Option("file", Default = "")]
-        public string FilePath { get; set; }
-
-        [Option('t', "thread_sleep")]
-        public int ThreadSleep { get; set; }
-
-        [Option('c', "closed")]
-        public bool Closed { get; set; }
-
-        [Option("temperature")]
-        public int Temperature { get; set; }
-
-        [Option('i', "print_interval", Default = 100)]
-        public int PrintInterval { get; set; }
-
-        [Option('p', "print_file", Default = @"analyzation\01.txt")]
-        public string PrintFile { get; set; }
     }
 }

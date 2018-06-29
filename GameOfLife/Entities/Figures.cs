@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace GameOfLife
+namespace GameOfLife.Entities
 {
     public static class Figures
     {

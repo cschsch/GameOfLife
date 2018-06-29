@@ -13,7 +13,7 @@ namespace Engine.Entities.Standard
 
         public StandardCellGrid(string cellRep)
         {
-            var cellRepToBuilder = new Dictionary<char, Func<GenericBuilder<StandardCell>, GenericBuilder<StandardCell>>>
+            var cellRepToBuilder = new Dictionary<char, Func<IGenericBuilder<StandardCell>, IGenericBuilder<StandardCell>>>
             {
                 {BaseCell.DeadIn, builder => builder.With(c => c.IsAlive, false)},
                 {BaseCell.DeadOut, builder => builder.With(c => c.IsAlive, false)}

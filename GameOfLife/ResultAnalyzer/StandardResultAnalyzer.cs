@@ -7,6 +7,11 @@ namespace GameOfLife.ResultAnalyzer
     {
         public int PrintInterval { get; }
 
+        public StandardResultAnalyzer(int printInterval)
+        {
+            PrintInterval = printInterval;
+        }
+
         public void CollectData(StandardWorldData data)
         {
         }

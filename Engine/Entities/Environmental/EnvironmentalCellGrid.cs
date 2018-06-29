@@ -13,7 +13,7 @@ namespace Engine.Entities.Environmental
 
         public EnvironmentalCellGrid(string cellRep)
         {
-            var cellRepToBuilder = new Dictionary<char, Func<GenericBuilder<EnvironmentalCell>, GenericBuilder<EnvironmentalCell>>>
+            var cellRepToBuilder = new Dictionary<char, Func<IGenericBuilder<EnvironmentalCell>, IGenericBuilder<EnvironmentalCell>>>
             {
                 {BaseCell.DeadIn, builder => builder.With(c => c.IsAlive, false)},
                 {BaseCell.DeadOut, builder => builder.With(c => c.IsAlive, false) },
