@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Engine.Entities;
+﻿using Engine.Entities;
 using Engine.Entities.Environmental;
 using Engine.Helpers;
 

@@ -32,15 +32,9 @@ namespace GameOfLife.Helpers
         }
 
         public IGenericEitherBuilder<T1, T2> With<TValue>(Maybe<Expression<Func<T1, TValue>>> ifLeft, Maybe<Expression<Func<T2, TValue>>> ifRight, TValue value) =>
-            _leftOrRight.Switch(_ =>
-            {
-                if (ifLeft.HasValue) return WithLeft(ifLeft.Value, value);
-                return this;
-            }, _ =>
-            {
-                if (ifRight.HasValue) return WithRight(ifRight.Value, value);
-                return this;
-            });
+            _leftOrRight.Switch(
+                _ => ifLeft.HasValue ? WithLeft(ifLeft.Value, value) : this, 
+                _ => ifRight.HasValue ? WithRight(ifRight.Value, value) : this);
 
         public IGenericEitherBuilder<T1, T2> With<TValueLeft, TValueRight>(Expression<Func<T1, TValueLeft>> ifLeft, Expression<Func<T2, TValueRight>> ifRight, Either<TValueLeft, TValueRight> values) =>
             values.Switch(left => WithLeft(ifLeft, left), right => WithRight(ifRight, right));
