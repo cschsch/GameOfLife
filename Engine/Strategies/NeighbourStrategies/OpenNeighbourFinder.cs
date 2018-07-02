@@ -3,7 +3,7 @@ using System.Linq;
 using Engine.Entities;
 using Engine.Helpers.Functions;
 
-namespace Engine.Core.NeighbourStrategies
+namespace Engine.Strategies.NeighbourStrategies
 {
     public class OpenNeighbourFinder<TCell, TCellGrid> : IFindNeighbours<TCell, TCellGrid>
         where TCell : BaseCell

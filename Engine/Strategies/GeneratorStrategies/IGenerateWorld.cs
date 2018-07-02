@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Engine.Entities;
 
-namespace Engine.Core.GeneratorStrategies
+namespace Engine.Strategies.GeneratorStrategies
 {
     /// <summary>
     /// Needed to generate the next world from a given one

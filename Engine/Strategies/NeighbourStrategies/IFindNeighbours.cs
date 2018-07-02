@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Engine.Entities;
 
-namespace Engine.Core.NeighbourStrategies
+namespace Engine.Strategies.NeighbourStrategies
 {
     /// <summary>
     /// Needed to find the cells adjacent to a given one

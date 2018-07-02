@@ -5,7 +5,7 @@ using Engine.Entities.Environmental;
 using Engine.Helpers;
 using Engine.Helpers.Functions;
 
-namespace Engine.Core.CalculatorStrategies
+namespace Engine.Strategies.CalculatorStrategies
 {
     public class EnvironmentalCellCalculator : ICalculateCell<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {

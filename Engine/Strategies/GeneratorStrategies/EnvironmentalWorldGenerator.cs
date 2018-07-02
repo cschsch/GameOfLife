@@ -4,7 +4,7 @@ using Engine.Entities.Environmental;
 using Engine.Entities.Environmental.Builder;
 using Engine.Helpers;
 
-namespace Engine.Core.GeneratorStrategies
+namespace Engine.Strategies.GeneratorStrategies
 {
     public class EnvironmentalWorldGenerator : IGenerateWorld<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>
     {

@@ -1,5 +1,5 @@
 using System.Linq;
-using Engine.Core.NeighbourStrategies;
+using Engine.Strategies.NeighbourStrategies;
 using Engine.Entities.Standard;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -3,7 +3,7 @@ using System.Linq;
 using Engine.Entities.Standard;
 using Engine.Helpers;
 
-namespace Engine.Core.CalculatorStrategies
+namespace Engine.Strategies.CalculatorStrategies
 {
     public class StandardCellCalculator : ICalculateCell<StandardCell, StandardCellGrid, StandardWorldData>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Engine.Entities;
 
-namespace Engine.Core.CalculatorStrategies
+namespace Engine.Strategies.CalculatorStrategies
 {
     /// <summary>
     /// Needed to calculate the next state of each cell

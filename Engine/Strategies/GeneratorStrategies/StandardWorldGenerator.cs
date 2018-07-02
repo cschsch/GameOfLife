@@ -3,7 +3,7 @@ using System.Linq;
 using Engine.Entities.Standard;
 using Engine.Entities.Standard.Builder;
 
-namespace Engine.Core.GeneratorStrategies
+namespace Engine.Strategies.GeneratorStrategies
 {
     public class StandardWorldGenerator : IGenerateWorld<StandardCell, StandardCellGrid, StandardWorldData, StandardWorld>
     {

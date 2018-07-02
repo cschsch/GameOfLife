@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Engine.Core.CalculatorStrategies;
-using Engine.Core.GeneratorStrategies;
-using Engine.Core.NeighbourStrategies;
+using Engine.Strategies.CalculatorStrategies;
+using Engine.Strategies.GeneratorStrategies;
+using Engine.Strategies.NeighbourStrategies;
 using Engine.Entities.Standard;
 using Engine.Helpers;
 using Engine.Helpers.Functions;

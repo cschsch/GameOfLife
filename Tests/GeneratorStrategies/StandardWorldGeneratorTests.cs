@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Engine.Core.GeneratorStrategies;
+using Engine.Strategies.GeneratorStrategies;
 using Engine.Entities.Standard;
 using Engine.Entities.Standard.Builder;
 using Engine.Helpers.Functions;

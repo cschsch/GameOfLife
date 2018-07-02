@@ -1,5 +1,5 @@
 using System.Linq;
-using Engine.Core.CalculatorStrategies;
+using Engine.Strategies.CalculatorStrategies;
 using Engine.Entities.Standard;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Tests.Sut.Standard;

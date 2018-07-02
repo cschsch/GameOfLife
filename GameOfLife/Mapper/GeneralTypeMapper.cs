@@ -21,8 +21,8 @@ namespace GameOfLife.Mapper
             Either<StandardResultAnalyzer, EnvironmentalResultAnalyzer>>> ResultAnalyzerMap;
 
         public readonly IReadOnlyDictionary<GameType, Func<
-            Either<IRenderer<StandardCell, StandardCellGrid, StandardWorldData>, IRenderer<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>, 
-            Either<IAnalyzeResults<StandardCell, StandardCellGrid, StandardWorldData>, IAnalyzeResults<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>, 
+            Either<IRenderer<StandardCell, StandardCellGrid, StandardWorldData>, IRenderer<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>,
+            Either<IAnalyzeResults<StandardCell, StandardCellGrid, StandardWorldData>, IAnalyzeResults<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>,
             Either<StandardGame, EnvironmentalGame>>> GameMapper;
 
         public GeneralTypeMapper()

@@ -24,7 +24,7 @@ namespace GameOfLife.Helpers
                     .GetProperties()
                     .Where(prop => prop.CanWrite))
                 .ToDictionary(prop => prop.Name);
-            
+
             value.Switch(left => _leftOrRight = Either.CreateLeft<T1, T2>(left), right => _leftOrRight = Either.CreateRight<T1, T2>(right));
             value.Switch(left => _valueOfLeft = left, right => _valueOfRight = right);
             _propertiesLeft = GetPropertiesWithNames<T1>();
@@ -33,7 +33,7 @@ namespace GameOfLife.Helpers
 
         public IGenericEitherBuilder<T1, T2> With<TValue>(Maybe<Expression<Func<T1, TValue>>> ifLeft, Maybe<Expression<Func<T2, TValue>>> ifRight, TValue value) =>
             _leftOrRight.Switch(
-                _ => ifLeft.HasValue ? WithLeft(ifLeft.Value, value) : this, 
+                _ => ifLeft.HasValue ? WithLeft(ifLeft.Value, value) : this,
                 _ => ifRight.HasValue ? WithRight(ifRight.Value, value) : this);
 
         public IGenericEitherBuilder<T1, T2> With<TValueLeft, TValueRight>(Expression<Func<T1, TValueLeft>> ifLeft, Expression<Func<T2, TValueRight>> ifRight, Either<TValueLeft, TValueRight> values) =>

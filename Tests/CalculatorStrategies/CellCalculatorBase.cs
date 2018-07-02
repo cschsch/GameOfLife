@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Engine.Core.CalculatorStrategies;
+using Engine.Strategies.CalculatorStrategies;
 using Engine.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
