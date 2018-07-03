@@ -2,7 +2,7 @@
 
 using Engine.Entities.Standard;
 
-namespace GameOfLife.ResultAnalyzer
+namespace ResultAnalyzer
 {
     public class StandardResultAnalyzer : IAnalyzeResults<StandardCell, StandardCellGrid, StandardWorldData>
     {

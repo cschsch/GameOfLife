@@ -2,9 +2,9 @@
 
 using Engine.Entities;
 
-using GameOfLife.ResultAnalyzer;
+using Graphics.Console;
 
-using Graphics.Renderer;
+using ResultAnalyzer;
 
 namespace GameOfLife.Game
 {

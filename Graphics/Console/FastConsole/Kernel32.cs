@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 using Microsoft.Win32.SafeHandles;
 
-namespace Graphics.Renderer.FastConsole
+namespace Graphics.Console.FastConsole
 {
     public static class Kernel32
     {

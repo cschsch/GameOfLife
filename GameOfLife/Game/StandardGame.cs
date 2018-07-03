@@ -1,8 +1,8 @@
 ﻿using Engine.Entities.Standard;
 
-using GameOfLife.ResultAnalyzer;
+using Graphics.Console;
 
-using Graphics.Renderer;
+using ResultAnalyzer;
 
 namespace GameOfLife.Game
 {

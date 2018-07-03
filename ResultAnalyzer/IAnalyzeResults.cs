@@ -2,7 +2,7 @@
 
 using Engine.Entities;
 
-namespace GameOfLife.ResultAnalyzer
+namespace ResultAnalyzer
 {
     /// <summary>
     /// Analyzes data of each given world and prints the results

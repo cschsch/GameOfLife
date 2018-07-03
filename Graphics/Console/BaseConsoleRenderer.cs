@@ -5,9 +5,9 @@ using System.Linq;
 using Engine.Entities;
 using Engine.Helpers;
 
-using Graphics.Renderer.FastConsole;
+using Graphics.Console.FastConsole;
 
-namespace Graphics.Renderer
+namespace Graphics.Console
 {
     public abstract class BaseConsoleRenderer<TCell, TCellGrid, TWorldData> : IRenderer<TCell, TCellGrid, TWorldData>
         where TCell : BaseCell
@@ -19,7 +19,7 @@ namespace Graphics.Renderer
 
         protected BaseConsoleRenderer(Match<TCell, char> cellRepresentation)
         {
-            Console.Clear();
+            System.Console.Clear();
             GenerationWatch = new Stopwatch();
             CellRepresentation = cellRepresentation;
         }
@@ -51,8 +51,8 @@ namespace Graphics.Renderer
 
         private void PrintGeneration(int generation, int worldSize)
         {
-            Console.SetCursorPosition(0, worldSize + 1);
-            Console.Write($"Generation {generation}{Environment.NewLine}Generations/sec: {generation / GenerationWatch.Elapsed.TotalSeconds}");
+            System.Console.SetCursorPosition(0, worldSize + 1);
+            System.Console.Write($"Generation {generation}{Environment.NewLine}Generations/sec: {generation / GenerationWatch.Elapsed.TotalSeconds}");
         }
     }
 }

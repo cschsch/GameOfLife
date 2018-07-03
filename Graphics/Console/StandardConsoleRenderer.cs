@@ -2,7 +2,7 @@
 using Engine.Entities.Standard;
 using Engine.Helpers;
 
-namespace Graphics.Renderer
+namespace Graphics.Console
 {
     public class StandardConsoleRenderer : BaseConsoleRenderer<StandardCell, StandardCellGrid, StandardWorldData>
     {

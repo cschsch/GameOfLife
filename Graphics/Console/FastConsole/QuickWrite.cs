@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Graphics.Renderer.FastConsole
+namespace Graphics.Console.FastConsole
 {
     public static class QuickWrite
     {

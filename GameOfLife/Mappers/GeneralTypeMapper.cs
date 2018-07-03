@@ -7,9 +7,10 @@ using Engine.Entities.Standard;
 using GameOfLife.Entities;
 using GameOfLife.Game;
 using GameOfLife.Helpers;
-using GameOfLife.ResultAnalyzer;
 
-using Graphics.Renderer;
+using Graphics.Console;
+
+using ResultAnalyzer;
 
 using Tp.Core;
 

@@ -2,7 +2,7 @@
 using Engine.Entities.Environmental;
 using Engine.Helpers;
 
-namespace Graphics.Renderer
+namespace Graphics.Console
 {
     public class EnvironmentalConsoleRenderer : BaseConsoleRenderer<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {

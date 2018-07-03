@@ -2,7 +2,7 @@
 
 using Engine.Entities;
 
-namespace Graphics.Renderer
+namespace Graphics.Console
 {
     /// <summary>
     /// Needed to visualize a world

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj" />
     <ProjectReference Include="..\Graphics\Graphics.csproj" />
+    <ProjectReference Include="..\ResultAnalyzer\ResultAnalyzer.csproj" />
   </ItemGroup>
 
 </Project>
