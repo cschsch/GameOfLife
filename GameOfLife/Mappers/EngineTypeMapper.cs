@@ -12,7 +12,7 @@ using GameOfLife.Helpers;
 
 using Tp.Core;
 
-namespace GameOfLife.Mapper
+namespace GameOfLife.Mappers
 {
     public class EngineTypeMapper
     {

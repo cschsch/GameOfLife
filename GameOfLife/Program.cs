@@ -12,7 +12,7 @@ using Engine.Strategies.SeasonStrategies;
 
 using GameOfLife.Entities;
 using GameOfLife.Helpers;
-using GameOfLife.Mapper;
+using GameOfLife.Mappers;
 
 using Tp.Core;
 

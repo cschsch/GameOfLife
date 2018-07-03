@@ -13,7 +13,7 @@ using Graphics.Renderer;
 
 using Tp.Core;
 
-namespace GameOfLife.Mapper
+namespace GameOfLife.Mappers
 {
     public class GeneralTypeMapper
     {
