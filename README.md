@@ -9,7 +9,7 @@ Additionally, the world has a settable temperature which influences the chance o
 dotnet GameOfLife.dll [args]
 
 # Command line arguments
-  --game_type [0 | Standard, 1 | Environmental]
+  --game_type [1 | Standard, 2 | Environmental]
   
     Default: Environmental
     
