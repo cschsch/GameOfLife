@@ -6,6 +6,7 @@ using CommandLine;
 using Engine.Entities.Environmental;
 using Engine.Entities.Standard;
 using Engine.Helpers;
+using Engine.Strategies.SeasonStrategies;
 using GameOfLife.Entities;
 using GameOfLife.Helpers;
 using GameOfLife.Mapper;
@@ -39,6 +40,7 @@ namespace GameOfLife
             var data = worldDataBuilder
                 .With(wd => wd.Grid, wd => wd.Grid, grid(constructorArg))
                 .With(Maybe<Expression<Func<StandardWorldData, double>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, double>>>(wd => wd.Temperature), options.Temperature)
+                .With(Maybe<Expression<Func<StandardWorldData, Season>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, Season>>>(wd => wd.Season), Season.Spring)
                 .Create();
 
             var neighbourFinder = options.Closed
@@ -46,6 +48,7 @@ namespace GameOfLife
                 : mapper.OpenNeighbourFinderMap[options.GameType];
             var cellCalculator = mapper.CellCalculatorMap[options.GameType];
             var worldGenerator = mapper.WorldGeneratorMap[options.GameType];
+            var seasonCalculator = options.Seasons ? (ICalculateSeason) new StandardSeasonCalculator() : new NoSeasonCalculator();
 
             var worldBuilder = mapper.WorldTypeMap[options.GameType]();
             var world = worldBuilder
@@ -53,6 +56,7 @@ namespace GameOfLife
                 .With(w => w.NeighbourFinder, w => w.NeighbourFinder, neighbourFinder())
                 .With(w => w.CellCalculator, w => w.CellCalculator, cellCalculator())
                 .With(w => w.WorldGenerator, w => w.WorldGenerator, worldGenerator())
+                .With(Maybe<Expression<Func<StandardWorld, ICalculateSeason>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorld, ICalculateSeason>>>(w => w.SeasonCalculator), seasonCalculator)
                 .Create();
 
             return new GameVariables

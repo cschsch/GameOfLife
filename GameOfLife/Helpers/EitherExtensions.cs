@@ -14,7 +14,7 @@ namespace GameOfLife.Helpers
         public static TRight Right<TLeft, TRight>(this Either<TLeft, TRight> either)
         {
             var result = default(TRight);
-            either.Switch(_ => {}, right => result = right);
+            either.Switch(_ => { }, right => result = right);
             return result;
         }
     }

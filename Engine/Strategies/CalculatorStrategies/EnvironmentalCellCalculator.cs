@@ -24,7 +24,7 @@ namespace Engine.Strategies.CalculatorStrategies
 
             var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestrictions.Carnivore) - aliveByDiet.GetValueOrDefault(DietaryRestrictions.Herbivore);
 
-            var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature / (1 + data.Temperature));
+            var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature.DivideSkipZeroDivisor(1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);
 
             if (cell.Diet == DietaryRestrictions.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2)

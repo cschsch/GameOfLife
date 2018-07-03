@@ -11,7 +11,8 @@ namespace Engine.Entities.Environmental.Builder
         {
             DefaultValues = new Dictionary<string, Func<dynamic>>
             {
-                {GenericExtensions.GetPropertyName<EnvironmentalWorldData, EnvironmentalCellGrid>(wd => wd.Grid), () => new EnvironmentalCellGrid(0)}
+                {GenericExtensions.GetPropertyName<EnvironmentalWorldData, EnvironmentalCellGrid>(wd => wd.Grid), () => new EnvironmentalCellGrid(0)},
+                {GenericExtensions.GetPropertyName<EnvironmentalWorldData, Season>(wd => wd.Season), () => Season.Spring}
             };
         }
 

@@ -30,5 +30,8 @@ namespace GameOfLife.Entities
 
         [Option('p', "print_file", Default = @"analyzation\01.txt")]
         public string PrintFile { get; set; }
+
+        [Option("seasons")]
+        public bool Seasons { get; set; }
     }
 }
