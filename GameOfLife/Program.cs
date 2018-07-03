@@ -2,14 +2,18 @@
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+
 using CommandLine;
+
 using Engine.Entities.Environmental;
 using Engine.Entities.Standard;
 using Engine.Helpers;
 using Engine.Strategies.SeasonStrategies;
+
 using GameOfLife.Entities;
 using GameOfLife.Helpers;
 using GameOfLife.Mapper;
+
 using Tp.Core;
 
 namespace GameOfLife

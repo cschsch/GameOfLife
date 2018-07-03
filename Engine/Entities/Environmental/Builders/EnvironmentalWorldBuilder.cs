@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Engine.Strategies.CalculatorStrategies;
-using Engine.Strategies.GeneratorStrategies;
-using Engine.Strategies.NeighbourStrategies;
+
 using Engine.Entities.Standard;
 using Engine.Helpers;
 using Engine.Helpers.Functions;
+using Engine.Strategies.CalculatorStrategies;
+using Engine.Strategies.GeneratorStrategies;
+using Engine.Strategies.NeighbourStrategies;
 using Engine.Strategies.SeasonStrategies;
 
 namespace Engine.Entities.Environmental.Builders

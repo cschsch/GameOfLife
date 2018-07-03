@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+
 using Engine.Entities;
 
 namespace Graphics.Renderer

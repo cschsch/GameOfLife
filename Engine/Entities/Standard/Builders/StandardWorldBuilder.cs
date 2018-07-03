@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using Engine.Helpers;
+using Engine.Helpers.Functions;
 using Engine.Strategies.CalculatorStrategies;
 using Engine.Strategies.GeneratorStrategies;
 using Engine.Strategies.NeighbourStrategies;
-using Engine.Helpers;
-using Engine.Helpers.Functions;
 
 namespace Engine.Entities.Standard.Builders
 {

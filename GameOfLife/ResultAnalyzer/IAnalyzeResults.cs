@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 using Engine.Entities;
 
 namespace GameOfLife.ResultAnalyzer

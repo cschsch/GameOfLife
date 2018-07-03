@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Engine.Entities.Standard;
 using Engine.Strategies.NeighbourStrategies;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static Tests.Sut.Standard;

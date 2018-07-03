@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+
 using Engine.Entities;
 using Engine.Helpers;
+
 using Graphics.Renderer.FastConsole;
 
 namespace Graphics.Renderer

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using Engine.Entities.Environmental;
+using Engine.Entities.Standard;
 using Engine.Strategies.CalculatorStrategies;
 using Engine.Strategies.GeneratorStrategies;
 using Engine.Strategies.NeighbourStrategies;
-using Engine.Entities.Environmental;
-using Engine.Entities.Standard;
+
 using GameOfLife.Entities;
 using GameOfLife.Helpers;
+
 using Tp.Core;
 
 namespace GameOfLife.Mapper

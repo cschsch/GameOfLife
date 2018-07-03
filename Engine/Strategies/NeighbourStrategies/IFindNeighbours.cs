@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Engine.Entities;
 
 namespace Engine.Strategies.NeighbourStrategies

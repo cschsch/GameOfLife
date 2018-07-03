@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+
 using Engine.Entities;
+
 using GameOfLife.ResultAnalyzer;
+
 using Graphics.Renderer;
 
 namespace GameOfLife.Game

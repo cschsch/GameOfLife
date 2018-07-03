@@ -1,6 +1,8 @@
 using System.Linq;
+
 using Engine.Entities.Standard;
 using Engine.Strategies.NeighbourStrategies;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Engine.NeighbourStrategies

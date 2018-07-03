@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Engine.Entities;
 using Engine.Strategies.CalculatorStrategies;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Engine.CalculatorStrategies

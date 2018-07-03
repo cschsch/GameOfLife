@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
+
 using Engine.Entities.Environmental;
 using Engine.Entities.Environmental.Builders;
 using Engine.Helpers.Functions;
 using Engine.Strategies.GeneratorStrategies;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using static Tests.Sut.Environmental;
 
 namespace Tests.Engine.GeneratorStrategies

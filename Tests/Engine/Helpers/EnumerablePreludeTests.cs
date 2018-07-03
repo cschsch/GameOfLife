@@ -1,5 +1,7 @@
 using System.Linq;
+
 using Engine.Helpers.Functions;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Engine.Helpers

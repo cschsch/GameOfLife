@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Engine.Strategies.CalculatorStrategies;
 using Engine.Strategies.GeneratorStrategies;
 using Engine.Strategies.NeighbourStrategies;

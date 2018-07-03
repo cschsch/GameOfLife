@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Engine.Entities.Environmental;
 using Engine.Entities.Standard;
+
 using GameOfLife.Entities;
 using GameOfLife.Game;
 using GameOfLife.Helpers;
 using GameOfLife.ResultAnalyzer;
+
 using Graphics.Renderer;
+
 using Tp.Core;
 
 namespace GameOfLife.Mapper
