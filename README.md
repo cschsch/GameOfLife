@@ -52,5 +52,9 @@ dotnet GameOfLife.dll [args]
     Default: "analyzation\01.txt" (Only works if folder analyzation exists within executing directory)
     
     Set the location where the ResultAnalyzer prints its data
+    
+  --seasons
+  
+    Set this flag if you want to use the season system
   
 Note: ConsoleRenderer requires Kernel32.dll (necessary to prevent flickering which would occur when using Console.Write)
