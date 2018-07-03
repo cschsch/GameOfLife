@@ -31,4 +31,12 @@ namespace Tests
             public static EnvironmentalCell Alive() => Alive<EnvironmentalCell, EnvironmentalCellBuilder>();
         }
     }
+
+    public class TestClass
+    {
+        public int IAmAProperty { get; set; }
+        public TestClass MeToo { get; set; }
+        public string IAmMostDefinitelyNotAProperty;
+        public double ICannotBeWrittenTo { get; }
+    }
 }

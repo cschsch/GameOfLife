@@ -56,5 +56,44 @@ namespace Tests.Engine.Helpers
             Assert.AreEqual(cell.Diet, cellToCopy.Diet);
             Assert.AreEqual(cell.LifeTime, cellToCopy.LifeTime);
         }
+
+        [TestMethod]
+        public void GetPropertyName_PrimitiveProperty_IsName()
+        {
+            // arrange
+            const string expected = nameof(TestClass.IAmAProperty);
+
+            // act
+            var result = GenericExtensions.GetPropertyName<TestClass, int>(tc => tc.IAmAProperty);
+
+            // assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void GetPropertyName_ComplexProperty_IsName()
+        {
+            // arrange
+            const string expected = nameof(TestClass.MeToo);
+
+            // act
+            var result = GenericExtensions.GetPropertyName<TestClass, TestClass>(tc => tc.MeToo);
+
+            // assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void GetPropertyName_Field_IsName()
+        {
+            // arrange
+            const string expected = nameof(TestClass.IAmMostDefinitelyNotAProperty);
+
+            // act
+            var result = GenericExtensions.GetPropertyName<TestClass, string>(tc => tc.IAmMostDefinitelyNotAProperty);
+
+            // assert
+            Assert.AreEqual(expected, result);
+        }
     }
 }
