@@ -16,7 +16,7 @@ namespace Tests.Engine.CalculatorStrategies
     public class EnvironmentalCellCalculatorTests
     {
         private (EnvironmentalCell, EnvironmentalWorldData) HerbivoreWithHerbivoreDensityAndTemperature(Density herbivoreDensity, double temperature) =>
-            (new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Herbivore).Create(),
+            (new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Herbivore).Create(),
              new EnvironmentalWorldDataBuilder().With(wd => wd.HerbivoreDensity, herbivoreDensity).With(wd => wd.Temperature, temperature).Create());
 
         [TestMethod]
@@ -47,45 +47,45 @@ namespace Tests.Engine.CalculatorStrategies
         public void CalculateCell_IsHerbivore_DensityAndTemperatureMax_BecomesCarnivore()
         {
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MaxValue, double.MaxValue);
-            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Carnivore).Create(), 3);
+            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Carnivore).Create(), 3);
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Carnivore);
+                c => c.Diet == DietaryRestriction.Carnivore);
         }
 
         [TestMethod]
         public void CalculateCell_IsHerbivore_DensityMaxTemperatureZero_StaysHerbivore()
         {
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MaxValue, 0);
-            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Carnivore).Create(), 3);
+            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Carnivore).Create(), 3);
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Herbivore);
+                c => c.Diet == DietaryRestriction.Herbivore);
         }
 
         [TestMethod]
         public void CalculateCell_IsHerbivore_DensityMaxTemperatureMin_BecomesCarnivore()
         {
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MaxValue, double.MinValue);
-            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Carnivore).Create(), 3);
+            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Carnivore).Create(), 3);
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Carnivore);
+                c => c.Diet == DietaryRestriction.Carnivore);
         }
 
         [TestMethod]
         public void CalculateCell_IsHerbivore_DensityMinTemperatureMax_StaysHerbivore()
         {
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MinValue, double.MaxValue);
-            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Carnivore).Create(), 3);
+            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Carnivore).Create(), 3);
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Herbivore);
+                c => c.Diet == DietaryRestriction.Herbivore);
         }
 
         [TestMethod]
         public void CalculateCell_IsHerbivore_DensityAndTemperatureMin_StaysHerbivore()
         {
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MinValue, double.MinValue);
-            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestrictions.Carnivore).Create(), 3);
+            var neighbours = Enumerable.Repeat(new EnvironmentalCellBuilder().With(c => c.IsAlive, true).With(c => c.Diet, DietaryRestriction.Carnivore).Create(), 3);
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Herbivore);
+                c => c.Diet == DietaryRestriction.Herbivore);
         }
 
         [TestMethod]
@@ -94,7 +94,7 @@ namespace Tests.Engine.CalculatorStrategies
             var (cell, data) = HerbivoreWithHerbivoreDensityAndTemperature(Density.MaxValue, double.MaxValue);
             var neighbours = Enumerable.Empty<EnvironmentalCell>();
             CellCalculatorBase.CalculateCell(new EnvironmentalCellCalculator(new Random()), cell, neighbours, data,
-                c => c.Diet == DietaryRestrictions.Herbivore);
+                c => c.Diet == DietaryRestriction.Herbivore);
         }
     }
 }

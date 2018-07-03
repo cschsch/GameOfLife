@@ -2,6 +2,6 @@
 {
     public enum GameType
     {
-        Standard, Environmental
+        None, Standard, Environmental
     }
 }

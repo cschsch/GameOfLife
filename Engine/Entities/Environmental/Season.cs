@@ -1,28 +1,29 @@
 ﻿namespace Engine.Entities.Environmental
 {
-    public class Season
+    public class SeasonalTime
     {
-        public Seasons Id { get; set; }
+        public Season Id { get; set; }
         public int Length { get; set; }
         public int CurrentTime { get; set; }
 
-        public Season() { }
+        public SeasonalTime() { }
 
-        public Season(Season other)
+        public SeasonalTime(SeasonalTime other)
         {
             Id = other.Id;
             Length = other.Length;
             CurrentTime = other.CurrentTime;
         }
 
-        public static Season Spring => new Season {Id = Seasons.Spring, CurrentTime = 0, Length = 26};
-        public static Season Summer => new Season { Id = Seasons.Summer, CurrentTime = 0, Length = 29 };
-        public static Season Autumn => new Season { Id = Seasons.Autumn, CurrentTime = 0, Length = 27 };
-        public static Season Winter => new Season { Id = Seasons.Winter, CurrentTime = 0, Length = 31 };
+        public static SeasonalTime None => new SeasonalTime {Id = Season.None, CurrentTime = 0, Length = 0};
+        public static SeasonalTime Spring => new SeasonalTime {Id = Season.Spring, CurrentTime = 0, Length = 26};
+        public static SeasonalTime Summer => new SeasonalTime {Id = Season.Summer, CurrentTime = 0, Length = 29};
+        public static SeasonalTime Autumn => new SeasonalTime {Id = Season.Autumn, CurrentTime = 0, Length = 27};
+        public static SeasonalTime Winter => new SeasonalTime {Id = Season.Winter, CurrentTime = 0, Length = 31};
     }
 
-    public enum Seasons
+    public enum Season
     {
-        Spring, Summer, Autumn, Winter
+        None, Spring, Summer, Autumn, Winter
     }
 }

@@ -13,7 +13,7 @@ namespace Engine.Entities.Environmental.Builders
             DefaultValues = new Dictionary<string, Func<dynamic>>
             {
                 {GenericExtensions.GetPropertyName<EnvironmentalWorldData, EnvironmentalCellGrid>(wd => wd.Grid), () => new EnvironmentalCellGrid(0)},
-                {GenericExtensions.GetPropertyName<EnvironmentalWorldData, Season>(wd => wd.Season), () => Season.Spring}
+                {GenericExtensions.GetPropertyName<EnvironmentalWorldData, SeasonalTime>(wd => wd.Season), () => SeasonalTime.Spring}
             };
         }
 

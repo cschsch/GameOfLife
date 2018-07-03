@@ -7,26 +7,28 @@ namespace Engine.Strategies.SeasonStrategies
 {
     public class StandardSeasonCalculator : ICalculateSeason
     {
-        private readonly IReadOnlyDictionary<Seasons, Season> _seasonChanger = new Dictionary<Seasons, Season>
+        private readonly IReadOnlyDictionary<Season, SeasonalTime> _seasonChanger = new Dictionary<Season, SeasonalTime>
         {
-            {Seasons.Spring, Season.Summer},
-            {Seasons.Summer, Season.Autumn},
-            {Seasons.Autumn, Season.Winter},
-            {Seasons.Winter, Season.Spring}
+            {Season.None, SeasonalTime.None},
+            {Season.Spring, SeasonalTime.Summer},
+            {Season.Summer, SeasonalTime.Autumn},
+            {Season.Autumn, SeasonalTime.Winter},
+            {Season.Winter, SeasonalTime.Spring}
         };
 
-        public Season GetSeasonOfNextTick(Season currentSeason) =>
+        public SeasonalTime GetSeasonOfNextTick(SeasonalTime currentSeason) =>
             currentSeason.CurrentTime >= currentSeason.Length
                 ? _seasonChanger[currentSeason.Id]
-                : new Season(currentSeason) {CurrentTime = currentSeason.CurrentTime + 1};
+                : new SeasonalTime(currentSeason) {CurrentTime = currentSeason.CurrentTime + 1};
 
         // these calculations have been chosen more or less deliberately to kind of simulate a shift in seasons regarding temperature
         // they are not meant to represent realistic values
-        public double CalculateTemperature(Season season) => new Match<Season, double>(
-                (s => s.Id == Seasons.Spring, s => (s.CurrentTime * 3) - s.Length), // linear ascending
-                (s => s.Id == Seasons.Summer, s => (-0.6 * s.CurrentTime * s.CurrentTime) + (s.Length / 2 * s.CurrentTime) + (s.Length * 2)), // parabola facing down
-                (s => s.Id == Seasons.Autumn, s => (-s.CurrentTime * 3) + s.Length), // linear descending
-                (s => s.Id == Seasons.Winter, s => (0.6 * s.CurrentTime * s.CurrentTime) - (s.Length / 2 * s.CurrentTime) - (s.Length * 2))) // parabola facing up
+        public double CalculateTemperature(SeasonalTime season) => new Match<SeasonalTime, double>(
+                (s => s.Id == Season.Spring, s => (s.CurrentTime * 3) - s.Length), // linear ascending
+                (s => s.Id == Season.Summer, s => (-0.6 * s.CurrentTime * s.CurrentTime) + (s.Length / 2 * s.CurrentTime) + (s.Length * 2)), // parabola facing down
+                (s => s.Id == Season.Autumn, s => (-s.CurrentTime * 3) + s.Length), // linear descending
+                (s => s.Id == Season.Winter, s => (0.6 * s.CurrentTime * s.CurrentTime) - (s.Length / 2 * s.CurrentTime) - (s.Length * 2)), // parabola facing up
+                (s => s.Id == Season.None, _ => 0))
             .MatchFirst(season);
     }
 }

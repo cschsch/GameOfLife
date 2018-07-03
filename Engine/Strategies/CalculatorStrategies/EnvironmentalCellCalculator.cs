@@ -23,13 +23,13 @@ namespace Engine.Strategies.CalculatorStrategies
                 .ToDictionary(g => g.Key, g => g.Count());
             var aliveInTotal = aliveByDiet.Sum(kv => kv.Value);
 
-            var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestrictions.Carnivore) - aliveByDiet.GetValueOrDefault(DietaryRestrictions.Herbivore);
+            var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestriction.Carnivore) - aliveByDiet.GetValueOrDefault(DietaryRestriction.Herbivore);
 
             var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature.DivideSkipZeroDivisor(1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);
 
-            if (cell.Diet == DietaryRestrictions.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2)
-                cell.Diet = DietaryRestrictions.Carnivore;
+            if (cell.Diet == DietaryRestriction.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2)
+                cell.Diet = DietaryRestriction.Carnivore;
 
             return new Match<EnvironmentalCell, EnvironmentalCell>(
                     (cMatch => !cMatch.IsAlive && aliveInTotal == 3, cMatch => new EnvironmentalCell(cMatch) {IsAlive = true, LifeTime = 1}),

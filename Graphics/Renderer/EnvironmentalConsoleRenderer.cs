@@ -8,8 +8,8 @@ namespace Graphics.Renderer
     {
         public EnvironmentalConsoleRenderer() : base(new Match<EnvironmentalCell, char>(
             (cell => !cell.IsAlive, _ => BaseCell.DeadOut),
-            (cell => cell.Diet == DietaryRestrictions.Carnivore, _ => EnvironmentalCell.Carnivore),
-            (cell => cell.Diet == DietaryRestrictions.Herbivore, _ => EnvironmentalCell.Herbivore)))
+            (cell => cell.Diet == DietaryRestriction.Carnivore, _ => EnvironmentalCell.Carnivore),
+            (cell => cell.Diet == DietaryRestriction.Herbivore, _ => EnvironmentalCell.Herbivore)))
         {
         }
     }

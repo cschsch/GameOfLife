@@ -40,8 +40,8 @@ namespace GameOfLife.ResultAnalyzer
 
             var generation = $"Generation: {entriesToUse.First().Generation} - {entriesToUse.Last().Generation}";
             var temperature = $"Temperature: {entriesToUse.Average(data => data.Temperature)}";
-            var amountOfCarnivores = $"Amount of alive carnivores: {aliveByDiet.Average(dict => dict.GetValueOrDefault(DietaryRestrictions.Carnivore))}";
-            var amountOfHerbivores = $"Amount of alive herbivores: {aliveByDiet.Average(dict => dict.GetValueOrDefault(DietaryRestrictions.Herbivore))}";
+            var amountOfCarnivores = $"Amount of alive carnivores: {aliveByDiet.Average(dict => dict.GetValueOrDefault(DietaryRestriction.Carnivore))}";
+            var amountOfHerbivores = $"Amount of alive herbivores: {aliveByDiet.Average(dict => dict.GetValueOrDefault(DietaryRestriction.Herbivore))}";
             var herbivoreDensity = $"Herbivore density: {entriesToUse.Average(data => data.HerbivoreDensity)}";
             var joined = string.Join(Environment.NewLine, generation, temperature, amountOfCarnivores, amountOfHerbivores, herbivoreDensity);
             const string entryDivider = "----------------------------------------------------";

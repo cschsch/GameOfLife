@@ -15,12 +15,12 @@ namespace Tests.Engine.Helpers
             // arrange
             var cell = new EnvironmentalCellBuilder()
                 .With(c => c.IsAlive, true)
-                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.Diet, DietaryRestriction.Herbivore)
                 .With(c => c.LifeTime, 5)
                 .Create();
             var cellToCopy = new EnvironmentalCellBuilder()
                 .With(c => c.IsAlive, true)
-                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.Diet, DietaryRestriction.Herbivore)
                 .With(c => c.LifeTime, 5)
                 .Create();
 
@@ -29,7 +29,7 @@ namespace Tests.Engine.Helpers
 
             // assert
             Assert.AreEqual(cell.IsAlive, true);
-            Assert.AreEqual(cell.Diet, DietaryRestrictions.Herbivore);
+            Assert.AreEqual(cell.Diet, DietaryRestriction.Herbivore);
             Assert.AreEqual(cell.LifeTime, 5);
         }
 
@@ -39,12 +39,12 @@ namespace Tests.Engine.Helpers
             // arrange
             var cell = new EnvironmentalCellBuilder()
                 .With(c => c.IsAlive, true)
-                .With(c => c.Diet, DietaryRestrictions.Herbivore)
+                .With(c => c.Diet, DietaryRestriction.Herbivore)
                 .With(c => c.LifeTime, 5)
                 .Create();
             var cellToCopy = new EnvironmentalCellBuilder()
                 .With(c => c.IsAlive, false)
-                .With(c => c.Diet, DietaryRestrictions.Carnivore)
+                .With(c => c.Diet, DietaryRestriction.Carnivore)
                 .With(c => c.LifeTime, 0)
                 .Create();
 

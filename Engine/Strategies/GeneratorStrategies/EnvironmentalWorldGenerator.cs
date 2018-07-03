@@ -24,7 +24,7 @@ namespace Engine.Strategies.GeneratorStrategies
                         world.Data)).ToArray()).ToArray();
 
             var herbivoreDensity =
-                (double) world.Data.Grid.Cells.SelectMany(row => row).Where(c => c.IsAlive).Count(c => c.Diet == DietaryRestrictions.Herbivore)
+                (double) world.Data.Grid.Cells.SelectMany(row => row).Where(c => c.IsAlive).Count(c => c.Diet == DietaryRestriction.Herbivore)
                 / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count);
 
             var data = new EnvironmentalWorldDataBuilder(world.Data)

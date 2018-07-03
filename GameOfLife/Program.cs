@@ -31,6 +31,12 @@ namespace GameOfLife
 
         private static GameVariables MapArgs(CommandOptions options)
         {
+            if (options.GameType == GameType.None)
+            {
+                Console.WriteLine($"Couldn't resolve {nameof(options.GameType)}, stopping execution.");
+                return new GameVariables {GameType = GameType.None};
+            }
+
             var mapper = new EngineTypeMapper();
 
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string) p.GetValue(p));
@@ -44,7 +50,7 @@ namespace GameOfLife
             var data = worldDataBuilder
                 .With(wd => wd.Grid, wd => wd.Grid, grid(constructorArg))
                 .With(Maybe<Expression<Func<StandardWorldData, double>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, double>>>(wd => wd.Temperature), options.Temperature)
-                .With(Maybe<Expression<Func<StandardWorldData, Season>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, Season>>>(wd => wd.Season), Season.Spring)
+                .With(Maybe<Expression<Func<StandardWorldData, SeasonalTime>>>.Nothing, Maybe.Just<Expression<Func<EnvironmentalWorldData, SeasonalTime>>>(wd => wd.Season), SeasonalTime.Spring)
                 .Create();
 
             var neighbourFinder = options.Closed
@@ -75,6 +81,8 @@ namespace GameOfLife
 
         private static void StartGame(GameVariables variables)
         {
+            if (variables.GameType == GameType.None) return;
+
             var mapper = new GeneralTypeMapper();
 
             var renderer = mapper.ConsoleRendererMap[variables.GameType];

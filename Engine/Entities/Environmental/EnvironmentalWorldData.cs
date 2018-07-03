@@ -6,6 +6,6 @@ namespace Engine.Entities.Environmental
     {
         public double Temperature { get; set; }
         public Density HerbivoreDensity { get; set; }
-        public Season Season { get; set; }
+        public SeasonalTime Season { get; set; }
     }
 }
