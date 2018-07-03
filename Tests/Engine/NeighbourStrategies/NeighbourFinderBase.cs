@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.Strategies.NeighbourStrategies;
 using Engine.Entities.Standard;
+using Engine.Strategies.NeighbourStrategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static Tests.Sut.Standard;
 
-namespace Tests.NeighbourStrategies
+namespace Tests.Engine.NeighbourStrategies
 {
     public static class NeighbourFinderBase
     {
@@ -16,11 +16,11 @@ namespace Tests.NeighbourStrategies
             // arrange
             var cells = new []
             {
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Alive(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()}
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Alive(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()}
             };
             var (outerIndex, innerIndex) = (2, 2);
 
@@ -36,11 +36,11 @@ namespace Tests.NeighbourStrategies
             // arrange
             var cells = new[]
             {
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Alive(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Alive(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Alive(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()}
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Alive(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Alive(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Alive(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()}
             };
             var (outerIndex, innerIndex) = (2, 2);
 
@@ -56,11 +56,11 @@ namespace Tests.NeighbourStrategies
             // arrange
             var cells = new[]
             {
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Alive(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Alive(), Dead(), Dead(), Dead(), Alive()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()},
-                new[] {Dead(), Dead(), Dead(), Dead(), Dead()}
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Alive(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Alive(), Dead(), Dead(), Dead(), Alive()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()},
+                new[] { Dead(), Dead(), Dead(), Dead(), Dead()}
             };
             var (outerIndex, innerIndex) = (2, 4);
 

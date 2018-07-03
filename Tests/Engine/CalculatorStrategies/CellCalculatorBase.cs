@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Engine.Strategies.CalculatorStrategies;
 using Engine.Entities;
+using Engine.Strategies.CalculatorStrategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests.CalculatorStrategies
+namespace Tests.Engine.CalculatorStrategies
 {
     public static class CellCalculatorBase
     {

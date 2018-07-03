@@ -8,7 +8,7 @@ using Engine.Helpers;
 using Engine.Helpers.Functions;
 using Engine.Strategies.SeasonStrategies;
 
-namespace Engine.Entities.Environmental.Builder
+namespace Engine.Entities.Environmental.Builders
 {
     public class EnvironmentalWorldBuilder : GenericBuilder<EnvironmentalWorld>
     {
@@ -20,7 +20,7 @@ namespace Engine.Entities.Environmental.Builder
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, IFindNeighbours<EnvironmentalCell, EnvironmentalCellGrid>>(w => w.NeighbourFinder), () => new OpenNeighbourFinder<EnvironmentalCell, EnvironmentalCellGrid>() },
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateCell<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>>(w => w.CellCalculator), () => new EnvironmentalCellCalculator(new Random()) },
                 {GenericExtensions.GetPropertyName<EnvironmentalWorld, IGenerateWorld<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData, EnvironmentalWorld>>(w => w.WorldGenerator), () => new EnvironmentalWorldGenerator() },
-                {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateSeason>(w => w.SeasonCalculator), () => new StandardSeasonCalculator() }
+                {GenericExtensions.GetPropertyName<EnvironmentalWorld, ICalculateSeason>(w => w.SeasonCalculator), () => new NoSeasonCalculator() }
             };
         }
 

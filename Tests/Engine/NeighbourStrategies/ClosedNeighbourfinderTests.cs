@@ -1,9 +1,9 @@
 using System.Linq;
-using Engine.Strategies.NeighbourStrategies;
 using Engine.Entities.Standard;
+using Engine.Strategies.NeighbourStrategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests.NeighbourStrategies
+namespace Tests.Engine.NeighbourStrategies
 {
     [TestClass]
     public class ClosedNeighbourFinderTests

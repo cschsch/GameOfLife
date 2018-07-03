@@ -2,7 +2,7 @@ using System.Linq;
 using Engine.Helpers.Functions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests.Helpers
+namespace Tests.Engine.Helpers
 {
     [TestClass]
     public class EnumerablePreludeTests

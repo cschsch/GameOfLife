@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Engine.Helpers;
 using Engine.Helpers.Functions;
 
-namespace Engine.Entities.Standard.Builder
+namespace Engine.Entities.Standard.Builders
 {
     public class StandardCellBuilder : GenericBuilder<StandardCell>
     {

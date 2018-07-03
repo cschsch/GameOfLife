@@ -1,10 +1,10 @@
 using System.Linq;
-using Engine.Strategies.CalculatorStrategies;
 using Engine.Entities.Standard;
+using Engine.Strategies.CalculatorStrategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Tests.Sut.Standard;
 
-namespace Tests.CalculatorStrategies
+namespace Tests.Engine.CalculatorStrategies
 {
     [TestClass]
     public class StandardCellCalculatorTests

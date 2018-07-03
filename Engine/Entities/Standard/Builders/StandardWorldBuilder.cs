@@ -6,7 +6,7 @@ using Engine.Strategies.NeighbourStrategies;
 using Engine.Helpers;
 using Engine.Helpers.Functions;
 
-namespace Engine.Entities.Standard.Builder
+namespace Engine.Entities.Standard.Builders
 {
     public class StandardWorldBuilder : GenericBuilder<StandardWorld>
     {

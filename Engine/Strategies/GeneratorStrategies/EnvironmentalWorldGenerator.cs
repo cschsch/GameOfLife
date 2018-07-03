@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Engine.Entities.Environmental;
-using Engine.Entities.Environmental.Builder;
+using Engine.Entities.Environmental.Builders;
 using Engine.Helpers;
 
 namespace Engine.Strategies.GeneratorStrategies

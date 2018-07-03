@@ -1,8 +1,8 @@
 using Engine.Entities;
 using Engine.Entities.Environmental;
-using Engine.Entities.Environmental.Builder;
+using Engine.Entities.Environmental.Builders;
 using Engine.Entities.Standard;
-using Engine.Entities.Standard.Builder;
+using Engine.Entities.Standard.Builders;
 using Engine.Helpers;
 
 namespace Tests
