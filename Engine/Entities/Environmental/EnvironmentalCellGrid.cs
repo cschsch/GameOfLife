@@ -27,9 +27,9 @@ namespace Engine.Entities.Environmental
                 .ToArray()).ToArray();
         }
 
-        public EnvironmentalCellGrid(int size, Func<Random> randomFactory)
+        public EnvironmentalCellGrid(int size)
         {
-            var random = randomFactory();
+            var random = new Random();
             EnvironmentalCell GenerateCell() => new EnvironmentalCellBuilder()
                 .With(c => c.IsAlive, random.NextBool())
                 .With(c => c.Diet, random.NextBool() ? DietaryRestriction.Carnivore : DietaryRestriction.Herbivore)
@@ -37,7 +37,5 @@ namespace Engine.Entities.Environmental
 
             Cells = EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(row => row.ToArray()).ToArray();
         }
-
-        public EnvironmentalCellGrid(int size) : this(size, () => new Random()) { }
     }
 }

@@ -33,9 +33,11 @@ dotnet GameOfLife.dll [args]
   
     Delay between generations in milliseconds
   
-  -c, --closed
+  -n, --neighbour_finder [1 | Closed, 2 | Open]
+	
+	Default: Open
   
-    Include to use the ClosedNeighbourFinder which doesn't span across borders
+    Choose the NeighbourFinder to use. Open spans across borders, Closed doesn't.
     
   --temperature
   
@@ -53,8 +55,10 @@ dotnet GameOfLife.dll [args]
     
     Set the location where the ResultAnalyzer prints its data
     
-  --seasons
+  --season_calculator [1 | Ignore, 2 | Standard]
   
-    Set this flag if you want to use the season system
+    Default : Ignore
+	
+	Choose the SeasonCalculator to use. If you choose Ignore, the season system will not be used.
   
 Note: ConsoleRenderer requires Kernel32.dll (necessary to prevent flickering which would occur when using Console.Write)

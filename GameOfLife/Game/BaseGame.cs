@@ -8,7 +8,7 @@ using ResultAnalyzer;
 
 namespace GameOfLife.Game
 {
-    public abstract class BaseGame<TCell, TCellGrid, TWorldData, TWorld>
+    public abstract class BaseGame<TCell, TCellGrid, TWorldData, TWorld> : IGame
         where TCell : BaseCell
         where TCellGrid : BaseCellGrid<TCell>
         where TWorldData : BaseWorldData<TCell, TCellGrid>
@@ -25,9 +25,9 @@ namespace GameOfLife.Game
 
         public void Init() => Renderer.GenerationWatch.Start();
 
-        public void GameLoop(TWorld world, int sleep)
+        public void GameLoop(object world, int sleep)
         {
-            var nextWorld = PrintGenerations(world, sleep);
+            var nextWorld = PrintGenerations((TWorld) world, sleep);
             ResultAnalyzer.PrintResultsAsync();
             GameLoop(nextWorld, sleep);
         }

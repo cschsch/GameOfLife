@@ -25,16 +25,14 @@ namespace Engine.Entities.Standard
                 .ToArray()).ToArray();
         }
 
-        public StandardCellGrid(int size, Func<Random> randomFactory)
+        public StandardCellGrid(int size)
         {
-            var random = randomFactory();
+            var random = new Random();
             StandardCell GenerateCell() => new StandardCellBuilder()
                 .With(c => c.IsAlive, random.NextBool())
                 .Create();
 
             Cells = EnumerablePrelude.Repeat(GenerateCell, size * size).Partition(size).Select(row => row.ToArray()).ToArray();
         }
-
-        public StandardCellGrid(int size) : this(size, () => new Random()) { }
     }
 }

@@ -12,13 +12,13 @@ namespace ResultAnalyzer
     public class EnvironmentalResultAnalyzer : IAnalyzeResults<EnvironmentalCell, EnvironmentalCellGrid, EnvironmentalWorldData>
     {
         public int PrintInterval { get; }
-        private string FilePath { get; }
+        private string PrintFile { get; }
         private List<EnvironmentalWorldData> Data { get; }
 
-        public EnvironmentalResultAnalyzer(int printInterval, string filePath)
+        public EnvironmentalResultAnalyzer(int printInterval, string printFile)
         {
             PrintInterval = printInterval;
-            FilePath = filePath;
+            PrintFile = printFile;
             Data = new List<EnvironmentalWorldData>();
         }
 
@@ -53,13 +53,13 @@ namespace ResultAnalyzer
         {
             var answer = GetAnswer();
             Data.RemoveRange(0, PrintInterval);
-            File.AppendAllText(FilePath, answer);
+            File.AppendAllText(PrintFile, answer);
         }
 
         public async Task PrintResultsAsync()
         {
             var answer = Task.Run(() => GetAnswer());
-            await File.AppendAllTextAsync(FilePath, await answer).ConfigureAwait(false);
+            await File.AppendAllTextAsync(PrintFile, await answer).ConfigureAwait(false);
             Data.RemoveRange(0, PrintInterval);
         }
     }

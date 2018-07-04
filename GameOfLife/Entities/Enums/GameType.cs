@@ -1,4 +1,4 @@
-﻿namespace GameOfLife.Entities
+﻿namespace GameOfLife.Entities.Enums
 {
     public enum GameType
     {
