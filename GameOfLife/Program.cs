@@ -29,8 +29,7 @@ namespace GameOfLife
         {
             try
             {
-                using (var kernel = new StandardKernel(new NinjectSettings {InjectAttribute = typeof(Dependency)},
-                    new EngineModule(options)))
+                using (var kernel = new StandardKernel(new NinjectSettings {InjectAttribute = typeof(Dependency)}, new EngineModule(options)))
                 {
                     var game = (IGame) kernel.Get(typeof(BaseGame<,,,>));
                     var world = kernel.Get(typeof(BaseWorld<,,,>));
