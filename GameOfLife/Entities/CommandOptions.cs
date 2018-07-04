@@ -1,5 +1,7 @@
 ﻿using CommandLine;
 
+using GameOfLife.Entities.Enums;
+
 namespace GameOfLife.Entities
 {
     internal class CommandOptions
@@ -19,8 +21,8 @@ namespace GameOfLife.Entities
         [Option('t', "thread_sleep")]
         public int ThreadSleep { get; set; }
 
-        [Option('c', "closed")]
-        public bool Closed { get; set; }
+        [Option('n', "neighbour_finder", Default = NeighbourFinderType.Open)]
+        public NeighbourFinderType NeighbourFinder { get; set; }
 
         [Option("temperature")]
         public double Temperature { get; set; }
@@ -31,7 +33,7 @@ namespace GameOfLife.Entities
         [Option('p', "print_file", Default = @"analyzation\01.txt")]
         public string PrintFile { get; set; }
 
-        [Option("seasons")]
-        public bool Seasons { get; set; }
+        [Option("season_calculator", Default = SeasonCalculatorType.Ignore)]
+        public SeasonCalculatorType Seasons { get; set; }
     }
 }

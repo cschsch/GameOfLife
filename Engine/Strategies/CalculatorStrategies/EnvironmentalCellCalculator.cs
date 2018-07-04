@@ -15,6 +15,8 @@ namespace Engine.Strategies.CalculatorStrategies
         public EnvironmentalCellCalculator(Random randomNumberGenerator) =>
             RandomNumberGenerator = randomNumberGenerator;
 
+        public EnvironmentalCellCalculator() : this(new Random()) { }
+
         public EnvironmentalCell CalculateCell(EnvironmentalCell cell, IEnumerable<EnvironmentalCell> neighbours, EnvironmentalWorldData data)
         {
             var aliveByDiet = neighbours
