@@ -23,7 +23,7 @@ namespace Engine.Entities.Environmental
             };
 
             Cells = cellRep.Split(Environment.NewLine).Select(row => row.Select(cRep =>
-                    cellRepToBuilder[cRep](new EnvironmentalCellBuilder().With(c => c.IsAlive, true)).Create())
+                    cellRepToBuilder.GetValueOrDefault(cRep, builder => builder)(new EnvironmentalCellBuilder().With(c => c.IsAlive, true)).Create())
                 .ToArray()).ToArray();
         }
 

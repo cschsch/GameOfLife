@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Engine.Entities.Environmental;
+using Engine.Entities.Environmental.Builders;
 using Engine.Helpers;
 using Engine.Helpers.Functions;
 
@@ -29,14 +30,14 @@ namespace Engine.Strategies.CalculatorStrategies
 
             var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature.DivideSkipZeroDivisor(1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);
-
-            if (cell.Diet == DietaryRestriction.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2)
-                cell.Diet = DietaryRestriction.Carnivore;
+            var diet = cell.Diet == DietaryRestriction.Herbivore && transformsToCarnivore && differenceOfNeighboursByDiet >= 2
+                ? DietaryRestriction.Carnivore
+                : cell.Diet;
 
             return new Match<EnvironmentalCell, EnvironmentalCell>(
-                    (cMatch => !cMatch.IsAlive && aliveInTotal == 3, cMatch => new EnvironmentalCell(cMatch) {IsAlive = true, LifeTime = 1}),
-                    (_ => aliveInTotal < 2 || aliveInTotal > 3, cMatch => new EnvironmentalCell(cMatch) {IsAlive = false, LifeTime = 0}),
-                    (_ => true, cMatch => new EnvironmentalCell(cMatch) {LifeTime = cMatch.LifeTime + 1}))
+                    (cMatch => !cMatch.IsAlive && aliveInTotal == 3, _ => EnvironmentalFlyweightCellFactory.GetEnvironmentalCell($"Alive{diet}")),
+                    (_ => aliveInTotal < 2 || aliveInTotal > 3, _ => EnvironmentalFlyweightCellFactory.GetEnvironmentalCell($"Dead{diet}")),
+                    (_ => true, cMatch => new EnvironmentalCell(cMatch) {LifeTime = cMatch.LifeTime + 1, Diet = diet}))
                 .MatchFirst(cell);
         }
     }

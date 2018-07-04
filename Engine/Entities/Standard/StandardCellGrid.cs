@@ -21,7 +21,7 @@ namespace Engine.Entities.Standard
             };
 
             Cells = cellRep.Split(Environment.NewLine).Select(row => row.Select(cRep =>
-                    cellRepToBuilder[cRep](new StandardCellBuilder().With(c => c.IsAlive, true)).Create())
+                    cellRepToBuilder.GetValueOrDefault(cRep, builder => builder)(new StandardCellBuilder().With(c => c.IsAlive, true)).Create())
                 .ToArray()).ToArray();
         }
 

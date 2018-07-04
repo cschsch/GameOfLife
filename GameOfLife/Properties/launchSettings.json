@@ -1,7 +1,8 @@
 {
   "profiles": {
     "GameOfLife": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-f lwss"
     }
   }
 }

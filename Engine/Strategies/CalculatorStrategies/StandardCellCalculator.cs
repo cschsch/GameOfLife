@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Engine.Entities.Standard;
+using Engine.Entities.Standard.Builders;
 using Engine.Helpers;
 
 namespace Engine.Strategies.CalculatorStrategies
@@ -13,8 +14,8 @@ namespace Engine.Strategies.CalculatorStrategies
             var alive = neighbours.Count(n => n.IsAlive);
 
             return new Match<StandardCell, StandardCell>(
-                    (cMatch => !cMatch.IsAlive && alive == 3, _ => new StandardCell {IsAlive = true, LifeTime = 1}),
-                    (_ => alive < 2 || alive > 3, _ => new StandardCell {IsAlive = false, LifeTime = 0}),
+                    (cMatch => !cMatch.IsAlive && alive == 3, _ => StandardFlyweightCellFactory.GetStandardCell("Alive")),
+                    (_ => alive < 2 || alive > 3, _ => StandardFlyweightCellFactory.GetStandardCell("Dead")),
                     (_ => true, cMatch => new StandardCell(cMatch) {LifeTime = cMatch.LifeTime + 1}))
                 .MatchFirst(cell);
         }
