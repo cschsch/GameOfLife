@@ -31,9 +31,7 @@ namespace GameOfLife
 
         public EngineModule(CommandOptions options) => Options = options;
 
-        public override void Load() => Load(Options);
-
-        public void Load(CommandOptions options)
+        public override void Load()
         {
             var figures = typeof(Figures).GetProperties().ToDictionary(p => p.Name.ToUpper(), p => (string)p.GetValue(p));
             var cellRepOrSize = new Match<CommandOptions, Either<string, int>>(
@@ -41,7 +39,7 @@ namespace GameOfLife
                 (opt => opt.FilePath.Length > 0, opt => Either.CreateLeft<string, int>(File.ReadAllText(opt.FilePath))),
                 (_ => true, opt => Either.CreateRight<string, int>(opt.Size))).MatchFirst(Options);
 
-            switch (options.GameType)
+            switch (Options.GameType)
             {
                 case GameType.None:
                     throw new InvalidOperationException(nameof(GameType));
@@ -88,7 +86,7 @@ namespace GameOfLife
             cellGridConstructorArgument.Switch(
                 cellRep => Kernel.Bind<EnvironmentalCellGrid>().ToSelf().WithConstructorArgument(cellRep),
                 size => Kernel.Bind<EnvironmentalCellGrid>().ToSelf().WithConstructorArgument(size));
-            
+
             Kernel.Bind<SeasonalTime>().ToConstant(SeasonalTime.Spring);
             Kernel.Bind<EnvironmentalWorldData>().ToSelf()
                 .WithPropertyValue(nameof(EnvironmentalWorldData.Temperature), options.Temperature);
