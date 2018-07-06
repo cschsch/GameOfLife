@@ -15,7 +15,7 @@ namespace Engine.Strategies.NeighbourStrategies
             var size = cells.Cells.Count;
             return cells.Cells.GetValues(Enumerable.Range(outerIndex - 1, 3).Select(ind => (ind + size) % size))
                 .SelectMany(row => row.GetValues(Enumerable.Range(innerIndex - 1, 3).Select(ind => (ind + size) % size)))
-                .Skip(cells.Cells[outerIndex][innerIndex], 1);
+                .SkipFirst(cells.Cells[outerIndex][innerIndex]);
         }
     }
 }

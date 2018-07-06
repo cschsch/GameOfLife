@@ -31,7 +31,7 @@ namespace GameOfLife.Game
             ResultAnalyzer.PrintResultsAsync();
             GameLoop(nextWorld, sleep);
         }
-    
+
         private TWorld PrintGenerations(TWorld lastWorld, int sleepInMs)
         {
             var tickToReturn = lastWorld;
@@ -39,7 +39,7 @@ namespace GameOfLife.Game
             foreach (var tick in lastWorld.Ticks().Take(ResultAnalyzer.PrintInterval))
             {
                 Parallel.Invoke(
-                    () => Renderer.PrintUi(tick.Data), 
+                    () => Renderer.PrintUi(tick.Data),
                     () => ResultAnalyzer.CollectData(tick.Data));
                 tickToReturn = tick;
                 System.Threading.Thread.Sleep(sleepInMs);

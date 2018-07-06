@@ -13,6 +13,6 @@ namespace Engine.Strategies.NeighbourStrategies
         public IEnumerable<TCell> FindNeighbours(TCellGrid cells, int outerIndex, int innerIndex) =>
             cells.Cells.GetValuesSafe(Enumerable.Range(outerIndex - 1, 3))
                 .SelectMany(row => row.GetValuesSafe(Enumerable.Range(innerIndex - 1, 3)))
-                .Skip(cells.Cells[outerIndex][innerIndex], 1);
+                .SkipFirst(cells.Cells[outerIndex][innerIndex]);
     }
 }

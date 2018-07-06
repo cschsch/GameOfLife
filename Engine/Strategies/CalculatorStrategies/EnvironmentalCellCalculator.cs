@@ -28,7 +28,7 @@ namespace Engine.Strategies.CalculatorStrategies
                 alive[(int) cells.Key] = cellCount;
                 aliveInTotal += cellCount;
             }
-            
+
             var differenceOfNeighboursByDiet = alive[(int) DietaryRestriction.Carnivore] - alive[(int) DietaryRestriction.Herbivore];
 
             var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature.DivideSkipZeroDivisor(1 + data.Temperature));
