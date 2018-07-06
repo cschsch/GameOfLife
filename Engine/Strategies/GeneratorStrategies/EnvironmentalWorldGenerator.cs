@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 using Engine.Entities.Environmental;
 using Engine.Entities.Environmental.Builders;
 using Engine.Helpers;
@@ -13,27 +13,28 @@ namespace Engine.Strategies.GeneratorStrategies
         {
             yield return world;
 
-            var nextSeason = world.SeasonCalculator.GetSeasonOfNextTick(world.Data.Season);
-            var nextTemperature = world.SeasonCalculator.CalculateTemperature(world.Data.Season);
-
-            var nextGrid = world.Data.Grid.Cells.AsParallel().Select((row, outerInd) =>
+            var nextGrid = Task.Run(() => world.Data.Grid.Cells.AsParallel().Select((row, outerInd) =>
                 row.AsParallel().Select((_, innerInd) =>
                     world.CellCalculator.CalculateCell(
                         world.Data.Grid.Cells[outerInd][innerInd],
                         world.NeighbourFinder.FindNeighbours(world.Data.Grid, outerInd, innerInd),
-                        world.Data)).ToArray()).ToArray();
+                        world.Data)).ToArray()).ToArray());
 
-            var herbivoreDensity =
-                (double) world.Data.Grid.Cells.SelectMany(row => row).Where(c => c.IsAlive).Count(c => c.Diet == DietaryRestriction.Herbivore)
-                / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count);
+            var herbivoreDensity = Task.Run(() =>
+                (double)world.Data.Grid.Cells.SelectMany(row => row).Where(c => c.IsAlive).Count(c => c.Diet == DietaryRestriction.Herbivore)
+                / (world.Data.Grid.Cells.Count * world.Data.Grid.Cells.Count));
 
-            var data = new EnvironmentalWorldDataBuilder(world.Data)
-                .With(wd => wd.Generation, world.Data.Generation + 1)
-                .With(wd => wd.Grid, new EnvironmentalCellGrid(nextGrid))
-                .With(wd => wd.HerbivoreDensity, new Density(herbivoreDensity))
-                .With(wd => wd.Season, nextSeason)
-                .With(wd => wd.Temperature, nextTemperature)
-                .Create();
+            var nextSeason = Task.Run(() => world.SeasonCalculator.GetSeasonOfNextTick(world.Data.Season));
+            var nextTemperature = Task.Run(() => world.SeasonCalculator.CalculateTemperature(world.Data.Season));
+
+            var data = new EnvironmentalWorldData
+            {
+                Generation = world.Data.Generation + 1,
+                Grid = new EnvironmentalCellGrid(nextGrid.Result),
+                HerbivoreDensity = new Density(herbivoreDensity.Result),
+                Season = nextSeason.Result,
+                Temperature = nextTemperature.Result
+            };
 
             var nextWorld = new EnvironmentalWorldBuilder(world).With(w => w.Data, data).Create();
 

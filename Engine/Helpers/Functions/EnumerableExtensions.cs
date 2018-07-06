@@ -12,15 +12,15 @@ namespace Engine.Helpers.Functions
             foreach (var partition in source.Skip(size).Partition(size)) yield return partition;
         }
 
-        public static IEnumerable<T> Skip<T>(this IEnumerable<T> source, T item, int amount)
+        public static IEnumerable<T> SkipFirst<T>(this IEnumerable<T> source, T item)
         {
-            var currentlySkipped = 0;
+            var skipped = false;
 
             foreach (var element in source)
             {
-                if (item.Equals(element) && currentlySkipped < amount)
+                if (item.Equals(element) && !skipped)
                 {
-                    currentlySkipped++;
+                    skipped = true;
                 }
                 else
                 {

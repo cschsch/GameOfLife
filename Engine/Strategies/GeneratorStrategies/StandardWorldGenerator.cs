@@ -19,10 +19,11 @@ namespace Engine.Strategies.GeneratorStrategies
                         world.NeighbourFinder.FindNeighbours(world.Data.Grid, outerInd, innerInd),
                         world.Data)).ToArray()).ToArray();
 
-            var data = new StandardWorldDataBuilder(world.Data)
-                .With(wd => wd.Generation, world.Data.Generation + 1)
-                .With(wd => wd.Grid, new StandardCellGrid(nextGrid))
-                .Create();
+            var data = new StandardWorldData
+            {
+                Generation = world.Data.Generation + 1,
+                Grid = new StandardCellGrid(nextGrid)
+            };
 
             var nextWorld = new StandardWorldBuilder(world).With(w => w.Data, data).Create();
 
