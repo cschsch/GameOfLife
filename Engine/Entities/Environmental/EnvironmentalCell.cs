@@ -19,6 +19,6 @@
 
     public enum DietaryRestriction
     {
-        None, Carnivore, Herbivore
+        None, Carnivore, Herbivore, End
     }
 }

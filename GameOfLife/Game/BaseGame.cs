@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using System.Threading.Tasks;
 using Engine.Entities;
 
 using Graphics.Console;
@@ -31,15 +31,16 @@ namespace GameOfLife.Game
             ResultAnalyzer.PrintResultsAsync();
             GameLoop(nextWorld, sleep);
         }
-
+    
         private TWorld PrintGenerations(TWorld lastWorld, int sleepInMs)
         {
             var tickToReturn = lastWorld;
 
             foreach (var tick in lastWorld.Ticks().Take(ResultAnalyzer.PrintInterval))
             {
-                Renderer.PrintUi(tick.Data);
-                ResultAnalyzer.CollectData(tick.Data);
+                Parallel.Invoke(
+                    () => Renderer.PrintUi(tick.Data), 
+                    () => ResultAnalyzer.CollectData(tick.Data));
                 tickToReturn = tick;
                 System.Threading.Thread.Sleep(sleepInMs);
             }

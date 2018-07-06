@@ -20,13 +20,16 @@ namespace Engine.Strategies.CalculatorStrategies
 
         public EnvironmentalCell CalculateCell(EnvironmentalCell cell, IEnumerable<EnvironmentalCell> neighbours, EnvironmentalWorldData data)
         {
-            var aliveByDiet = neighbours
-                .Where(n => n.IsAlive)
-                .GroupBy(n => n.Diet)
-                .ToDictionary(g => g.Key, g => g.Count());
-            var aliveInTotal = aliveByDiet.Sum(kv => kv.Value);
-
-            var differenceOfNeighboursByDiet = aliveByDiet.GetValueOrDefault(DietaryRestriction.Carnivore) - aliveByDiet.GetValueOrDefault(DietaryRestriction.Herbivore);
+            var alive = new int[(int) DietaryRestriction.End];
+            var aliveInTotal = 0;
+            foreach (var cells in neighbours.Where(n => n.IsAlive).GroupBy(n => n.Diet))
+            {
+                var cellCount = cells.Count();
+                alive[(int) cells.Key] = cellCount;
+                aliveInTotal += cellCount;
+            }
+            
+            var differenceOfNeighboursByDiet = alive[(int) DietaryRestriction.Carnivore] - alive[(int) DietaryRestriction.Herbivore];
 
             var transformsToCarnivorePropability = data.HerbivoreDensity * (data.Temperature.DivideSkipZeroDivisor(1 + data.Temperature));
             var transformsToCarnivore = RandomNumberGenerator.NextBool(transformsToCarnivorePropability);
