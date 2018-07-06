@@ -23,12 +23,11 @@ namespace Engine.Strategies.SeasonStrategies
 
         // these calculations have been chosen more or less deliberately to kind of simulate a shift in seasons regarding temperature
         // they are not meant to represent realistic values
-        public double CalculateTemperature(SeasonalTime season) => new Match<SeasonalTime, double>(
+        public double CalculateTemperature(SeasonalTime season) => Match<SeasonalTime, double>.MatchFirst(season,
                 (s => s.Id == Season.Spring, s => (s.CurrentTime * 3) - s.Length), // linear ascending
                 (s => s.Id == Season.Summer, s => (-0.6 * s.CurrentTime * s.CurrentTime) + (s.Length / 2 * s.CurrentTime) + (s.Length * 2)), // parabola facing down
                 (s => s.Id == Season.Autumn, s => (-s.CurrentTime * 3) + s.Length), // linear descending
                 (s => s.Id == Season.Winter, s => (0.6 * s.CurrentTime * s.CurrentTime) - (s.Length / 2 * s.CurrentTime) - (s.Length * 2)), // parabola facing up
-                (s => s.Id == Season.None, _ => 0))
-            .MatchFirst(season);
+                (s => s.Id == Season.None, _ => 0));
     }
 }
