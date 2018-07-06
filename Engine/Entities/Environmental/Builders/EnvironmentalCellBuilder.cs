@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Engine.Helpers;
-using Engine.Helpers.Functions;
 
 namespace Engine.Entities.Environmental.Builders
 {
@@ -12,7 +11,5 @@ namespace Engine.Entities.Environmental.Builders
         {
             DefaultValues = new Dictionary<string, Func<dynamic>>();
         }
-
-        public EnvironmentalCellBuilder(EnvironmentalCell initial) : this() => ObjectToBuild.SetProperties(initial);
     }
 }

@@ -40,7 +40,12 @@ namespace Engine.Strategies.CalculatorStrategies
             return Match<EnvironmentalCell, EnvironmentalCell>.MatchFirst(cell,
                     (cMatch => !cMatch.IsAlive && aliveInTotal == 3, _ => EnvironmentalFlyweightCellFactory.GetEnvironmentalCell($"Alive{diet}")),
                     (_ => aliveInTotal < 2 || aliveInTotal > 3, _ => EnvironmentalFlyweightCellFactory.GetEnvironmentalCell($"Dead{diet}")),
-                    (_ => true, cMatch => new EnvironmentalCell(cMatch) {LifeTime = cMatch.LifeTime + 1, Diet = diet}));
+                    (_ => true, cMatch => EnvironmentalFlyweightCellFactory.GetEnvironmentalCell($"{cMatch.IsAlive}{diet}{cMatch.LifeTime + 1}", new EnvironmentalCell
+                    {
+                        IsAlive = cMatch.IsAlive,
+                        LifeTime = cMatch.LifeTime + 1,
+                        Diet = diet
+                    })));
         }
     }
 }

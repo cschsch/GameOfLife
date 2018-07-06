@@ -16,7 +16,11 @@ namespace Engine.Strategies.CalculatorStrategies
             return Match<StandardCell, StandardCell>.MatchFirst(cell,
                 (cMatch => !cMatch.IsAlive && alive == 3, _ => StandardFlyweightCellFactory.GetStandardCell("Alive")),
                 (_ => alive < 2 || alive > 3, _ => StandardFlyweightCellFactory.GetStandardCell("Dead")),
-                (_ => true, cMatch => new StandardCell(cMatch) {LifeTime = cMatch.LifeTime + 1}));
+                (_ => true, cMatch => StandardFlyweightCellFactory.GetStandardCell($"{cMatch.IsAlive}{cMatch.LifeTime + 1}", new StandardCell
+                {
+                    IsAlive = cMatch.IsAlive,
+                    LifeTime = cMatch.LifeTime + 1
+                })));
         }
     }
 }

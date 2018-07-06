@@ -16,7 +16,5 @@ namespace Engine.Entities.Environmental.Builders
                 {GenericExtensions.GetPropertyName<EnvironmentalWorldData, SeasonalTime>(wd => wd.Season), () => SeasonalTime.Spring}
             };
         }
-
-        public EnvironmentalWorldDataBuilder(EnvironmentalWorldData initial) : this() => ObjectToBuild.SetProperties(initial);
     }
 }
